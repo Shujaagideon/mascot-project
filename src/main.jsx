@@ -15,7 +15,7 @@ if (import.meta.env.DEV) {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <React.Suspense fallback={null}>
-      <App />
+      <App /> 
     </React.Suspense>
   </React.StrictMode>,
 )
