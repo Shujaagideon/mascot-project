@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { ScrollControls, Sparkles, useScroll } from "@react-three/drei";
