@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 
-studio.initialize()
 if (import.meta.env.DEV) {
+  // studio.initialize()
   // studio.extend(extension)
 }
 

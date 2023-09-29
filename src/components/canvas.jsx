@@ -17,7 +17,7 @@ import IntroText from "./introText";
 import ScrollingText from "./scrollingText";
 
 export default function R3fCanvas() {
-  const sheet = getProject("Fly Through", sceneState).sheet("Scene");
+  const sheet = getProject("Fly Through", {state: sceneState}).sheet("Scene");
 
   return (
     <Canvas gl={{ preserveDrawingBuffer: true }}>
