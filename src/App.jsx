@@ -7,11 +7,11 @@ import React from 'react'
 function App() {
   const navigate = useNavigate();
 
-  React.useEffect(()=>{
-    navigate('/about');
-    navigate('/')
-  },[]);
-  
+  // React.useEffect(()=>{
+  //   navigate('/about');
+  //   navigate('/')
+  // },[]);
+
   return (
     <>
       <Nav/>

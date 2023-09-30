@@ -12,6 +12,27 @@ body,
   overflow: hidden;
 }
 
+@font-face {
+  font-family: 'elza-light';
+  font-weight: normal;
+  font-style: normal;
+  src: url('./assets/fonts/ElzaTrial-Light.otf') format("opentype");
+}
+
+@font-face {
+  font-family: 'elza-medium';
+  font-weight: normal;
+  font-style: normal;
+  src: url('./assets/fonts/ElzaTrial-Medium.otf') format("opentype");
+}
+
+@font-face {
+  font-family: 'elza-bold';
+  font-weight: normal;
+  font-style: normal;
+  src: url('./assets/fonts/ElzaTrial-Bold.otf') format("opentype");
+}
+
 body {
   display: flex;
   align-items: center;
@@ -25,5 +46,5 @@ body::before {
   width: 100%; height: 100%;
   background: url('./assets/Background.jpg');
   background-size: contain;
-  filter: brightness(40%);
+  filter: brightness(30%);
 }

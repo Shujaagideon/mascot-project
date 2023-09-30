@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        elza: ['elza-light', 'sans'],
+        elza_medium: ['elza-medium', 'sans'],
+        elza_bold: ['elza-bold', 'sans']
+      }
+    },
   },
   plugins: [],
 }
