@@ -4,7 +4,7 @@ const Nav = ()=>{
     let location = useLocation();
     
     return(
-      <nav className='flex font-elza fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 px-8'>
+      <nav className='flex font-elza fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 md:px-8'>
           <Link to='/'>
             <h2 className="uppercase">Project</h2>
           </Link>
