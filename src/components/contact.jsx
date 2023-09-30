@@ -23,7 +23,7 @@ const Contact = () => {
             <form action="" className='w-full md:w-4/5 lg:w-3/4 h-fit'>
                 <div className="flex flex-col md:flex-row w-full h-fit mb-10 justify-between">
                     <input placeholder='Name' className='p-3 px-6 h-14 md:h-20 w-full mb-4 md:w-[47%] rounded-3xl backdrop-blur-[2px] text-slate-100 bg-transparent border border-slate-100  placeholder:text-slate-100'/>
-                    <input placeholder='Email adress' className='p-3 px-6 h-14 md:h-20 w-full mb-4 md:w-[47%] rounded-3xl backdrop-blur-[2px] text-slate-100 bg-transparent border border-slate-100  placeholder:text-slate-100'/>
+                    <input placeholder='Email address' className='p-3 px-6 h-14 md:h-20 w-full mb-4 md:w-[47%] rounded-3xl backdrop-blur-[2px] text-slate-100 bg-transparent border border-slate-100  placeholder:text-slate-100'/>
                 </div>
                 <textarea placeholder="Write a message ..." className=" h-24 md:h-36 mb-10 p-6 w-full rounded-3xl backdrop-blur-[2px] text-slate-100 bg-transparent border border-slate-100  placeholder:text-slate-100" name="" id="" cols="30" rows="10"></textarea>
                 <button type="submit" className="border py-5 px-14 backdrop-blur-[2px] text-slate-100 rounded-3xl border-slate-100 font-elza_medium text-2xl">Submit</button>

@@ -1,9 +1,7 @@
 import { Link, useLocation } from "react-router-dom"
 
 const Nav = ()=>{
-    
     let location = useLocation();
-    console.log(location)
     
     return(
       <nav className='flex font-elza fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 px-8'>
