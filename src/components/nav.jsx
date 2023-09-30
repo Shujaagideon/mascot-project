@@ -9,7 +9,7 @@ const Nav = ()=>{
           <Link to='/'>
             <h2>Project</h2>
           </Link>
-          <div className="flex justify-between w-3/5 md:w-1/5">
+          <div className="flex justify-between w-3/5 md:w-2/5 lg:w-1/5">
             <Link to='/about'>
               <h2>About us</h2>
             </Link>
