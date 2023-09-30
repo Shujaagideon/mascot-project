@@ -10,6 +10,7 @@ import App from './App.jsx'
 import './index.css'
 import Contact from './components/contact.jsx';
 import About from './components/about.jsx';
+import Nav from './components/nav.jsx';
 
 if (import.meta.env.DEV) {
   studio.initialize()
@@ -20,16 +21,18 @@ studio.ui.hide()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <React.Suspense fallback={null}>
+    <React.Suspense fallback={
+      <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
+      }>
       <BrowserRouter>
         <Routes>
           <Route>
-            <Route path="/" element={<App />} />
+            <Route  path="/" element={<App />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
           </Route>
         </Routes>
-        <App/>
+        <Nav/>
       </BrowserRouter>
     </React.Suspense>
   </React.StrictMode>,

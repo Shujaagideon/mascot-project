@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Nav = ()=>{
+    
+
+    
     return(
       <nav className='flex fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 px-8'>
           <Link to='/'>

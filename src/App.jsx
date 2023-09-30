@@ -1,10 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import R3fCanvas from './components/canvas'
 import Cursor from './components/cursor'
 import Nav from './components/nav'
+import React from 'react'
 
 function App() {
+  const navigate = useNavigate();
 
+  React.useEffect(()=>{
+    navigate('/about');
+    navigate('/')
+  },[]);
+  
   return (
     <>
       <Nav/>
