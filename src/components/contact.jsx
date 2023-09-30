@@ -18,7 +18,7 @@ const Contact = () => {
       </div>
       <div className='h-screen overscroll-y-auto fixed flex justify-center items-center w-full px-5 lg:px-20 z-30 bg-transparent'>
           <div className="w-full my-auto">
-            <h2 className='uppercase text-4xl md:text-6xl mb-14 lg:mb-24 font-bold text-slate-100'>Get In touch with us</h2>
+            <h2 className=' text-center uppercase text-4xl md:text-6xl mb-14 lg:mb-24 font-bold text-slate-100'>Get In touch with us</h2>
 
             <form action="" className='w-full md:w-4/5 lg:w-3/4 h-fit'>
                 <div className="flex flex-col md:flex-row w-full h-fit mb-10 justify-between">
