@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { ScrollControls, Sparkles, useScroll } from "@react-three/drei";
+import { Scroll, ScrollControls, Sparkles, useScroll } from "@react-three/drei";
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
@@ -15,6 +15,7 @@ import {
 import { Mascot } from "./Mascot";
 import IntroText from "./introText";
 import ScrollingText from "./scrollingText";
+import Cursor from "./cursor";
 
 export default function R3fCanvas() {
   const sheet = getProject("Fly Through", {state: sceneState}).sheet("Scene");
@@ -25,6 +26,10 @@ export default function R3fCanvas() {
         <SheetProvider sheet={sheet}>
           <Scene />
         </SheetProvider>
+        <Scroll html>
+          
+          <Cursor/>
+        </Scroll>
       </ScrollControls>
     </Canvas>
   );

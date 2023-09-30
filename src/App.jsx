@@ -1,12 +1,15 @@
+import { Link } from 'react-router-dom'
 import R3fCanvas from './components/canvas'
 import Cursor from './components/cursor'
+import Nav from './components/nav'
 
 function App() {
 
   return (
     <>
+      <Nav/>
       <R3fCanvas/>
-      <Cursor/>
+      {/* <Cursor/> */}
     </>
   )
 }

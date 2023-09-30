@@ -16,7 +16,7 @@ const Cursor = () => {
         }
         const params = {
             pointsNumber: 10,
-            widthFactor: .6,
+            widthFactor: .9,
             mouseThreshold: .6,
             spring: .9,
             friction: .4
@@ -65,6 +65,8 @@ const Cursor = () => {
             }
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Set the stroke color to purple
+            ctx.strokeStyle = '#4348f0';
             trail.forEach((p, pIdx) => {
                 const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
                 const spring = pIdx === 0 ? .4 * params.spring : params.spring;
@@ -98,7 +100,7 @@ const Cursor = () => {
         }
     },[])
   return (
-    <canvas className='z-20 absolute top-0 left-0 h-full w-full' ref={cursor}></canvas>
+    <canvas className='z-20 pointer-events-none absolute top-0 left-0 h-full w-full' ref={cursor}></canvas>
   )
 }
 
