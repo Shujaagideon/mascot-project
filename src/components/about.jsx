@@ -56,7 +56,8 @@ export function Scene() {
     texture.colorSpace = THREE.SRGBColorSpace;
   
     // our callback will run on every animation frame
-    useFrame((state) => {
+    // eslint-disable-next-line no-unused-vars
+    useFrame((_state) => {
     });
   
     // const bgColor = "#84a4f4";
