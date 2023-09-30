@@ -26,7 +26,7 @@ const Contact = () => {
                     <input placeholder='Email address' className='p-3 px-6 h-14 md:h-20 w-full mb-4 md:w-[47%] rounded-3xl backdrop-blur-[2px] text-slate-100 bg-transparent border border-slate-100  placeholder:text-slate-100'/>
                 </div>
                 <textarea placeholder="Write a message ..." className=" h-24 md:h-36 mb-10 p-6 w-full rounded-3xl backdrop-blur-[2px] text-slate-100 bg-transparent border border-slate-100  placeholder:text-slate-100" name="" id="" cols="30" rows="10"></textarea>
-                <button type="submit" className="border py-5 px-14 backdrop-blur-[2px] text-slate-100 rounded-3xl border-slate-100 font-elza_medium text-2xl">Submit</button>
+                <button type="submit" className="border py-3 md:py-5 px-8 md:px-14 backdrop-blur-[2px] text-slate-100 rounded-3xl border-slate-100 font-elza_medium text-2xl">Submit</button>
             </form>
           </div>
       </div>
