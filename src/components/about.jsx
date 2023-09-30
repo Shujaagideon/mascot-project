@@ -18,7 +18,7 @@ const About = () => {
                 </Canvas>
             </React.Suspense>
         </div>
-        <div className="h-screen fixed z-20 w-full p-5 lg:p-20 bg-transparent flex overflow-hidden">
+        <div className="h-screen overscroll-y-auto fixed z-20 w-full p-5 lg:p-20 bg-transparent flex overflow-hidden">
             <div className="w-full md:w-4/5  xl:w-2/5 h-4/5 text-slate-100 backdrop-blur-md ml-auto mt-auto border border-slate-100 rounded-xl p-10">
                 <p className="mb-4">TACTECH New Media Solutions is a burgeoning assembly of
                     acclaimed artists, forward-thinking visionaries, inventive coders,

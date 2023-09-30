@@ -16,7 +16,7 @@ const Contact = () => {
             </Canvas>
         </React.Suspense>
       </div>
-      <div className='h-screen fixed flex justify-center items-center w-full px-5 lg:px-20 z-30 bg-transparent'>
+      <div className='h-screen overscroll-y-auto fixed flex justify-center items-center w-full px-5 lg:px-20 z-30 bg-transparent'>
           <div className="w-full my-auto">
             <h2 className='uppercase text-4xl md:text-6xl mb-14 lg:mb-24 font-bold text-slate-100'>Get In touch with us</h2>
 
