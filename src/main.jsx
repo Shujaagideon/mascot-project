@@ -16,9 +16,10 @@ import Project from './components/project.jsx';
 if (import.meta.env.DEV) {
   studio.initialize()
   studio.extend(extension)
+}else{
+  studio.ui.hide()
 }
 
-studio.ui.hide()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

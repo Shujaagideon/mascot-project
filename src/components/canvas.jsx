@@ -18,7 +18,7 @@ import ScrollingText from "./scrollingText";
 import Cursor from "./cursor";
 
 export default function R3fCanvas() {
-  const sheet = getProject("Fly Through", {state: sceneState}).sheet("Scene");
+  const sheet = getProject("Fly Through").sheet("Scene");
 
   return (
     <Canvas gl={{ preserveDrawingBuffer: true }}>
@@ -35,35 +35,7 @@ export default function R3fCanvas() {
   );
 }
 
-// Create a shader material with GLSL noise
-const vertexShader = `
-  varying vec2 vUv;
-  uniform float time;
 
-  // Simplex noise function
-  float noise(vec2 p) {
-    return fract(sin(dot(p.xy, vec2(12.9898, 78.233))) * 43758.5453);
-  }
-
-  void main() {
-    vUv = uv;
-    vec3 displacedPosition = position;
-
-    // Apply noise to the Y position of vertices
-    displacedPosition.y += (noise(position.xy * 5.0 + vec2(time * 0.5, 0.0)) - 0.5) * 1.0;
-
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(displacedPosition, 1.0);
-  }
-`;
-
-const fragmentShader = `
-  varying vec2 vUv;
-  uniform sampler2D uTexture;
-  
-  void main() {
-    gl_FragColor = texture2D(uTexture, vUv);
-  }
-`;
 
 function Scene() {
   // const { scene } = useThree();
@@ -110,7 +82,7 @@ function Scene() {
         <planeGeometry args={[78, 39]} />
         <meshBasicMaterial map={texture}/>
       </e.mesh>
-      {/* <IntroText/> */}
+      <IntroText sheet={sheet}/>
       {/* <ScrollingText/> */}
       <Sparkles
             count={200}
