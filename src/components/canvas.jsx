@@ -14,8 +14,9 @@ import {
 } from "@theatre/r3f";
 import { Mascot } from "./Mascot";
 import IntroText from "./introText";
-import ScrollingText from "./scrollingText";
 import Cursor from "./cursor";
+import FallingTexts from "./fallingTexts";
+import RotatingText from "./rotatingText";
 
 export default function R3fCanvas() {
   const sheet = getProject("Fly Through").sheet("Scene");
@@ -83,7 +84,8 @@ function Scene() {
         <meshBasicMaterial map={texture}/>
       </e.mesh>
       <IntroText sheet={sheet}/>
-      {/* <ScrollingText/> */}
+      <FallingTexts sheet={sheet}/>
+      <RotatingText sheet={sheet}/>
       <Sparkles
             count={200}
             size={2}

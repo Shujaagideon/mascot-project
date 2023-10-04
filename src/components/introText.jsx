@@ -86,7 +86,7 @@ const IntroText = ({sheet}) => {
       </e.mesh>
       <e.mesh theatreKey='text1' position={[0, 1, -21]}>
           <planeGeometry args={[70, 50]}/>
-          <shaderMaterial ref={refShader} uniforms={uniforms} vertexShader={vertexShader} opacity={0} fragmentShader={fragmentShader} transparent depthWrite={false}/>
+          <shaderMaterial ref={refShader} uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader} transparent depthWrite={false}/>
       </e.mesh>
       {/* <e.mesh theatreKey='text2' position={[0,0, -21]}>
           <planeGeometry args={[42, 40]}/>
