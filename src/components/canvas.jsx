@@ -5,7 +5,7 @@ import { Scroll, ScrollControls, Sparkles, useScroll } from "@react-three/drei";
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state.json'
+import sceneState from '../assets/state2.json'
 
 import {
   SheetProvider,
@@ -20,7 +20,9 @@ import RotatingText from "./rotatingText";
 import ProductionText from "./productionText";
 
 export default function R3fCanvas() {
-  const sheet = getProject("Fly Through").sheet("Scene");
+  const sheet = getProject("Fly Through", {
+    state: sceneState
+  }).sheet("Scene");
 
   return (
     <Canvas
