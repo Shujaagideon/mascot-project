@@ -17,6 +17,7 @@ import IntroText from "./introText";
 import Cursor from "./cursor";
 import FallingTexts from "./fallingTexts";
 import RotatingText from "./rotatingText";
+import ProductionText from "./productionText";
 
 export default function R3fCanvas() {
   const sheet = getProject("Fly Through").sheet("Scene");
@@ -86,6 +87,7 @@ function Scene() {
       <IntroText sheet={sheet}/>
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
+      <ProductionText sheet={sheet}/>
       <Sparkles
             count={200}
             size={2}
