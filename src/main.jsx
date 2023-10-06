@@ -13,12 +13,12 @@ import About from './components/about.jsx';
 import Nav from './components/nav.jsx';
 import Project from './components/project.jsx';
 
-if (import.meta.env.DEV) {
+// if (import.meta.env.DEV) {
   studio.initialize()
   studio.extend(extension)
-}else{
+// }else{
   studio.ui.hide()
-}
+// }
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

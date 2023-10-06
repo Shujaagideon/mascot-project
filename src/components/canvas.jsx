@@ -23,7 +23,10 @@ export default function R3fCanvas() {
   const sheet = getProject("Fly Through").sheet("Scene");
 
   return (
-    <Canvas gl={{ preserveDrawingBuffer: true }}>
+    <Canvas
+      gl={{ preserveDrawingBuffer: true }}
+      // camera={{position:[0, 0, 8], fov: 70, near: 0.1, far: 500}}
+    >
       <ScrollControls pages={30} damping={0.9}>
         <SheetProvider sheet={sheet}>
           <Scene />
