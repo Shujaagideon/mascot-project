@@ -47,30 +47,30 @@ const ProductionText = ({sheet}) => {
 
   return (
     <e.group theatreKey='productionTextGroup' ref={ref}>
-        <e.mesh theatreKey='productionText1' position={[0, 20, -25]}>
+        <mesh position={[0, 20, -25]}>
             <planeGeometry args={[100,12]}/>
             <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
-        </e.mesh>
-        <e.mesh theatreKey='productionText2' position={[0, 10, -25]}>
+        </mesh>
+        <mesh position={[0, 10, -25]}>
             <planeGeometry args={[100,12]}/>
             <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
-        </e.mesh>
-        <e.mesh theatreKey='productionText3' position={[0, 0, -25]}>
+        </mesh>
+        <mesh position={[0, 0, -25]}>
             <planeGeometry args={[100,12]}/>
             <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
-        </e.mesh>
-        <e.mesh theatreKey='productionText4' position={[0, -10, -25]}>
+        </mesh>
+        <mesh position={[0, -10, -25]}>
             <planeGeometry args={[100,12]}/>
             <meshBasicMaterial map={texture} transparent depthWrite={false}/>
-        </e.mesh>
-        <e.mesh theatreKey='productionText5' position={[0, -20, -25]}>
+        </mesh>
+        <mesh position={[0, -20, -25]}>
             <planeGeometry args={[100,12]}/>
             <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
-        </e.mesh>
-        <e.mesh theatreKey='productionText6' position={[0, -30, -25]}>
+        </mesh>
+        <mesh position={[0, -30, -25]}>
             <planeGeometry args={[100,12]}/>
             <meshBasicMaterial map={texture2} transparent depthWrite={false}/>
-        </e.mesh>
+        </mesh>
     </e.group>
   )
 }
