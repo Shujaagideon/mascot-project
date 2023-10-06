@@ -1,5 +1,5 @@
-import studio from '@theatre/studio';
-import extension from '@theatre/r3f/dist/extension';
+// import studio from '@theatre/studio';
+// import extension from '@theatre/r3f/dist/extension';
 import { BrowserRouter,
   Route,
   Routes,
@@ -13,12 +13,13 @@ import About from './components/about.jsx';
 import Nav from './components/nav.jsx';
 import Project from './components/project.jsx';
 
-if (import.meta.env.DEV) {
-  studio.initialize()
-  studio.extend(extension)
-}else{
-  studio.ui.hide()
-}
+// if (import.meta.env.DEV) {
+//   studio.initialize()
+//   studio.extend(extension)
+// }
+
+// studio.ui.hide()
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
