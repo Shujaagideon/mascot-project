@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import tex from '../assets/productionText.png';
 import tex2 from '../assets/productionTextOutline.png';
@@ -9,8 +9,8 @@ import React from 'react';
 
 const ProductionText = ({sheet}) => {
     const ref = React.useRef();
-    const texture = new THREE.TextureLoader().load(tex);
-    const texture2 = new THREE.TextureLoader().load(tex2);
+    const texture = useLoader(THREE.TextureLoader, tex);
+    const texture2 = useLoader(THREE.TextureLoader, tex2);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture2.colorSpace = THREE.SRGBColorSpace;
     texture.wrapS = THREE.RepeatWrapping;
@@ -37,10 +37,14 @@ const ProductionText = ({sheet}) => {
         const a = clock.getElapsedTime();
         ref.current.children.forEach((child,i)=>{
             if((i%2) === 0){
-                child.material.map.offset.x = 1 -( a * 0.08);
+                if(child.material.map){
+                    child.material.map.offset.x = 1 -( a * 0.02);
+                }
             }
             else{
-                child.material.map.offset.x = a * 0.08;
+                if(child.material.map){
+                    child.material.map.offset.x = a * 0.02;
+                }
             }
         });
       })
@@ -70,6 +74,10 @@ const ProductionText = ({sheet}) => {
         <mesh position={[0, -30, -25]}>
             <planeGeometry args={[100,12]}/>
             <meshBasicMaterial map={texture2} transparent depthWrite={false}/>
+        </mesh>
+        <mesh position={[0, 0, -35]}>
+            <planeGeometry args={[140,100]}/>
+            <meshBasicMaterial color='#2a2a2a' transparent depthWrite={false}/>
         </mesh>
     </e.group>
   )

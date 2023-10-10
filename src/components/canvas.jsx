@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { Scroll, ScrollControls, Sparkles, useScroll } from "@react-three/drei";
+import { Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@react-three/drei";
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
@@ -18,6 +18,8 @@ import Cursor from "./cursor";
 import FallingTexts from "./fallingTexts";
 import RotatingText from "./rotatingText";
 import ProductionText from "./productionText";
+import Planets from "./planets";
+import { Mouse } from "./Mouse";
 
 export default function R3fCanvas() {
   const sheet = getProject("Fly Through", {
@@ -25,20 +27,23 @@ export default function R3fCanvas() {
   }).sheet("Scene");
 
   return (
-    <Canvas
-      gl={{ preserveDrawingBuffer: true }}
-      // camera={{position:[0, 0, 8], fov: 70, near: 0.1, far: 500}}
-    >
-      <ScrollControls pages={30} damping={0.9}>
-        <SheetProvider sheet={sheet}>
-          <Scene />
-        </SheetProvider>
-        <Scroll html>
-          
-          <Cursor/>
-        </Scroll>
-      </ScrollControls>
-    </Canvas>
+    <>
+      <Canvas
+        gl={{ preserveDrawingBuffer: true }}
+        camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
+      >
+        <ScrollControls pages={30} damping={0.9}>
+          <SheetProvider sheet={sheet}>
+            <Scene />
+          </SheetProvider>
+          <Scroll html>
+            
+            <Cursor/>
+          </Scroll>
+        </ScrollControls>
+      </Canvas>
+      <Loader/>
+    </>
   );
 }
 
@@ -51,19 +56,19 @@ function Scene() {
   texture.colorSpace = THREE.SRGBColorSpace;
 
   const sheet = useCurrentSheet();
-  const material = new THREE.MeshStandardMaterial({
-    transparent:true,
-  })
-  const mascotMat = sheet.object('MascotMat',{
-    opacity: t.number(0, {
-      nudgeMultiplier: 0.1,
-      range: [0, 1]
-    })
-  },{reconfigure: true});
+  // const material = new THREE.MeshStandardMaterial({
+  //   transparent:true,
+  // })
+  // const mascotMat = sheet.object('MascotMat',{
+  //   opacity: t.number(0, {
+  //     nudgeMultiplier: 0.1,
+  //     range: [0, 1]
+  //   })
+  // },{reconfigure: true});
 
-  mascotMat.onValuesChange(val=>{
-    material.opacity = val.opacity
-  })
+  // mascotMat.onValuesChange(val=>{
+  //   material.opacity = val.opacity
+  // })
 
   const scroll = useScroll();
   let time = {value: 0};
@@ -84,15 +89,17 @@ function Scene() {
   return (
     <>
       <ambientLight intensity={1.} />
-      <e.directionalLight theatreKey='directionalLight' position={[-5, 5, -5]} intensity={2.5} />
+      <e.directionalLight theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
       <e.mesh theatreKey='Background' position={[0, 0, -20]}>
         <planeGeometry args={[78, 39]} />
         <meshBasicMaterial map={texture}/>
       </e.mesh>
-      <IntroText sheet={sheet}/>
+      {/* <IntroText sheet={sheet}/> */}
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
+      <Planets sheet={sheet}/>
+      {/* <Mouse/> */}
       <Sparkles
             count={200}
             size={2}
@@ -101,7 +108,7 @@ function Scene() {
             scale={15}
             color="#ffb0f3"
           />
-      <Mascot material={material}></Mascot>
+      <Mascot sheet={sheet} ></Mascot>
     </>
   );
 }

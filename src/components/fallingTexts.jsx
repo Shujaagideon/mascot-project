@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import tex from '../assets/texts2.png';
 import { editable as e } from "@theatre/r3f";
@@ -8,7 +8,7 @@ import React from 'react';
 
 const FallingTexts = ({sheet}) => {
     const ref = React.useRef();
-    const texture = new THREE.TextureLoader().load(tex);
+    const texture = useLoader(THREE.TextureLoader, tex);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
