@@ -45,20 +45,9 @@ const IntroText = ({sheet}) => {
       ref.current.opacity = val.opacity;
       video.tex.needsUpdate = true
       factor.value = val.factor
-      // if(factor.value !== fa && factor.value >= fa){
-      //   video.vid.play();
-      //   setTimeout(()=>{
-      //     fa = factor.value
-      //     video.vid.pause();
-      //   }, factor.value * 10)
-      // }
-      // else if(factor.value !== fa && factor.value < fa){
-      //   video.vid.play();
-      //   setTimeout(()=>{
-      //     fa = factor.value
-      //     video.vid.pause();
-      //   }, factor.value * 10)
-      // }
+    });
+    requestAnimationFrame(()=>{
+      video.vid.currentTime = factor.value
     })
   },[factor, mascotMat, video.tex])
 
