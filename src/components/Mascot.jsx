@@ -44,10 +44,10 @@ var fragmentShader = `
     vec4 glossyMat = texture2D(uTexture, vUv);
     vec4 glossyColor = vec4(glossyMat.xyz, light);
     
-    vec4 part1 = mix(vec4(light), glossyColor, material1);
+    vec4 part1 = mix(vec4(light), glossyColor, material1) * transparencyFactor;
     vec4 part2 = mix(part1, vec4(light), material2);
     vec4 final = mix(part2, part1, material2);
-    gl_FragColor = part2;
+    gl_FragColor = vec4(light);
   }
 `;
 
@@ -109,7 +109,7 @@ export function Mascot({material, sheet}) {
         uniforms.lightPos.value.y = val.lightPos.y;
         uniforms.lightPos.value.z = val.lightPos.z;
 
-        console.log(uniforms.transparencyFactor.value)
+        console.log(uniforms.transparencyFactor.value);
         // uniforms.transparencyFactor.value = val.opacity;
     })
   },[mascotMat])
@@ -117,12 +117,15 @@ export function Mascot({material, sheet}) {
   return (
     <e.group theatreKey='Mascot' dispose={null}>
       {/* <mesh geometry={nodes.Sphere_1.geometry} material={material? material : materials.Tooth_Mixed_Material_2} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/> */}
-      <mesh geometry={nodes.Sphere_1.geometry} material={new THREE.ShaderMaterial({
-        uniforms,
-        transparent:true,
-        vertexShader,
-        fragmentShader
-      })} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
+      <mesh geometry={nodes.Sphere_1.geometry} material={
+      //   new THREE.ShaderMaterial({
+      //   uniforms,
+      //   transparent:true,
+      //   vertexShader,
+      //   fragmentShader
+      // }) 
+      material
+      } position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
     </e.group>
   )
 }

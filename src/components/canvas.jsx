@@ -14,12 +14,13 @@ import {
 } from "@theatre/r3f";
 import { Mascot } from "./Mascot";
 import IntroText from "./introText";
-import Cursor from "./cursor";
 import FallingTexts from "./fallingTexts";
 import RotatingText from "./rotatingText";
 import ProductionText from "./productionText";
 import Planets from "./planets";
 import { Mouse } from "./Mouse";
+import { EffectComposer, Noise } from "@react-three/postprocessing";
+import Introvid from "./introvid";
 
 export default function R3fCanvas() {
   const sheet = getProject("Fly Through", {
@@ -35,12 +36,12 @@ export default function R3fCanvas() {
         <ScrollControls pages={30} damping={0.9}>
           <SheetProvider sheet={sheet}>
             <Scene />
-          </SheetProvider>
-          <Scroll html>
             
-            <Cursor/>
-          </Scroll>
+          </SheetProvider>
         </ScrollControls>
+        {/* <EffectComposer>
+          <Noise premultiply/>
+        </EffectComposer> */}
       </Canvas>
       <Loader/>
     </>
@@ -56,19 +57,19 @@ function Scene() {
   texture.colorSpace = THREE.SRGBColorSpace;
 
   const sheet = useCurrentSheet();
-  // const material = new THREE.MeshStandardMaterial({
-  //   transparent:true,
-  // })
-  // const mascotMat = sheet.object('MascotMat',{
-  //   opacity: t.number(0, {
-  //     nudgeMultiplier: 0.1,
-  //     range: [0, 1]
-  //   })
-  // },{reconfigure: true});
+  const material = new THREE.MeshStandardMaterial({
+    transparent:true,
+  })
+  const mascotMat = sheet.object('MascotMat',{
+    opacity: t.number(0, {
+      nudgeMultiplier: 0.1,
+      range: [0, 1]
+    })
+  },{reconfigure: true});
 
-  // mascotMat.onValuesChange(val=>{
-  //   material.opacity = val.opacity
-  // })
+  mascotMat.onValuesChange(val=>{
+    material.opacity = val.opacity
+  })
 
   const scroll = useScroll();
   let time = {value: 0};
@@ -88,13 +89,16 @@ function Scene() {
 
   return (
     <>
+      <Scroll html>
+        {/* <Introvid sheet={sheet}/> */}
+      </Scroll>
       <ambientLight intensity={1.} />
       <e.directionalLight theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
       <e.mesh theatreKey='Background' position={[0, 0, -20]}>
         <planeGeometry args={[78, 39]} />
         <meshBasicMaterial map={texture}/>
       </e.mesh>
-      {/* <IntroText sheet={sheet}/> */}
+      <IntroText sheet={sheet}/>
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
@@ -108,7 +112,7 @@ function Scene() {
             scale={15}
             color="#ffb0f3"
           />
-      <Mascot sheet={sheet} ></Mascot>
+      <Mascot material={material} sheet={sheet} ></Mascot>
     </>
   );
 }

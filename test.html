@@ -233,3 +233,96 @@ export function Mascot({material, sheet}) {
 }
 
 useGLTF.preload('/mascot-transformed.glb'); -->
+
+
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unknown-property */
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
+import * as THREE from 'three';
+import textImg from '../assets/textIntro.png'
+import vidTex from '../assets/introVid3.mp4'
+import titleImg from '../assets/title.png'
+import circleImg from '../assets/circle.png'
+import {editable as e} from "@theatre/r3f";
+import { types as t } from "@theatre/core";
+import React, { useEffect } from "react";
+import gsap from "gsap";
+import { Suspense } from "react";
+import { useVideoTexture } from "@react-three/drei";
+
+
+const IntroText = ({sheet}) => {
+  const { gl } = useThree();
+
+  const ref = React.useRef(null);
+  let factor = 0;
+
+  // const [video] = React.useState(() => {
+  //   const vid = document.createElement("video");
+  //   vid.src = vidTex;
+  //   vid.crossOrigin = "Anonymous";
+  //   // vid.loop = true;
+  //   vid.muted = true;
+  //   // vid.play();
+    
+  //   return {tex: new THREE.VideoTexture(vid), vid};
+  // });
+
+
+
+  const mascotMat = sheet.object('circlesMat',{
+    opacity: t.number(1, {
+      nudgeMultiplier: 0.1,
+      range: [0, 1]
+    }),
+    factor: t.number(0, {
+      nudgeMultiplier: 1.,
+      range: [0, 4.3]
+    }),
+  },{reconfigure: true});
+
+  // useFrame(()=>{
+  //   if(video.vid.duration){
+  //     video.vid.currentTime = video.vid.duration * factor;
+  //     video.tex.needsUpdate = true
+  //   }
+  //   console.log(video.vid.currentTime)
+  // })
+  React.useEffect(()=>{
+    mascotMat.onValuesChange(val=>{
+      if(ref.current){
+        ref.current.opacity = val.opacity
+        factor = val.factor
+      }
+      // gsap.to(video.vid,{
+      //   currentTime: val.factor
+      // })
+    })
+  },[mascotMat])
+
+  return (
+    <group>
+      <e.mesh theatreKey='text2' position={[0,0, -21]}>
+          <planeGeometry args={[75, 45]}/>
+          <Suspense fallback={null}>
+            <VideoMaterial url={vidTex} re={ref} currentTime={factor}/>
+          </Suspense>
+      </e.mesh>
+    </group>
+  )
+}
+
+export default IntroText
+
+function VideoMaterial({ url, re, currentTime }) {
+  const texture = useVideoTexture(url,{
+    currentTime: 4.3 * currentTime,
+    loop: false,
+  })
+  return <meshBasicMaterial ref={re} transparent map={texture} toneMapped={false} />
+}
+
+// function FallbackMaterial({ url }) {
+//   const texture = useTexture(url)
+//   return <meshBasicMaterial map={texture} toneMapped={false} />
+// }
