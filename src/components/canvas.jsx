@@ -5,7 +5,7 @@ import { Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@react-thre
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state2.json'
+import sceneState from '../assets/state3.json'
 
 import {
   SheetProvider,

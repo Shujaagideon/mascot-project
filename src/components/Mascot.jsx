@@ -14,42 +14,6 @@ import { useLoader } from '@react-three/fiber';
 import { types as t } from "@theatre/core";
 
 
-var vertexShader = `
-  varying vec3 vNormal;
-  varying vec2 vUv;
-
-  void main() {
-    vUv = uv;
-    vNormal = normalize(normalMatrix * normal);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-// Fragment Shader
-var fragmentShader = `
-  varying vec3 vNormal;
-  varying vec2 vUv;
-  uniform sampler2D uTexture;
-  uniform vec3 lightPos;
-  uniform vec2 clampVal;
-  uniform float material1;
-  uniform float material2;
-  uniform float transparencyFactor;
-
-  void main() {
-    float light = dot(vNormal, normalize(lightPos)) * 0.6 + 0.5;
-    // light = clamp(light, clampVal.x, clampVal.y) * transparencyFactor;
-    light = clamp(light, clampVal.x, clampVal.y);
-
-    vec4 glossyMat = texture2D(uTexture, vUv);
-    vec4 glossyColor = vec4(glossyMat.xyz, light);
-    
-    vec4 part1 = mix(vec4(light), glossyColor, material1) * transparencyFactor;
-    vec4 part2 = mix(part1, vec4(light), material2);
-    vec4 final = mix(part2, part1, material2);
-    gl_FragColor = vec4(light);
-  }
-`;
 
 export function Mascot({material, sheet}) {
   const ref = React.useRef();
@@ -67,6 +31,44 @@ export function Mascot({material, sheet}) {
     clampVal: {value: new THREE.Vector2(0., 1.)}
     // cameraPosition: { value: camera.position } // Pass camera position to the shader
   }
+
+    const shader = new THREE.ShaderMaterial({
+        uniforms,
+        transparent: true,
+        vertexShader:`
+          varying vec3 vNormal;
+          varying vec2 vUv;
+        
+          void main() {
+            vUv = uv;
+            vNormal = normal;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader:`
+          varying vec3 vNormal;
+          varying vec2 vUv;
+          uniform sampler2D uTexture;
+          uniform vec3 lightPos;
+          uniform vec2 clampVal;
+          uniform float material1;
+          uniform float material2;
+          uniform float transparencyFactor;
+
+          void main() {
+            float light = dot(vNormal, normalize(lightPos)) * 0.6 + 0.5;
+            light = clamp(light, clampVal.x, clampVal.y);
+
+            vec4 glossyMat = texture2D(uTexture, vUv);
+            vec4 glossyColor = vec4(glossyMat.xyz, light);
+            
+            vec4 part1 = mix(vec4(light), glossyColor, material1);
+            vec4 part2 = mix(part1, vec4(light), material2);
+            vec4 final = mix(part2, part1, material2);
+            gl_FragColor = glossyMat;
+          }
+        `,
+      }) 
 
   const mascotMat = sheet.object('MascotMaterial',{
     transparencyFactor: t.number(uniforms.transparencyFactor.value, {
@@ -91,6 +93,10 @@ export function Mascot({material, sheet}) {
       nudgeMultiplier: 0.1,
       range: [0, 1]
     }),
+    materialChanger: t.number(0, {
+      nudgeMultiplier: 1,
+      range: [0, 2]
+    }),
     lightPos: {
       x: uniforms.lightPos.value.x,
       y: uniforms.lightPos.value.y,
@@ -99,33 +105,40 @@ export function Mascot({material, sheet}) {
   },{reconfigure: true});
 
   React.useEffect(()=>{
-    mascotMat.onValuesChange(val=>{
-        uniforms.transparencyFactor.value = val.transparencyFactor;
-        uniforms.clampVal.value.x = val.clamp.x;
-        uniforms.clampVal.value.y = val.clamp.y;
-        uniforms.material1.value = val.mat1;
-        uniforms.material2.value = val.mat2;
-        uniforms.lightPos.value.x = val.lightPos.x;
-        uniforms.lightPos.value.y = val.lightPos.y;
-        uniforms.lightPos.value.z = val.lightPos.z;
+    ref.current.material = shader;
+  },[]);
 
-        console.log(uniforms.transparencyFactor.value);
-        // uniforms.transparencyFactor.value = val.opacity;
+  React.useEffect(()=>{
+    mascotMat.onValuesChange(val=>{
+      uniforms.transparencyFactor.value = val.transparencyFactor;
+      uniforms.clampVal.value.x = val.clamp.x;
+      uniforms.clampVal.value.y = val.clamp.y;
+      uniforms.material1.value = val.mat1;
+      uniforms.material2.value = val.mat2;
+      uniforms.lightPos.value.x = val.lightPos.x;
+      uniforms.lightPos.value.y = val.lightPos.y;
+      uniforms.lightPos.value.z = val.lightPos.z;
+      shader.needsUpdate = true
+  
+      console.log(uniforms.transparencyFactor.value);
+  
+      if(val.materialChanger === 0){
+        ref.current.material = material
+      }
+      else if(val.materialChanger === 1){
+        ref.current.material = shader
+      }
+      else{
+        ref.current.material = materials.Tooth_Mixed_Material_2
+      }
+      // uniforms.transparencyFactor.value = val.opacity;
     })
-  },[mascotMat])
+  },[mascotMat]);
   
   return (
     <e.group theatreKey='Mascot' dispose={null}>
       {/* <mesh geometry={nodes.Sphere_1.geometry} material={material? material : materials.Tooth_Mixed_Material_2} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/> */}
-      <mesh geometry={nodes.Sphere_1.geometry} material={
-      //   new THREE.ShaderMaterial({
-      //   uniforms,
-      //   transparent:true,
-      //   vertexShader,
-      //   fragmentShader
-      // }) 
-      material
-      } position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
+      <mesh geometry={nodes.Sphere_1.geometry} ref={ref} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
     </e.group>
   )
 }
