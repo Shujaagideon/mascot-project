@@ -21,16 +21,16 @@ import Planets from "./planets";
 import { Mouse } from "./Mouse";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
 import Introvid from "./introvid";
+import { People } from "./T1";
 
 export default function R3fCanvas() {
-  const sheet = getProject("Fly Through", {
-    state: sceneState
+  const sheet = getProject("New Scene", {
+    // state: sceneState
   }).sheet("Scene");
 
   return (
     <>
       <Canvas
-        gl={{ preserveDrawingBuffer: true }}
         camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
       >
         <ScrollControls pages={30} damping={0.9}>
@@ -92,9 +92,9 @@ function Scene() {
       <Scroll html>
         {/* <Introvid sheet={sheet}/> */}
       </Scroll>
-      <ambientLight intensity={1.} />
+      <e.ambientLight theatreKey="ambientLight" intensity={1.} />
       <e.directionalLight theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
-      <e.mesh theatreKey='Background' position={[0, 0, -20]}>
+      <e.mesh theatreKey='Background' position={[0, 0, -100]}>
         <planeGeometry args={[78, 39]} />
         <meshBasicMaterial map={texture}/>
       </e.mesh>
@@ -103,6 +103,7 @@ function Scene() {
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
       <Planets sheet={sheet}/>
+      <People/>
       {/* <Mouse/> */}
       <Sparkles
             count={200}

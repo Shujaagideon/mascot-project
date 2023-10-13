@@ -29,13 +29,12 @@ export function Mascot({material, sheet}) {
     uTexture: { value: texture },
     lightPos: {value: new THREE.Vector3(-1., -.2, -.8)},
     clampVal: {value: new THREE.Vector2(0., 1.)}
-    // cameraPosition: { value: camera.position } // Pass camera position to the shader
   }
 
     const shader = new THREE.ShaderMaterial({
         uniforms,
         transparent: true,
-        vertexShader:`
+        vertexShader: /*glsl*/`
           varying vec3 vNormal;
           varying vec2 vUv;
         
@@ -45,7 +44,7 @@ export function Mascot({material, sheet}) {
             gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
           }
         `,
-        fragmentShader:`
+        fragmentShader:/*glsl*/`
           varying vec3 vNormal;
           varying vec2 vUv;
           uniform sampler2D uTexture;
@@ -131,7 +130,6 @@ export function Mascot({material, sheet}) {
       else{
         ref.current.material = materials.Tooth_Mixed_Material_2
       }
-      // uniforms.transparencyFactor.value = val.opacity;
     })
   },[mascotMat]);
   

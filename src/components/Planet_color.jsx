@@ -8,7 +8,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
-// import * as THREE from 'three';
+import * as THREE from 'three';
 
 export function PlanetColor({opacity}) {
   const { nodes, materials } = useGLTF('/planet_color-transformed.glb');
@@ -16,6 +16,7 @@ export function PlanetColor({opacity}) {
   React.useEffect(()=>{
       materials['Mat.001'].transparent = true;
       materials['Mat.001'].opacity = opacity;
+      materials['Mat.001'].color = new THREE.Color('#fff');
   },[opacity])
   return (
     <e.group theatreKey='planet_color' dispose={null}>

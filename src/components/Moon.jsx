@@ -8,10 +8,16 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
+import { useFrame } from '@react-three/fiber';
 // import * as THREE from 'three';
 
 export function Moon({name, opacity}) {
   const { nodes, materials } = useGLTF('/moon-transformed.glb');
+  const ref = React.useRef();
+
+  useFrame(()=>{
+    ref.current.rotation.z += 0.004
+  })
 
   React.useEffect(()=>{
     materials['Mat.002'].transparent = true;
@@ -19,7 +25,7 @@ export function Moon({name, opacity}) {
   },[opacity])
   return (
     <e.group theatreKey={name} dispose={null}>
-      <mesh geometry={nodes.Sphere.geometry} material={materials['Mat.002']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
+      <mesh ref={ref} geometry={nodes.Sphere.geometry} material={materials['Mat.002']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>
   )
 }
