@@ -12,11 +12,14 @@ import * as THREE from 'three';
 import glossyTex from '../assets/glossy2.jpg';
 import { useLoader } from '@react-three/fiber';
 import { types as t } from "@theatre/core";
+import { People } from './T1';
 
 
 
-export function Mascot({material, sheet}) {
+export function Mascot({material, sheet, setPost}) {
   const ref = React.useRef();
+  const rectAreaLightRef = React.useRef();
+  // const rectHelper = React.useRef();
   const { nodes, materials } = useGLTF('/mascot-transformed.glb');
 
   const texture = useLoader(THREE.TextureLoader, glossyTex);
@@ -96,15 +99,51 @@ export function Mascot({material, sheet}) {
       nudgeMultiplier: 1,
       range: [0, 2]
     }),
+    sunSetter: t.boolean(true),
     lightPos: {
       x: uniforms.lightPos.value.x,
       y: uniforms.lightPos.value.y,
       z: uniforms.lightPos.value.z
     },
+    
   },{reconfigure: true});
 
+  // const rectLight = sheet.object('rectLight',{
+  //   intensity: t.number(0, {
+  //     nudgeMultiplier: 0.1,
+  //   }),
+  //   width: t.number(0, {
+  //     nudgeMultiplier: 1,
+  //   }),
+  //   height: t.number(0, {
+  //     nudgeMultiplier: 1,
+  //   }),
+  //   position: {
+  //     x: t.number(0, {
+  //     // nudgeMultiplier: 0.1,
+  //   }),
+  //     y: t.number(0, {
+  //     // nudgeMultiplier: 0.1,
+  //   }),
+  //     z: t.number(0, {
+  //     // nudgeMultiplier: 0.1,
+  //   })
+  //   },
+  //   rotation: {
+  //     x: t.number(0, {
+  //     // nudgeMultiplier: 0.1,
+  //   }),
+  //     y: t.number(0, {
+  //     // nudgeMultiplier: 0.1,
+  //   }),
+  //     z: t.number(0, {
+  //     // nudgeMultiplier: 0.1,
+  //   })
+  //   },
+  // },{reconfigure: true});
+
   React.useEffect(()=>{
-    ref.current.material = shader;
+    // ref.current.material = shader;
   },[]);
 
   React.useEffect(()=>{
@@ -120,6 +159,7 @@ export function Mascot({material, sheet}) {
       shader.needsUpdate = true
   
       console.log(uniforms.transparencyFactor.value);
+      setPost(val.sunSetter);
   
       if(val.materialChanger === 0){
         ref.current.material = material
@@ -134,9 +174,14 @@ export function Mascot({material, sheet}) {
   },[mascotMat]);
   
   return (
-    <e.group theatreKey='Mascot' dispose={null}>
-      {/* <mesh geometry={nodes.Sphere_1.geometry} material={material? material : materials.Tooth_Mixed_Material_2} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/> */}
-      <mesh geometry={nodes.Sphere_1.geometry} ref={ref} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
+    <e.group theatreKey='mascotPeople'>
+      <e.group theatreKey='Mascot' dispose={null}>
+        {/* <mesh geometry={nodes.Sphere_1.geometry} material={material? material : materials.Tooth_Mixed_Material_2} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/> */}
+        <mesh geometry={nodes.Sphere_1.geometry} ref={ref} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
+      </e.group>
+      {/* <People/> */}
+      {/* <e.directionalLight shadow-mapSize={1024} castShadow theatreKey='directinalPeopleLight'/>
+      <e.directionalLight shadow-mapSize={1024} castShadow theatreKey='directinalPeopleLight2'/> */}
     </e.group>
   )
 }

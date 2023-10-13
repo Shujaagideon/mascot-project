@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@react-three/drei";
+import { Circle, Environment, Loader, Scroll, ScrollControls, SoftShadows, Sparkles, useScroll } from "@react-three/drei";
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state3.json'
+import sceneState from '../assets/state4.json'
 
 import {
   SheetProvider,
@@ -18,30 +18,62 @@ import FallingTexts from "./fallingTexts";
 import RotatingText from "./rotatingText";
 import ProductionText from "./productionText";
 import Planets from "./planets";
-import { Mouse } from "./Mouse";
-import { EffectComposer, Noise } from "@react-three/postprocessing";
-import Introvid from "./introvid";
-import { People } from "./T1";
+import { EffectComposer, GodRays, N8AO, Noise } from "@react-three/postprocessing";
+import { BlendFunction, KernelSize } from "postprocessing";
+import React, { forwardRef } from "react";
+import People from "./mascotPeople";
+
+const Sun = forwardRef(function Sun(props, forwardRef) {
+  // const { value: sunColor } = useControls('sun color', { value: '#FF0000' })
+
+  return (
+    <Circle args={[10, 10]} ref={forwardRef} position={[0, 0, -16]} {...props}>
+      <meshBasicMaterial />
+    </Circle>
+  )
+})
 
 export default function R3fCanvas() {
   const sheet = getProject("New Scene", {
-    // state: sceneState
+    state: sceneState
   }).sheet("Scene");
+  const [material, set] = React.useState(new THREE.Mesh());
+  const [enablePost, setPost] = React.useState(true);
+  
 
   return (
     <>
       <Canvas
+        gl={{outputColorSpace: THREE.SRGBColorSpace}}
+        shadows
         camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
       >
+        <SoftShadows size={25} samples={10} />
         <ScrollControls pages={30} damping={0.9}>
           <SheetProvider sheet={sheet}>
-            <Scene />
-            
+            <Scene sunRef={material} setPost={setPost}/>
           </SheetProvider>
         </ScrollControls>
-        {/* <EffectComposer>
-          <Noise premultiply/>
-        </EffectComposer> */}
+        {/* <Environment preset="city" resolution={512} blur={1} /> */}
+        {/* {enablePost ? 
+          <EffectComposer disableNormalPass multisampling={4}>
+           
+            <GodRays
+              sun={material}
+              blendFunction={BlendFunction.Screen} // The blend function of this effect.
+              samples={100} // The number of samples per pixel.
+              density={0.6} // The density of the light rays.
+              decay={0.9} // An illumination decay factor.
+              weight={0.4} // A light ray weight factor.
+              exposure={0.6} // A constant attenuation coefficient.
+              clampMax={1} // An upper bound for the saturation of the overall effect.
+              // width={Resizer.AUTO_SIZE} // Render width.
+              // height={Resizer.AUTO_SIZE} // Render height.
+              kernelSize={KernelSize.SMALL} // The blur kernel size. Has no effect if blur is disabled.
+              blur={true} // Whether the god rays should be blurred to reduce artifacts.
+            />
+          </EffectComposer>: null
+        } */}
       </Canvas>
       <Loader/>
     </>
@@ -50,7 +82,7 @@ export default function R3fCanvas() {
 
 
 
-function Scene() {
+function Scene({sunRef, setPost}) {
   // const { scene } = useThree();
 
   const texture = useLoader(THREE.TextureLoader, bgImg);
@@ -90,20 +122,25 @@ function Scene() {
   return (
     <>
       <Scroll html>
-        {/* <Introvid sheet={sheet}/> */}
       </Scroll>
+      <Mascot material={material} sheet={sheet} setPost={setPost}></Mascot>
+      {/* <e.mesh theatreKey="sun" ref={sunRef} position={[0, 0, 0]}>
+          <planeGeometry args={[6,3]}/>
+          <meshBasicMaterial />
+      </e.mesh> */}
       <e.ambientLight theatreKey="ambientLight" intensity={1.} />
-      <e.directionalLight theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
+      <e.directionalLight castShadow theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
       <e.mesh theatreKey='Background' position={[0, 0, -100]}>
         <planeGeometry args={[78, 39]} />
-        <meshBasicMaterial map={texture}/>
+        <meshStandardMaterial map={texture}/>
       </e.mesh>
       <IntroText sheet={sheet}/>
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
       <Planets sheet={sheet}/>
-      <People/>
+      <People sheet={sheet}/>
+      
       {/* <Mouse/> */}
       <Sparkles
             count={200}
@@ -111,9 +148,9 @@ function Scene() {
             speed={0.3}
             opacity={1}
             scale={15}
-            color="#ffb0f3"
+            color="#ffb5f3"
           />
-      <Mascot material={material} sheet={sheet} ></Mascot>
     </>
   );
 }
+

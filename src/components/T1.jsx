@@ -27,9 +27,9 @@ export function People(props) {
 // },[mascotMat])
   return (
     <e.group theatreKey='people' {...props} dispose={null}>
-      <mesh geometry={nodes.Connect.geometry} material={materials.Exec_Text} position={[-0.99, -2.264, -2.291]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
-      <mesh geometry={nodes.Fill_1.geometry} material={materials['Metal.001']} position={[-0.762, -1.422, 0.315]} rotation={[Math.PI / 2, 0, 0]} scale={0.002} />
-      <mesh geometry={nodes.Man01.geometry} material={materials['0057D0']} position={[0.567, -2.262, 0.879]} rotation={[-Math.PI, -0.184, -Math.PI]} />
+      <mesh receiveShadow geometry={nodes.Connect.geometry} material={materials.Exec_Text} position={[-0.99, -2.264, -2.291]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
+      <mesh receiveShadow geometry={nodes.Fill_1.geometry} material={materials['Metal.001']} position={[-0.762, -1.422, 0.315]} rotation={[Math.PI / 2, 0, 0]} scale={0.002} />
+      <mesh receiveShadow geometry={nodes.Man01.geometry} material={materials['0057D0']} position={[0.567, -2.262, 0.879]} rotation={[-Math.PI, -0.184, -Math.PI]} />
     </e.group>
   )
 }
