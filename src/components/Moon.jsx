@@ -16,15 +16,19 @@ export function Moon({name, opacity}) {
   const ref = React.useRef();
 
   useFrame(()=>{
-    ref.current.rotation.z += 0.004
+    ref.current.rotation.z += 0.008
   })
+
+  const hello = ()=>{
+    console.log('wooooohhhhooooooo');
+  }
 
   React.useEffect(()=>{
     materials['Mat.002'].transparent = true;
     materials['Mat.002'].opacity = opacity;
   },[opacity])
   return (
-    <e.group theatreKey={name} dispose={null}>
+    <e.group theatreKey={name} dispose={null} onPointerEnter={()=>hello()}>
       <mesh ref={ref} geometry={nodes.Sphere.geometry} material={materials['Mat.002']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>
   )

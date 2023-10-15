@@ -35,7 +35,7 @@ const Sun = forwardRef(function Sun(props, forwardRef) {
 
 export default function R3fCanvas() {
   const sheet = getProject("New Scene", {
-    state: sceneState
+    // state: sceneState
   }).sheet("Scene");
   const [material, set] = React.useState(new THREE.Mesh());
   const [enablePost, setPost] = React.useState(true);
@@ -49,7 +49,7 @@ export default function R3fCanvas() {
         camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
       >
         <SoftShadows size={25} samples={10} />
-        <ScrollControls pages={30} damping={0.9}>
+        <ScrollControls pages={30} damping={.9} >
           <SheetProvider sheet={sheet}>
             <Scene sunRef={material} setPost={setPost}/>
           </SheetProvider>

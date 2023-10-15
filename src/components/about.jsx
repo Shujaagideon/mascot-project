@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import bgImg from '../assets/Background.jpg'
 import { Sparkles } from "@react-three/drei";
 import React from "react";
+import Aboutmascot from "./aboutmascot";
 
 
 const About = () => {
@@ -68,6 +69,7 @@ export function Scene() {
           <planeGeometry args={[78, 39]} />
           <meshBasicMaterial map={texture}/>
         </mesh>
+        <Aboutmascot/>
         <Sparkles
             count={200}
             size={2}
