@@ -119,8 +119,11 @@ const People = ({sheet}) => {
 
   const textures = [];
   const textureLoader = new THREE.TextureLoader();
-
+  // for(let i=0; i < 231; i++){
+  // }
+  
   textureUrls.forEach((url) => {
+    // const texture = textureLoader.load(`/public/out_${1}.jpg`);
     const texture = textureLoader.load(url);
     texture.colorSpace = THREE.SRGBColorSpace;
     textures.push(texture);

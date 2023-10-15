@@ -5,7 +5,7 @@ import { Circle, Environment, Loader, Scroll, ScrollControls, SoftShadows, Spark
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state4.json'
+import sceneState from '../assets/state5.json'
 
 import {
   SheetProvider,
@@ -35,7 +35,7 @@ const Sun = forwardRef(function Sun(props, forwardRef) {
 
 export default function R3fCanvas() {
   const sheet = getProject("New Scene", {
-    // state: sceneState
+    state: sceneState
   }).sheet("Scene");
   const [material, set] = React.useState(new THREE.Mesh());
   const [enablePost, setPost] = React.useState(true);
