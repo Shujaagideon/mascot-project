@@ -37,11 +37,6 @@ const Planets = ({sheet, project, mascot}) => {
             ref3.current.opacity = val.opacity;
         })
     },[mascotMat])
-    
-    useFrame(()=>{
-        // const a = clock.getElapsedTime();
-        // texture.offset.y = a * 0.25;
-    })
 
   return (
     <group>

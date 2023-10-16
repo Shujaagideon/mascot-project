@@ -51,8 +51,8 @@ body::before {
 
 
 img {
-  max-width: 150px;
-  height: 5rem;
+  max-width: 350px;
+  height: 25rem;
   padding: 0 15px;
   object-fit: cover;
 }
@@ -65,7 +65,7 @@ img:last-of-type {
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: 5rem;
+  height: 25rem;
 }
 
 .wrapper {

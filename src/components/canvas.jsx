@@ -41,8 +41,20 @@ export default function R3fCanvas() {
   })
   const sheet = project.sheet("Scene");
   const [material, set] = React.useState(new THREE.Mesh());
-  const [enablePost, setPost] = React.useState(true);
-  
+
+  const images = [
+    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
+    "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
+    "https://media.istockphoto.com/photos/the-main-attraction-of-paris-and-all-of-europe-is-the-eiffel-tower-in-picture-id1185953092?k=6&m=1185953092&s=612x612&w=0&h=SNiShskOfwQ7Sys5TX0eb5eBxHobktWUfZGrox5LMyk=",
+    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
+    "https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270",
+    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+  ].map((image) => ({
+    id: crypto.randomUUID(),
+    image
+  }));
+
 
   return (
     <>
@@ -54,29 +66,45 @@ export default function R3fCanvas() {
         <SoftShadows size={25} samples={10} />
         <ScrollControls pages={30} damping={.9} maxSpeed={0.2}>
           <SheetProvider sheet={sheet}>
-            <Scene sunRef={material} setPost={setPost} project={project}/>
+            <Scene sunRef={material} project={project}/>
           </SheetProvider>
+          <Scroll html>
+            <div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen"></div>
+              <div className="h-screen w-screen flex justify-center items-center">
+                <Banner images={images} speed={35000} />
+              </div>
+            </div>
+          </Scroll>
         </ScrollControls>
-        {/* <Environment preset="city" resolution={512} blur={1} /> */}
-        {/* {enablePost ? 
-          <EffectComposer disableNormalPass multisampling={4}>
-           
-            <GodRays
-              sun={material}
-              blendFunction={BlendFunction.Screen} // The blend function of this effect.
-              samples={100} // The number of samples per pixel.
-              density={0.6} // The density of the light rays.
-              decay={0.9} // An illumination decay factor.
-              weight={0.4} // A light ray weight factor.
-              exposure={0.6} // A constant attenuation coefficient.
-              clampMax={1} // An upper bound for the saturation of the overall effect.
-              // width={Resizer.AUTO_SIZE} // Render width.
-              // height={Resizer.AUTO_SIZE} // Render height.
-              kernelSize={KernelSize.SMALL} // The blur kernel size. Has no effect if blur is disabled.
-              blur={true} // Whether the god rays should be blurred to reduce artifacts.
-            />
-          </EffectComposer>: null
-        } */}
       </Canvas>
       <Loader/>
     </>
@@ -85,9 +113,8 @@ export default function R3fCanvas() {
 
 
 
-function Scene({sunRef, setPost, project}) {
+function Scene({project}) {
   const MascotRef = React.useRef();
-  // const { scene } = useThree();
 
   const texture = useLoader(THREE.TextureLoader, bgImg);
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -120,34 +147,11 @@ function Scene({sunRef, setPost, project}) {
     // update the "position" of the playhead in the sequence, as a fraction of its whole length
     sheet.sequence.position = scroll.offset * sequenceLength;
   });
-  const images = [
-    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-    "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-    "https://media.istockphoto.com/photos/the-main-attraction-of-paris-and-all-of-europe-is-the-eiffel-tower-in-picture-id1185953092?k=6&m=1185953092&s=612x612&w=0&h=SNiShskOfwQ7Sys5TX0eb5eBxHobktWUfZGrox5LMyk=",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-    "https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-  ].map((image) => ({
-    id: crypto.randomUUID(),
-    image
-  }));
 
-  // const bgColor = "#84a4f4";
 
   return (
     <>
-      <Scroll html>
-        <div className="h-full w-full bg-slate-200">
-
-          <Banner images={images} speed={35000} />
-        </div>
-      </Scroll>
-      <Mascot reference={MascotRef} material={material} sheet={sheet} setPost={setPost}></Mascot>
-      {/* <e.mesh theatreKey="sun" ref={sunRef} position={[0, 0, 0]}>
-          <planeGeometry args={[6,3]}/>
-          <meshBasicMaterial />
-      </e.mesh> */}
+      <Mascot reference={MascotRef} material={material} sheet={sheet}></Mascot>
       <e.ambientLight theatreKey="ambientLight" intensity={1.} />
       <e.directionalLight castShadow theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
       <e.mesh theatreKey='Background' position={[0, 0, -100]}>
@@ -161,7 +165,6 @@ function Scene({sunRef, setPost, project}) {
       <Planets sheet={sheet} project={project} mascot={MascotRef}/>
       <People sheet={sheet}/>
       
-      {/* <Mouse/> */}
       <Sparkles
             count={200}
             size={2}

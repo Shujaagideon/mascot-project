@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import {editable as e} from "@theatre/r3f";
 import { types as t } from "@theatre/core";
 import tex from '../assets/whiteLine.png';
-import tex2 from '../assets/lineglobe.webp';
 import * as THREE from 'three'
 import React from "react";
 
@@ -10,8 +10,6 @@ import React from "react";
 
 const RotatingText = ({sheet}) => {
     const texture = new THREE.TextureLoader().load(tex);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    const texture2 = new THREE.TextureLoader().load(tex2);
     texture.colorSpace = THREE.SRGBColorSpace;
     const ref = React.useRef();
 

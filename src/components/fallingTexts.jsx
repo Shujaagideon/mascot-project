@@ -29,7 +29,7 @@ const FallingTexts = ({sheet}) => {
     useFrame(({clock})=>{
         const a = clock.getElapsedTime();
         texture.offset.y = a * 0.15;
-      })
+    })
 
   return (
     <e.mesh theatreKey='fallingText' position={[0, 0, -35]}>
