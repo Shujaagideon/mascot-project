@@ -48,8 +48,8 @@ export function PlanetColor({opacity, mascot, beam}) {
       ease: 'Power.easeOut'
     })
     gsap.fromTo(beam.current.scale,{
-      x: beam.current.scale,
-      y: 0,
+      x: beam.current.scale.x,
+      y: beam.current.scale.y,
       duration: 0.3,
       ease: 'Power.easeOut'
     },{
