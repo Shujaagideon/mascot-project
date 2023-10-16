@@ -55,7 +55,7 @@ const Planets = ({sheet, project, mascot}) => {
             <sphereGeometry args={[25,50, 50]}/>
             <meshStandardMaterial ref={ref2} color='#0b0b0b' transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
-        <PlanetColor opacity={opacity} sheet={sheet}/>
+        <PlanetColor opacity={opacity} sheet={sheet} beam={refBeam} mascot={mascot}/>
         <Moon sheet={sheet} pos={0} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon'/>
         <Moon sheet={sheet} pos={1} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon1'/>
         <Moon sheet={sheet} pos={2} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon2'/>

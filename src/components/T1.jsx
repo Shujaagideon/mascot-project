@@ -13,18 +13,6 @@ import { types as t } from "@theatre/core";
 
 export function People(props) {
   const { nodes, materials } = useGLTF('/T1-transformed.glb');
-
-//   const mascotMat = sheet.object('peopleMat',{
-//     opacity: t.number(1, {
-//         nudgeMultiplier: 0.1,
-//         range: [0, 1]
-//     }),
-// },{reconfigure: true});
-
-// React.useEffect(()=>{
-//     mascotMat.onValuesChange(val=>{
-//     })
-// },[mascotMat])
   return (
     <e.group theatreKey='people' {...props} dispose={null}>
       <mesh receiveShadow geometry={nodes.Connect.geometry} material={materials.Exec_Text} position={[-0.99, -2.264, -2.291]} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
