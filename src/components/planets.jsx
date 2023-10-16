@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import React from 'react'
 import tex from '../assets/beam.png';
@@ -17,7 +18,6 @@ const Planets = ({sheet, project, mascot}) => {
     const texture = useLoader(THREE.TextureLoader, tex);
     texture.colorSpace = THREE.SRGBColorSpace;
 
-    const sheet2 = project.sheet('new a');
     
     // texture.wrapS = THREE.RepeatWrapping;
     // texture.wrapT = THREE.RepeatWrapping;
@@ -38,8 +38,8 @@ const Planets = ({sheet, project, mascot}) => {
         })
     },[mascotMat])
     
-    useFrame(({clock})=>{
-        const a = clock.getElapsedTime();
+    useFrame(()=>{
+        // const a = clock.getElapsedTime();
         // texture.offset.y = a * 0.25;
     })
 
@@ -50,10 +50,10 @@ const Planets = ({sheet, project, mascot}) => {
             <meshStandardMaterial ref={ref} color='#0D0D0D' transparent depthWrite={false}/>
         </e.mesh>
         <group position={[0, -20, -35]}>
-            <mesh ref={refBeam} scale={[0.43, 0.62, 0]} position={[0, 28.47, 10.21]}>
+            <e.mesh theatreKey='planetsBeam' ref={refBeam} scale={[0.43, 0.62, 0]} position={[0, 28.47, 10.21]}>
                 <planeGeometry args={[15,50]}/>
                 <meshBasicMaterial ref={ref3} map={texture} transparent depthWrite={false}/>
-            </mesh>
+            </e.mesh>
         </group>
         <e.spotLight theatreKey='planetsLight' position={[0, 0, -30]}/>
         <e.mesh theatreKey='planetsBg2' position={[0, -25, -25]}>

@@ -12,7 +12,7 @@ import * as THREE from 'three';
 import glossyTex from '../assets/glossy2.jpg';
 import { useLoader } from '@react-three/fiber';
 import { types as t } from "@theatre/core";
-import { People } from './T1';
+// import { People } from './T1';
 
 
 

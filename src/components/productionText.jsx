@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
