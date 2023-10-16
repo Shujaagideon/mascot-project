@@ -16,9 +16,8 @@ import { People } from './T1';
 
 
 
-export function Mascot({material, sheet, setPost}) {
+export function Mascot({material, sheet, setPost, reference}) {
   const ref = React.useRef();
-  const rectAreaLightRef = React.useRef();
   // const rectHelper = React.useRef();
   const { nodes, materials } = useGLTF('/mascot-transformed.glb');
 
@@ -175,7 +174,7 @@ export function Mascot({material, sheet, setPost}) {
   
   return (
     <e.group theatreKey='mascotPeople'>
-      <e.group theatreKey='Mascot' dispose={null}>
+      <e.group theatreKey='Mascot' dispose={null} ref={reference}>
         {/* <mesh geometry={nodes.Sphere_1.geometry} material={material? material : materials.Tooth_Mixed_Material_2} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/> */}
         <mesh geometry={nodes.Sphere_1.geometry} ref={ref} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
       </e.group>

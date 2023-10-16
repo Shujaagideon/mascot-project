@@ -34,9 +34,10 @@ const Sun = forwardRef(function Sun(props, forwardRef) {
 })
 
 export default function R3fCanvas() {
-  const sheet = getProject("New Scene", {
-    state: sceneState
-  }).sheet("Scene");
+  const project = getProject("New Scene", {
+    // state: sceneState
+  })
+  const sheet = project.sheet("Scene");
   const [material, set] = React.useState(new THREE.Mesh());
   const [enablePost, setPost] = React.useState(true);
   
@@ -51,7 +52,7 @@ export default function R3fCanvas() {
         <SoftShadows size={25} samples={10} />
         <ScrollControls pages={30} damping={.9} >
           <SheetProvider sheet={sheet}>
-            <Scene sunRef={material} setPost={setPost}/>
+            <Scene sunRef={material} setPost={setPost} project={project}/>
           </SheetProvider>
         </ScrollControls>
         {/* <Environment preset="city" resolution={512} blur={1} /> */}
@@ -82,7 +83,8 @@ export default function R3fCanvas() {
 
 
 
-function Scene({sunRef, setPost}) {
+function Scene({sunRef, setPost, project}) {
+  const MascotRef = React.useRef();
   // const { scene } = useThree();
 
   const texture = useLoader(THREE.TextureLoader, bgImg);
@@ -123,7 +125,7 @@ function Scene({sunRef, setPost}) {
     <>
       <Scroll html>
       </Scroll>
-      <Mascot material={material} sheet={sheet} setPost={setPost}></Mascot>
+      <Mascot reference={MascotRef} material={material} sheet={sheet} setPost={setPost}></Mascot>
       {/* <e.mesh theatreKey="sun" ref={sunRef} position={[0, 0, 0]}>
           <planeGeometry args={[6,3]}/>
           <meshBasicMaterial />
@@ -138,7 +140,7 @@ function Scene({sunRef, setPost}) {
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
-      <Planets sheet={sheet}/>
+      <Planets sheet={sheet} project={project} mascot={MascotRef}/>
       <People sheet={sheet}/>
       
       {/* <Mouse/> */}

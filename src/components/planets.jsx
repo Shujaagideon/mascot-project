@@ -8,13 +8,17 @@ import * as THREE from 'three';
 import { PlanetColor } from './Planet_color';
 import { Moon } from './Moon';
 
-const Planets = ({sheet}) => {
+const Planets = ({sheet, project, mascot}) => {
     const ref = React.useRef();
     const ref2 = React.useRef();
     const ref3 = React.useRef();
+    const refBeam = React.useRef();
     const [opacity, setOpacity] = React.useState(0);
     const texture = useLoader(THREE.TextureLoader, tex);
     texture.colorSpace = THREE.SRGBColorSpace;
+
+    const sheet2 = project.sheet('new a');
+    
     // texture.wrapS = THREE.RepeatWrapping;
     // texture.wrapT = THREE.RepeatWrapping;
 
@@ -45,20 +49,22 @@ const Planets = ({sheet}) => {
             <sphereGeometry args={[35,50, 50]}/>
             <meshStandardMaterial ref={ref} color='#0D0D0D' transparent depthWrite={false}/>
         </e.mesh>
-        <e.mesh theatreKey='planetsBeam' position={[0, -20, -35]}>
-            <planeGeometry args={[15,50]}/>
-            <meshBasicMaterial ref={ref3} map={texture} transparent depthWrite={false}/>
-        </e.mesh>
+        <group position={[0, -20, -35]}>
+            <mesh ref={refBeam} scale={[0.43, 0.62, 0]} position={[0, 28.47, 10.21]}>
+                <planeGeometry args={[15,50]}/>
+                <meshBasicMaterial ref={ref3} map={texture} transparent depthWrite={false}/>
+            </mesh>
+        </group>
         <e.spotLight theatreKey='planetsLight' position={[0, 0, -30]}/>
         <e.mesh theatreKey='planetsBg2' position={[0, -25, -25]}>
             <sphereGeometry args={[25,50, 50]}/>
             <meshStandardMaterial ref={ref2} color='#0b0b0b' transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
         <PlanetColor opacity={opacity} sheet={sheet}/>
-        <Moon sheet={sheet} opacity={opacity} name='moon'/>
-        <Moon sheet={sheet} opacity={opacity} name='moon1'/>
-        <Moon sheet={sheet} opacity={opacity} name='moon2'/>
-        <Moon sheet={sheet} opacity={opacity} name='moon3'/>
+        <Moon sheet={sheet} pos={0} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon'/>
+        <Moon sheet={sheet} pos={1} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon1'/>
+        <Moon sheet={sheet} pos={2} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon2'/>
+        <Moon sheet={sheet} pos={3} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon3'/>
     </group>
     
   )
