@@ -16,6 +16,7 @@ import gsap from 'gsap';
 export function Moon({name, pos, opacity, project, beam, mascot}) {
   const { nodes, materials } = useGLTF('/moon-transformed.glb');
   const ref = React.useRef();
+  const num = -15.946048795792349;
 
   // const sheet = project.sheet(name);
   const configs = [
@@ -73,78 +74,64 @@ export function Moon({name, pos, opacity, project, beam, mascot}) {
     }
   ]
 
-  // const mascotMat = sheet.object('beamRotation',{
-  //   beamRotation: t.number(0, {
-  //       nudgeMultiplier: 0.01,
-  //   }),
-  //   beamPosition: {
-  //     x: t.number(0, {
-  //       nudgeMultiplier: 0.01,
-  //     }),
-  //     y: t.number(28.47, {
-  //       nudgeMultiplier: 0.01,
-  //     })
-  //   },
-  //   beamScale: {
-  //     x: t.number(0.43, {
-  //       nudgeMultiplier: 0.01,
-  //     }),
-  //     y: t.number(0.62, {
-  //       nudgeMultiplier: 0.01,
-  //     })
-  //   },
-  //   mascotRotation: t.number(0, {
-  //     nudgeMultiplier: 0.01,
-  //   })
-  // },{reconfigure: true});
 
   useFrame(()=>{
     ref.current.rotation.z += 0.008
   })
 
   const hello = ()=>{
-    gsap.fromTo(mascot.current.rotation,{
-      z: mascot.current.rotation.z,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },
-    {
-      z: configs[pos].mascot,
-      duration: 0.3,
-      ease: 'Power.easeOut'
+    if (mascot.current.position.z > num || mascot.current.position.z < num){
+      mascot.current.rotation.z = 0;
+      beam.current.rotation.z = 0;
+      beam.current.position.x = 0
+      beam.current.position.y = 28.47;
+      beam.current.scale.x = 0.43;
+      beam.current.scale.y = 0.62;
     }
-    )
-    gsap.fromTo(beam.current.rotation,{
-      z: beam.current.rotation.z,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },
-    {
-      z: configs[pos].beamRotation,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    })
-    gsap.fromTo(beam.current.position,{
-      x: beam.current.position.x,
-      y: beam.current.position.y,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },{
-      x: configs[pos].beamPos.x,
-      y: configs[pos].beamPos.y,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    })
-    gsap.fromTo(beam.current.scale,{
-      x: beam.current.scale,
-      y: 0,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },{
-      x: configs[pos].scale.x,
-      y: configs[pos].scale.y,
-      duration: 0.3
-    })
+    else{
+      gsap.fromTo(mascot.current.rotation,{
+        z: mascot.current.rotation.z,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      },
+      {
+        z: configs[pos].mascot,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      }
+      )
+      gsap.fromTo(beam.current.rotation,{
+        z: beam.current.rotation.z,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      },
+      {
+        z: configs[pos].beamRotation,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      })
+      gsap.fromTo(beam.current.position,{
+        x: beam.current.position.x,
+        y: beam.current.position.y,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      },{
+        x: configs[pos].beamPos.x,
+        y: configs[pos].beamPos.y,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      })
+      gsap.fromTo(beam.current.scale,{
+        x: beam.current.scale,
+        y: 0,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      },{
+        x: configs[pos].scale.x,
+        y: configs[pos].scale.y,
+        duration: 0.3
+      })
+    }
     project.sheet("Scene").sequence.pause()
 
     // sheet.sequence.play()
@@ -154,50 +141,6 @@ export function Moon({name, pos, opacity, project, beam, mascot}) {
     materials['Mat.002'].transparent = true;
     materials['Mat.002'].opacity = opacity;
 
-  //   mascotMat.onValuesChange(val=>{
-  //     // console.log(val)
-  //     // gsap.fromTo(mascot.current.rotation,{
-  //     //   z: mascot.current.rotation.z,
-  //     //   duration: 0.4
-  //     // },
-  //     // {
-  //     //   z: val.mascotRotation,
-  //     //   duration: 0.4
-  //     // }
-  //     // )
-  //     // gsap.fromTo(beam.current.rotation,{
-  //     //   z: beam.current.rotation.z,
-  //     //   duration: 0.4
-  //     // },
-  //     // {
-  //     //   z: val.beamRotation,
-  //     //   duration: 0.4
-  //     // })
-  //     // gsap.fromTo(beam.current.position,{
-  //     //   x: beam.current.position.x,
-  //     //   y: beam.current.position.y,
-  //     //   duration: 0.4
-  //     // },{
-  //     //   x: val.beamPosition.x,
-  //     //   y: val.beamPosition.y,
-  //     //   duration: 0.4
-  //     // })
-  //     // gsap.fromTo(beam.current.scale,{
-  //     //   x: beam.current.scale,
-  //     //   y: beam.current.scale,
-  //     //   duration: 0.4
-  //     // },{
-  //     //   x: val.beamScale.x,
-  //     //   y: val.beamScale.y,
-  //     //   duration: 0.4
-  //     // })
-  //     // mascot.current.rotation.z = val.mascotRotation
-  //     // beam.current.rotation.z = val.beamRotation
-  //     // beam.current.position.x = val.beamPosition.x
-  //     // beam.current.position.y = val.beamPosition.y
-  //     // beam.current.scale.x = val.beamScale.x
-  //     // beam.current.scale.y = val.beamScale.y
-  // })
   },[opacity])
   return (
     <e.group theatreKey={name} dispose={null} onPointerEnter={()=>hello()}>

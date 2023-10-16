@@ -4,7 +4,7 @@ import React from 'react'
 import tex from '../assets/beam.png';
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
-import { useFrame, useLoader } from '@react-three/fiber';
+import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PlanetColor } from './Planet_color';
 import { Moon } from './Moon';
@@ -19,8 +19,6 @@ const Planets = ({sheet, project, mascot}) => {
     texture.colorSpace = THREE.SRGBColorSpace;
 
     
-    // texture.wrapS = THREE.RepeatWrapping;
-    // texture.wrapT = THREE.RepeatWrapping;
 
     const mascotMat = sheet.object('planetsTextMat',{
         opacity: t.number(0, {
