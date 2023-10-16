@@ -6,7 +6,7 @@ import { Circle, Environment, Loader, Scroll, ScrollControls, SoftShadows, Spark
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state7.json'
+import sceneState from '../assets/state6.json'
 
 import {
   SheetProvider,

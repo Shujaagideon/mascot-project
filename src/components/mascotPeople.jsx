@@ -7,6 +7,7 @@ import {editable as e} from "@theatre/r3f";
 import { types as t } from "@theatre/core";
 import React from "react";
 import gsap from "gsap";
+import { Suspense } from "react";
 
 const People = ({sheet}) => {
   const { gl } = useThree();
