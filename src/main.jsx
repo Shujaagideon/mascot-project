@@ -24,7 +24,7 @@ import Nav from './components/nav.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <div className="absolute bg-[url('./assets/Background.jpg')] bg-contain bg-no-repeat brightness-50 h-screen w-full -z-10"></div>
+    <div className="absolute bg-[url('./assets/Background.jpg')] bg-cover bg-no-repeat brightness-[20%] h-screen w-full -z-10"></div>
     <React.Suspense fallback={
       null
       }>
