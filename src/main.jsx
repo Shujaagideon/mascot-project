@@ -1,5 +1,5 @@
-// import studio from '@theatre/studio';
-// import extension from '@theatre/r3f/dist/extension';
+import studio from '@theatre/studio';
+import extension from '@theatre/r3f/dist/extension';
 import { BrowserRouter,
   Route,
   Routes,
@@ -13,10 +13,10 @@ import About from './components/about.jsx';
 import Nav from './components/nav.jsx';
 // import Project from './components/project.jsx';
 
-// if (import.meta.env.DEV) {
-//   studio.initialize()
-//   studio.extend(extension)
-// }
+if (import.meta.env.DEV) {
+  studio.initialize()
+  studio.extend(extension)
+}
 
 // studio.ui.hide()
 
@@ -24,8 +24,9 @@ import Nav from './components/nav.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <div className="absolute bg-[url('./assets/Background.jpg')] bg-contain brightness-50 h-screen w-full -z-10"></div>
     <React.Suspense fallback={
-      <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
+      null
       }>
       <BrowserRouter>
         <Routes>

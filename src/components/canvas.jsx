@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { Circle, Environment, Loader, Scroll, ScrollControls, SoftShadows, Sparkles, useScroll } from "@react-three/drei";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@react-three/drei";
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
@@ -21,26 +21,40 @@ import ProductionText from "./productionText";
 import Planets from "./planets";
 import { EffectComposer, GodRays, N8AO, Noise } from "@react-three/postprocessing";
 import { BlendFunction, KernelSize } from "postprocessing";
-import React, { forwardRef } from "react";
+import React, { Suspense, forwardRef, useEffect, useRef, useState } from "react";
 import People from "./mascotPeople";
 import { Banner } from "./scrollingProjects";
+import gsap from "gsap";
 
-const Sun = forwardRef(function Sun(props, forwardRef) {
-  // const { value: sunColor } = useControls('sun color', { value: '#FF0000' })
-
-  return (
-    <Circle args={[10, 10]} ref={forwardRef} position={[0, 0, -16]} {...props}>
-      <meshBasicMaterial />
-    </Circle>
-  )
-})
 
 export default function R3fCanvas() {
+  const loadingManager = new THREE.LoadingManager();
+  const [progress, setProgress] = useState(0);
+  const widthRef = useRef();
+  const ref = useRef();
+
+  loadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+    setProgress(Math.round((itemsLoaded/itemsTotal) * 100));
+  };
+  
+  useEffect(()=>{
+    if(widthRef.current){
+      widthRef.current.style.width = `${progress}%`;
+    }
+
+    if(progress === 100){
+      gsap.to(ref.current,{
+        opacity: 0,
+        duration: 0.4,
+        ease: 'Power.easeIn',
+      })
+    }
+  },[progress])
+  
   const project = getProject("New Scene", {
     state: sceneState
   })
   const sheet = project.sheet("Scene");
-  const [material, set] = React.useState(new THREE.Mesh());
 
   const images = [
     "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
@@ -58,63 +72,76 @@ export default function R3fCanvas() {
 
   return (
     <>
-      <Canvas
-        gl={{outputColorSpace: THREE.SRGBColorSpace}}
-        shadows
-        camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
-      >
-        <SoftShadows size={25} samples={10} />
-        <ScrollControls pages={30} damping={.9} maxSpeed={0.2}>
-          <SheetProvider sheet={sheet}>
-            <Scene sunRef={material} project={project}/>
-          </SheetProvider>
-          <Scroll html>
-            <div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen"></div>
-              <div className="h-screen w-screen flex justify-center items-center">
-                <Banner images={images} speed={35000} />
+      {/* {progress < 101 && <div ref={ref} className="z-40 h-screen w-screen flex flex-col bg-zinc-900 text-zinc-100 justify-center items-center">
+        <p>loading assets</p>
+        <div className="flex mt-6 w-48 justify-between items-center">
+          <div className="h-1 w-32 bg-zinc-700 rounded-sm">
+            <div className={`h-full bg-zinc-200 rounded-sm`} ref={widthRef}></div>
+          </div>
+          <p>{progress} %</p>
+        </div>
+      </div>} */}
+      <>
+        <Canvas
+          gl={{outputColorSpace: THREE.SRGBColorSpace}}
+          camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
+        >
+          <ScrollControls pages={30} damping={.9} maxSpeed={0.2}>
+            <SheetProvider sheet={sheet}>
+              <Scene project={project} loadingManager={loadingManager}/>
+            </SheetProvider>
+            <Scroll html>
+              <div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen"></div>
+                <div className="h-screen w-screen flex justify-center items-center">
+                  <Banner images={images} speed={35000} />
+                </div>
               </div>
-            </div>
-          </Scroll>
-        </ScrollControls>
-      </Canvas>
-      <Loader/>
+            </Scroll>
+          </ScrollControls>
+        </Canvas>
+        <Loader/>
+      </>
     </>
   );
 }
 
 
 
-function Scene({project}) {
+function Scene({project, loadingManager}) {
+  const { gl } = useThree();
   const MascotRef = React.useRef();
+  
+  const data = useScroll();
+
 
   const texture = useLoader(THREE.TextureLoader, bgImg);
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -136,6 +163,14 @@ function Scene({project}) {
 
   const scroll = useScroll();
   let time = {value: 0};
+  console.log("Number of Triangles :", gl.info.render.triangles);
+
+  const scrollDown = ()=>{
+    gsap.to(data,{
+      offset: 1,
+      duration: 0.3,
+    })
+  }
 
   // our callback will run on every animation frame
   useFrame((state) => {
@@ -158,21 +193,21 @@ function Scene({project}) {
         <planeGeometry args={[78, 39]} />
         <meshStandardMaterial map={texture}/>
       </e.mesh>
-      <IntroText sheet={sheet}/>
+      <IntroText sheet={sheet} loadingManager={loadingManager}/>
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
       <Planets sheet={sheet} project={project} mascot={MascotRef}/>
-      <People sheet={sheet}/>
+      <People sheet={sheet} loadingManager={loadingManager}/>
       
-      <Sparkles
+      {/* <Sparkles
             count={200}
             size={2}
             speed={0.3}
             opacity={1}
             scale={15}
             color="#ffb5f3"
-          />
+          /> */}
     </>
   );
 }

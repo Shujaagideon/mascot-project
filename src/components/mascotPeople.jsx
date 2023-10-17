@@ -9,20 +9,20 @@ import React from "react";
 import gsap from "gsap";
 import { Suspense } from "react";
 
-const People = ({sheet}) => {
+const People = ({sheet, loadingManager}) => {
   const { gl } = useThree();
   const ref = React.useRef(null);
   let factor = {value:0};
 
   const myImgs = [];
 
-  for(let i=30; i< 201; i++){
+  for(let i=30; i< 371; i++){
     myImgs.push(`/mascotPeople/out_${i}.jpg`)
   }
   
 
   const textures = [];
-  const textureLoader = new THREE.TextureLoader();
+  const textureLoader = new THREE.TextureLoader(loadingManager);
 
   myImgs.forEach((url) => {
     const texture = textureLoader.load(url);

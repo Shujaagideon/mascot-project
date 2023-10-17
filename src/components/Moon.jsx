@@ -138,14 +138,14 @@ export function Moon({name, pos, opacity, project, beam, mascot}) {
   }
 
   React.useEffect(()=>{
-    materials['Mat.002'].transparent = true;
-    materials['Mat.002'].opacity = opacity;
+    materials['Mat.001'].transparent = true;
+    materials['Mat.001'].opacity = opacity;
 
   },[opacity])
   return (
     <e.group theatreKey={name} dispose={null} onPointerEnter={()=>hello()}>
       <e.pointLight theatreKey='beamPointLight'/>
-      <mesh ref={ref} geometry={nodes.Sphere.geometry} material={materials['Mat.002']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
+      <mesh ref={ref} geometry={nodes.Sphere001.geometry} material={materials['Mat.001']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>
   )
 }

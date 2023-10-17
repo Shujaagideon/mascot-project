@@ -14,13 +14,13 @@ for(let i=1; i< 211; i++){
   }
 }
 
-const IntroText = ({sheet}) => {
+const IntroText = ({sheet, loadingManager}) => {
   const { gl } = useThree();
   const ref = React.useRef(null);
   let factor = {value:0};
 
   const textures = [];
-  const textureLoader = new THREE.TextureLoader();
+  const textureLoader = new THREE.TextureLoader(loadingManager);
 
   myImgs.forEach((url) => {
     const texture = textureLoader.load(url);
@@ -54,9 +54,9 @@ const IntroText = ({sheet}) => {
   return (
     <group>
       <e.mesh theatreKey='text2' position={[0,0, -21]}>
-          <planeGeometry args={[75, 45, 100, 100]}/>
+          <planeGeometry args={[75, 45]}/>
           <Suspense fallback={null}>
-            <meshStandardMaterial ref={ref} transparent map={textures[0]} toneMapped={false} />
+            <meshBasicMaterial ref={ref} transparent map={textures[0]} toneMapped={false} />
           </Suspense>
       </e.mesh>
     </group>

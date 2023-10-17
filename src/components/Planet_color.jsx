@@ -61,15 +61,15 @@ export function PlanetColor({opacity, mascot, beam}) {
   }
   
   React.useEffect(()=>{
-      materials['Mat.001'].transparent = true;
-      materials['Mat.001'].opacity = opacity;
-      materials['Mat.001'].color = new THREE.Color('#fff');
+      materials.Mat.transparent = true;
+      materials.Mat.opacity = opacity;
+      materials.Mat.color = new THREE.Color('#fff');
   },[opacity])
   return (
     <e.group theatreKey='planet_color' dispose={null} onPointerEnter={()=>hello()}>
-      <mesh geometry={nodes.Sphere.geometry} material={materials['Mat.001']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
+      <mesh geometry={nodes.Sphere001.geometry} material={materials.Mat} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>
   )
 }
 
-useGLTF.preload('/planet_color-transformed.glb')
+useGLTF.preload('/planet_color-transformed.glb');

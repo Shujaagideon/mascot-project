@@ -198,7 +198,7 @@ export function Mascot({material, sheet, reference}) {
         ref.current.material = shader
       }
       else if(val.materialChanger > 1.8){
-        ref.current.material = materials.Tooth_Mixed_Material_2
+        ref.current.material = materials['Tooth_Mixed_Material_2.004']
       }
     })
 

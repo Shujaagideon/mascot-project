@@ -39,7 +39,7 @@ const Planets = ({sheet, project, mascot}) => {
   return (
     <group>
         <e.mesh theatreKey='planetsBg' position={[0, -20, -35]}>
-            <sphereGeometry args={[35,50, 50]}/>
+            <sphereGeometry args={[35,30, 30]}/>
             <meshStandardMaterial ref={ref} color='#0D0D0D' transparent depthWrite={false}/>
         </e.mesh>
         <group position={[0, -20, -35]}>
@@ -50,7 +50,7 @@ const Planets = ({sheet, project, mascot}) => {
         </group>
         <e.spotLight theatreKey='planetsLight' position={[0, 0, -30]}/>
         <e.mesh theatreKey='planetsBg2' position={[0, -25, -25]}>
-            <sphereGeometry args={[25,50, 50]}/>
+            <sphereGeometry args={[25,20, 30]}/>
             <meshStandardMaterial ref={ref2} color='#0b0b0b' transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
         <PlanetColor opacity={opacity} sheet={sheet} beam={refBeam} mascot={mascot}/>
