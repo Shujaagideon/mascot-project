@@ -8,8 +8,8 @@ import React from "react";
 import { Suspense } from "react";
 
 const myImgs = [];
-for(let i=1; i< 211; i++){
-  if (i === 20 || i === 21 || i === 22 || i === 23){}else{
+for(let i=1; i< 511; i++){
+  if (i === 39 || i === 40 || i === 41 || i === 42 ||i === 43 ||i === 44 || i === 45 || i === 46){}else{
     myImgs.push(`/mascotIntro/out_${i}.jpg`)
   }
 }
