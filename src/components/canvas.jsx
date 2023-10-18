@@ -6,7 +6,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@re
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state10.json'
+import sceneState from '../assets/state11.json'
 import mobileState from '../assets/mobileState.json'
 
 import {
