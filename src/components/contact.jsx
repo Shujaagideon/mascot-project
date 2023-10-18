@@ -3,6 +3,8 @@
 import { Canvas } from "@react-three/fiber"
 import { Scene } from "./about"
 import React from "react"
+import { EffectComposer, Noise } from "@react-three/postprocessing"
+import { BlendFunction } from "postprocessing"
 
 const Contact = () => {
   return (
@@ -13,6 +15,9 @@ const Contact = () => {
         }>
             <Canvas gl={{ preserveDrawingBuffer: true }}>
                 <Scene/>
+                <EffectComposer>
+                      <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
+                    </EffectComposer>
             </Canvas>
         </React.Suspense>
       </div>
