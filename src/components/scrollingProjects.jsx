@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const Banner = ({ images, speed = 5000 }) => {
+const Banner = ({ images, speed = 50000 }) => {
     return (
       <div className="inner">
         <div className="wrapper">

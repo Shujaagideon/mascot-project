@@ -131,7 +131,7 @@ export default function R3fCanvas() {
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen flex justify-center items-center">
-                  <Banner images={images} speed={40000} />
+                  <Banner images={images} speed={60000} />
                 </div>
               </div>
             </Scroll>
