@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+import gsap from 'gsap';
 import hq from '../assets/hq.webp';
 import placeholder from '../assets/placeholder.webp';
 import placeholder2 from '../assets/placeholder2.webp';
@@ -5,9 +7,20 @@ import placeholder3 from '../assets/placeholder3.webp';
 import placeholder4 from '../assets/placeholder4.webp';
 
 
-const Project = () => {
+const Project = ({projectRef}) => {
+
+    const projectPage =()=>{
+        gsap.to(projectRef.current, {
+            opacity: 0,
+            duration: 0.2,
+            onComplete:()=>{
+              projectRef.current.style.visibility = 'hidden'
+          }
+        })
+      }
   return (
     <div className='w-full h-screen absolute overflow-y-auto text-slate-100'>
+        <div onClick={projectPage} className='cursor-pointer z-10 absolute right-10 top-10 rounded-full w-10 h-10 border border-slate-50 flex justify-center items-center'><p className='text-lg leading-3'>x</p></div>
         <div className="h-screen p-4 md:p-20 pt-32 w-full relative">
             <div className='h-full w-full absolute top-0 left-0'>
                 <img className='h-full w-full object-cover' src={hq} alt=''/>

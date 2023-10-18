@@ -39,14 +39,14 @@ body {
   align-content: center;
 }
 
-img {
+.image img {
   max-width: 350px;
   height: 25rem;
   padding: 0 15px;
   object-fit: cover;
 }
 
-img:last-of-type {
+.image img:last-of-type {
   padding-left: 0;
 }
 

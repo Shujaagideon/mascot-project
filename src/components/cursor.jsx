@@ -16,7 +16,7 @@ const Cursor = () => {
         }
         const params = {
             pointsNumber: 10,
-            widthFactor: .9,
+            widthFactor: 1.5,
             mouseThreshold: .6,
             spring: .9,
             friction: .4
