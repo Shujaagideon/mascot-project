@@ -4,7 +4,8 @@ import { Canvas } from "@react-three/fiber"
 import { Scene } from "./about"
 import React from "react"
 import { EffectComposer, Noise } from "@react-three/postprocessing"
-import { BlendFunction } from "postprocessing"
+import { BlendFunction } from "postprocessing";
+import tex from '../assets/wave.png';
 
 const Contact = () => {
   return (
@@ -14,10 +15,10 @@ const Contact = () => {
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
         }>
             <Canvas gl={{ preserveDrawingBuffer: true }}>
-                <Scene/>
+                <Scene tex={tex}/>
                 <EffectComposer>
                       <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
-                    </EffectComposer>
+                </EffectComposer>
             </Canvas>
         </React.Suspense>
       </div>

@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import { useFrame, useLoader } from '@react-three/fiber';
 import React from 'react';
 import * as THREE from 'three';
-import tex from '../assets/approach.webp';
+// import tex from '../assets/approach.webp';
 
 
 const vertexShader = /*glsl*/`
@@ -109,7 +110,7 @@ const fragmentShader = /*glsl*/`
     }
 `
 
-const Aboutmascot = () => {
+const Aboutmascot = ({tex}) => {
     const texture = useLoader(THREE.TextureLoader, tex);
     texture.colorSpace = THREE.SRGBColorSpace;
     const uniforms = {

@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from 'three';
 import bgImg from '../assets/Background.jpg'
+import text from '../assets/approach.webp';
 import { Sparkles } from "@react-three/drei";
 import React from "react";
 import Aboutmascot from "./aboutmascot";
@@ -18,7 +20,7 @@ const About = () => {
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
             }>
                 <Canvas gl={{ preserveDrawingBuffer: true }}>
-                    <Scene/>
+                    <Scene tex={text}/>
                     <EffectComposer>
                         <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
                     </EffectComposer>
@@ -57,7 +59,7 @@ const About = () => {
 export default About;
 
 
-export function Scene() {
+export function Scene({tex}) {
     // const { scene } = useThree();
   
     const texture = useLoader(THREE.TextureLoader, bgImg);
@@ -76,7 +78,7 @@ export function Scene() {
           <planeGeometry args={[78, 39]} />
           <meshBasicMaterial map={texture}/>
         </mesh>
-        <Aboutmascot/>
+        <Aboutmascot tex={tex}/>
         <Sparkles
             count={200}
             size={2}
