@@ -26,37 +26,50 @@ export function PlanetColor({opacity, mascot, beam}) {
       ease: 'Power.easeOut'
     }
     )
-    gsap.fromTo(beam.current.rotation,{
-      z: beam.current.rotation.z,
+    gsap.fromTo(mascot.current.position,{
+      x: mascot.current.position.x,
+      y: mascot.current.position.y,
       duration: 0.3,
       ease: 'Power.easeOut'
     },
     {
-      z: 0,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    })
-    gsap.fromTo(beam.current.position,{
-      x: beam.current.position.x,
-      y: beam.current.position.y,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },{
       x: 0,
-      y: 28.47,
+      y: -4.82,
       duration: 0.3,
       ease: 'Power.easeOut'
-    })
-    gsap.fromTo(beam.current.scale,{
-      x: beam.current.scale.x,
-      y: beam.current.scale.y,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },{
-      x: 0.43,
-      y: 0.62,
-      duration: 0.3
-    })
+    }
+    )
+    // gsap.fromTo(beam.current.rotation,{
+    //   z: beam.current.rotation.z,
+    //   duration: 0.3,
+    //   ease: 'Power.easeOut'
+    // },
+    // {
+    //   z: 0,
+    //   duration: 0.3,
+    //   ease: 'Power.easeOut'
+    // })
+    // gsap.fromTo(beam.current.position,{
+    //   x: beam.current.position.x,
+    //   y: beam.current.position.y,
+    //   duration: 0.3,
+    //   ease: 'Power.easeOut'
+    // },{
+    //   x: 0,
+    //   y: 28.47,
+    //   duration: 0.3,
+    //   ease: 'Power.easeOut'
+    // })
+    // gsap.fromTo(beam.current.scale,{
+    //   x: beam.current.scale.x,
+    //   y: beam.current.scale.y,
+    //   duration: 0.3,
+    //   ease: 'Power.easeOut'
+    // },{
+    //   x: 0.43,
+    //   y: 0.62,
+    //   duration: 0.3
+    // })
 
   }
   

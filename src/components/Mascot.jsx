@@ -10,12 +10,13 @@ import React from 'react';
 import {editable as e} from '@theatre/r3f';
 import * as THREE from 'three';
 import glossyTex from '../assets/glossy2.jpg';
+import tex from '../assets/beam.png';
 import brushTex from '../assets/drawing2.png';
 import sideDots from '../assets/tex2.png';
 import disp from '../assets/disp1.jpg';
 import metal from '../assets/metal.jpg';
 import { types as t } from "@theatre/core";
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 
 const loader = new THREE.TextureLoader()
 
@@ -130,6 +131,10 @@ const shader = new THREE.ShaderMaterial({
 
 export function Mascot({material, sheet, reference}) {
   const ref = React.useRef();
+  const ref3 = React.useRef();
+  const refBeam = React.useRef();
+  const texture = useLoader(THREE.TextureLoader, tex);
+    texture.colorSpace = THREE.SRGBColorSpace;
   const { nodes, materials } = useGLTF('/mascot-transformed.glb');
   const [changer, setChanger] = React.useState(0);
   
@@ -142,6 +147,10 @@ export function Mascot({material, sheet, reference}) {
     opacity: t.number(0, {
         nudgeMultiplier: 0.1,
         range: [0, 1]
+    }),
+    beamOpacity: t.number(0, {
+      nudgeMultiplier: 0.1,
+      range: [0, 1]
     }),
     clamp:{
       x: t.number(0, {
@@ -189,6 +198,8 @@ export function Mascot({material, sheet, reference}) {
       uniforms.lightPos.value.x = val.lightPos.x;
       uniforms.lightPos.value.y = val.lightPos.y;
       uniforms.lightPos.value.z = val.lightPos.z;
+
+      ref3.current.opacity = val.beamOpacity
       shader.needsUpdate = true
       setChanger(val.materialChanger);
       if(val.materialChanger <= 0){
@@ -208,6 +219,12 @@ export function Mascot({material, sheet, reference}) {
     <e.group theatreKey='mascotPeople'>
       <e.group theatreKey='Mascot' dispose={null} ref={reference}>
         <mesh geometry={nodes.Sphere_1.geometry} ref={ref} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
+        <group position={[0, -20, -35]}>
+            <e.mesh theatreKey='planetsBeam' ref={refBeam} scale={[0.43, 0.62, 0]} position={[0, 28.47, 10.21]}>
+                <planeGeometry args={[15,110]}/>
+                <meshBasicMaterial ref={ref3} map={texture} side={THREE.DoubleSide} transparent depthWrite={false} depthTest={false}/>
+            </e.mesh>
+        </group>
       </e.group>
     </e.group>
   )

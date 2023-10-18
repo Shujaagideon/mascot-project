@@ -5,7 +5,7 @@ import { Scene } from "./about"
 import React from "react"
 import { EffectComposer, Noise } from "@react-three/postprocessing"
 import { BlendFunction } from "postprocessing";
-import tex from '../assets/wave.png';
+import tex from '../assets/wave1.png';
 
 const Contact = () => {
   return (

@@ -43,7 +43,7 @@ const Planets = ({sheet, project, mascot}) => {
             setOpacity(val.opacity)
             ref.current.opacity = val.opacity;
             ref2.current.opacity = val.opacity;
-            ref3.current.opacity = val.opacity;
+            // ref3.current.opacity = val.opacity;
             ref4.current.opacity = val.opacity;
 
             geomRef.current.radius = val.radius
@@ -59,12 +59,7 @@ const Planets = ({sheet, project, mascot}) => {
             <sphereGeometry args={[35,30, 30]}/>
             <meshStandardMaterial ref={ref} color='#0D0D0D' transparent depthWrite={false}/>
         </e.mesh>
-        <group position={[0, -20, -35]}>
-            <e.mesh theatreKey='planetsBeam' ref={refBeam} scale={[0.43, 0.62, 0]} position={[0, 28.47, 10.21]}>
-                <planeGeometry args={[15,50]}/>
-                <meshBasicMaterial ref={ref3} map={texture} transparent depthWrite={false}/>
-            </e.mesh>
-        </group>
+        
         <e.spotLight theatreKey='planetsLight' position={[0, 0, -30]}/>
         <e.mesh theatreKey='planetsBg2' position={[0, -25, -25]}>
             <sphereGeometry ref={geomRef} args={[25,20, 30]}/>
