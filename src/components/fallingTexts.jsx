@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
-import tex from '../assets/texts2.png';
+import tex from '../assets/fallingText.png';
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
 import React from 'react';

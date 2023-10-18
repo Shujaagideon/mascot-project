@@ -6,7 +6,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@re
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state9.json'
+import sceneState from '../assets/state10.json'
 
 import {
   SheetProvider,
@@ -19,12 +19,11 @@ import FallingTexts from "./fallingTexts";
 import RotatingText from "./rotatingText";
 import ProductionText from "./productionText";
 import Planets from "./planets";
-import { EffectComposer, GodRays, N8AO, Noise } from "@react-three/postprocessing";
-import { BlendFunction, KernelSize } from "postprocessing";
-import React, { Suspense, forwardRef, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import People from "./mascotPeople";
 import { Banner } from "./scrollingProjects";
 import gsap from "gsap";
+import { useStore } from "../App";
 
 
 export default function R3fCanvas() {
@@ -81,12 +80,12 @@ export default function R3fCanvas() {
           <p>{progress} %</p>
         </div>
       </div>} */}
-      <>
+      <Suspense fallback={<Loader/>}>
         <Canvas
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls pages={30} damping={.9} maxSpeed={0.2}>
+          <ScrollControls eps={0.01} pages={30} damping={0.09} maxSpeed={0.2}>
             <SheetProvider sheet={sheet}>
               <Scene project={project} loadingManager={loadingManager}/>
             </SheetProvider>
@@ -128,8 +127,8 @@ export default function R3fCanvas() {
             </Scroll>
           </ScrollControls>
         </Canvas>
-        <Loader/>
-      </>
+        
+      </Suspense>
     </>
   );
 }
@@ -139,6 +138,7 @@ export default function R3fCanvas() {
 function Scene({project, loadingManager}) {
   const { gl } = useThree();
   const MascotRef = React.useRef();
+  const matRef = React.useRef();
   
   const data = useScroll();
 
@@ -154,24 +154,39 @@ function Scene({project, loadingManager}) {
     opacity: t.number(0, {
       nudgeMultiplier: 0.1,
       range: [0, 1]
-    })
+    }),
+    bgOpacity: t.number(0, {
+      nudgeMultiplier: 0.1,
+      range: [0, 1]
+    }),
   },{reconfigure: true});
 
-  mascotMat.onValuesChange(val=>{
-    material.opacity = val.opacity
-  })
+  React.useEffect(()=>{
+    mascotMat.onValuesChange(val=>{
+      material.opacity = val.opacity
+      matRef.current.opacity = val.bgOpacity
+    })
+  },[])
+
 
   const scroll = useScroll();
   let time = {value: 0};
-  console.log("Number of Triangles :", gl.info.render.triangles);
 
-  const scrollDown = ()=>{
-    gsap.to(data,{
-      offset: 1,
+  const clicked = useStore((state) => state.clicked);
+  const setClicked = useStore((state) => state.setClicked);
+  if(clicked){
+    gsap.to(scroll.el,{
+      scrollTop: scroll.el.scrollHeight,
       duration: 0.3,
+      onComplete:()=>{
+        setClicked();
+      }
     })
   }
 
+  const scrollDown = ()=>{
+  }
+  
   // our callback will run on every animation frame
   useFrame((state) => {
     // console.log(mascotMat)
@@ -191,7 +206,7 @@ function Scene({project, loadingManager}) {
       <e.directionalLight castShadow theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
       <e.mesh theatreKey='Background' position={[0, 0, -100]}>
         <planeGeometry args={[78, 39]} />
-        <meshStandardMaterial map={texture}/>
+        <meshStandardMaterial ref={matRef} map={texture} transparent/>
       </e.mesh>
       <IntroText sheet={sheet} loadingManager={loadingManager}/>
       <FallingTexts sheet={sheet}/>
