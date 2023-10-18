@@ -5,7 +5,8 @@ import bgImg from '../assets/Background.jpg'
 import { Sparkles } from "@react-three/drei";
 import React from "react";
 import Aboutmascot from "./aboutmascot";
-
+import { EffectComposer, GodRays, N8AO, Noise } from "@react-three/postprocessing";
+import { BlendFunction, KernelSize } from "postprocessing";
 
 const About = () => {
   return (
@@ -16,6 +17,9 @@ const About = () => {
             }>
                 <Canvas gl={{ preserveDrawingBuffer: true }}>
                     <Scene/>
+                    <EffectComposer>
+                        <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
+                    </EffectComposer>
                 </Canvas>
             </React.Suspense>
         </div>
