@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
@@ -61,7 +62,6 @@ export default function R3fCanvas() {
     // window.
   },[progress])
   
-  // useEffect(()=>{},[isMobile])
   const project1 = getProject("New Scene", {
     state: mobileState
   })
@@ -86,15 +86,6 @@ export default function R3fCanvas() {
 
   return (
     <>
-      {/* {progress < 101 && <div ref={ref} className="z-40 h-screen w-screen flex flex-col bg-zinc-900 text-zinc-100 justify-center items-center">
-        <p>loading assets</p>
-        <div className="flex mt-6 w-48 justify-between items-center">
-          <div className="h-1 w-32 bg-zinc-700 rounded-sm">
-            <div className={`h-full bg-zinc-200 rounded-sm`} ref={widthRef}></div>
-          </div>
-          <p>{progress} %</p>
-        </div>
-      </div>} */}
       <Suspense fallback={<Loader/>}>
         <div ref={projectRef} className="fixed z-40 top-0 bg-black left-0 h-screen w-screen">
           <div className="relative w-full h-full">
@@ -105,12 +96,11 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls eps={0.01} pages={30} damping={0.09} maxSpeed={0.2}>
+          <ScrollControls eps={0.0001} pages={30} damping={0.08} maxSpeed={0.2}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
             <Scroll html>
-              <div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
@@ -143,7 +133,6 @@ export default function R3fCanvas() {
                 <div className="h-screen w-screen flex justify-center items-center">
                   <Banner images={images} projectRef={projectRef} speed={60000} />
                 </div>
-              </div>
             </Scroll>
           </ScrollControls>
         </Canvas>

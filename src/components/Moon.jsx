@@ -172,7 +172,7 @@ export function Moon({name, pos, opacity, project, beam, mascot}) {
 
   },[opacity])
   return (
-    <e.group theatreKey={name} dispose={null} onPointerEnter={()=>hello()}>
+    <e.group theatreKey={name} dispose={null} onPointerEnter={()=>hello()} onClick={()=> hello()}>
       <e.pointLight theatreKey='beamPointLight'/>
       <mesh ref={ref} geometry={nodes.Sphere001.geometry} material={materials['Mat.001']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>

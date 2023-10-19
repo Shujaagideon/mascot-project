@@ -79,7 +79,7 @@ export function PlanetColor({opacity, mascot, beam}) {
       materials.Mat.color = new THREE.Color('#fff');
   },[opacity])
   return (
-    <e.group theatreKey='planet_color' dispose={null} onPointerEnter={()=>hello()}>
+    <e.group theatreKey='planet_color' dispose={null} onPointerEnter={()=>hello()} onClick={()=>hello()}>
       <mesh geometry={nodes.Sphere001.geometry} material={materials.Mat} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>
   )
