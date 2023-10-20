@@ -11,10 +11,11 @@ import { editable as e } from "@theatre/r3f";
 // import { types as t } from "@theatre/core";
 import { useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
-// import * as THREE from 'three';
+import * as THREE from 'three';
 
-export function Moon({name, pos, opacity, project, beam, mascot}) {
+export function Moon({name, pos, opacity, project, mascot}) {
   const { nodes, materials } = useGLTF('/moon-transformed.glb');
+  const clone = materials['Mat.001'].clone();
   const ref = React.useRef();
   const num = -15.946048795792349;
 
@@ -94,8 +95,12 @@ export function Moon({name, pos, opacity, project, beam, mascot}) {
   useFrame(()=>{
     ref.current.rotation.z += 0.008
   })
+  const hello2 = ()=>{
+    clone.color = new THREE.Color('#888');
+  }
 
   const hello = ()=>{
+    clone.color = new THREE.Color('#fff');
     if (mascot.current.position.z > num || mascot.current.position.z < num){
       // mascot.current.rotation.z = 0;
       // beam.current.rotation.z = 0;
@@ -167,14 +172,15 @@ export function Moon({name, pos, opacity, project, beam, mascot}) {
   }
 
   React.useEffect(()=>{
-    materials['Mat.001'].transparent = true;
-    materials['Mat.001'].opacity = opacity;
+    clone.transparent = true;
+    clone.opacity = opacity;
+    clone.color = new THREE.Color('#888');
 
   },[opacity])
   return (
-    <e.group theatreKey={name} dispose={null} onPointerEnter={()=>hello()} onClick={()=> hello()}>
+    <e.group theatreKey={name} dispose={null} onPointerEnter={()=>hello()} onPointerLeave={()=>hello2()} onClick={()=> hello()}>
       <e.pointLight theatreKey='beamPointLight'/>
-      <mesh ref={ref} geometry={nodes.Sphere001.geometry} material={materials['Mat.001']} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
+      <mesh ref={ref} geometry={nodes.Sphere001.geometry} material={clone} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>
   )
 }

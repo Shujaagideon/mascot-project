@@ -16,7 +16,7 @@ import sideDots from '../assets/tex2.png';
 import disp from '../assets/disp1.jpg';
 import metal from '../assets/metal.jpg';
 import { types as t } from "@theatre/core";
-import { useFrame, useLoader } from '@react-three/fiber';
+import { useFrame, useLoader, useThree } from '@react-three/fiber';
 
 const loader = new THREE.TextureLoader()
 
@@ -137,9 +137,17 @@ export function Mascot({material, sheet, reference}) {
     texture.colorSpace = THREE.SRGBColorSpace;
   const { nodes, materials } = useGLTF('/mascot-transformed.glb');
   const [changer, setChanger] = React.useState(0);
+  const { viewport } = useThree()
   
-  useFrame(({clock})=>{
+  useFrame(({clock, mouse})=>{
     uniforms.time.value = clock.getElapsedTime();
+
+    const x = (mouse.x * viewport.width) / 2;
+    const y = (mouse.y * viewport.height) / 2;
+    
+    // ref.current.position.set(x, y, 0)
+    ref.current.rotation.x = ref.current.rotation.x;
+    ref.current.rotation.y = ref.current.rotation.y;
   })
     
 

@@ -14,7 +14,12 @@ import gsap from 'gsap';
 export function PlanetColor({opacity, mascot, beam}) {
   const { nodes, materials } = useGLTF('/planet_color-transformed.glb');
 
+  const hello2 = ()=>{
+    materials.Mat.color = new THREE.Color('#888');
+  }
+
   const hello = ()=>{
+    materials.Mat.color = new THREE.Color('#fff');
     gsap.fromTo(mascot.current.rotation,{
       z: mascot.current.rotation.z,
       duration: 0.3,
@@ -76,10 +81,10 @@ export function PlanetColor({opacity, mascot, beam}) {
   React.useEffect(()=>{
       materials.Mat.transparent = true;
       materials.Mat.opacity = opacity;
-      materials.Mat.color = new THREE.Color('#fff');
+      materials.Mat.color = new THREE.Color('#888');
   },[opacity])
   return (
-    <e.group theatreKey='planet_color' dispose={null} onPointerEnter={()=>hello()} onClick={()=>hello()}>
+    <e.group theatreKey='planet_color' dispose={null} onPointerLeave={()=>hello2()} onPointerEnter={()=>hello()} onClick={()=>hello()}>
       <mesh geometry={nodes.Sphere001.geometry} material={materials.Mat} rotation={[Math.PI / 2, 0, 0]} scale={0.01} />
     </e.group>
   )
