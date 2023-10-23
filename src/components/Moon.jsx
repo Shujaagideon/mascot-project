@@ -103,7 +103,7 @@ export function Moon({name, pos, opacity, project, mascot}) {
 
   const hello = ()=>{
     clone.color = new THREE.Color('#fff');
-    if (mascot.current.position.z > num || mascot.current.position.z < num){
+    if (mascot.current.position.z !== num){
       mascot.current.rotation.z = 0;
     }
     else{

@@ -11,8 +11,9 @@ import { editable as e } from "@theatre/r3f";
 import * as THREE from 'three';
 import gsap from 'gsap';
 
-export function PlanetColor({opacity, mascot, beam}) {
+export function PlanetColor({opacity, mascot}) {
   const { nodes, materials } = useGLTF('/planet_color-transformed.glb');
+  const num = -15.946048795792349;
 
   const hello2 = ()=>{
     materials.Mat.color = new THREE.Color('#888');
@@ -20,61 +21,35 @@ export function PlanetColor({opacity, mascot, beam}) {
 
   const hello = ()=>{
     materials.Mat.color = new THREE.Color('#fff');
-    gsap.fromTo(mascot.current.rotation,{
-      z: mascot.current.rotation.z,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },
-    {
-      z: 0,
-      duration: 0.3,
-      ease: 'Power.easeOut'
+    if (mascot.current.position.z !== num){
+      mascot.current.rotation.z = 0;
     }
-    )
-    gsap.fromTo(mascot.current.position,{
-      x: mascot.current.position.x,
-      y: mascot.current.position.y,
-      duration: 0.3,
-      ease: 'Power.easeOut'
-    },
-    {
-      x: 0,
-      y: -4.82,
-      duration: 0.3,
-      ease: 'Power.easeOut'
+    else{
+      gsap.fromTo(mascot.current.rotation,{
+        z: mascot.current.rotation.z,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      },
+      {
+        z: 0,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      }
+      )
+      gsap.fromTo(mascot.current.position,{
+        x: mascot.current.position.x,
+        y: mascot.current.position.y,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      },
+      {
+        x: 0,
+        y: -4.82,
+        duration: 0.3,
+        ease: 'Power.easeOut'
+      }
+      )
     }
-    )
-    // gsap.fromTo(beam.current.rotation,{
-    //   z: beam.current.rotation.z,
-    //   duration: 0.3,
-    //   ease: 'Power.easeOut'
-    // },
-    // {
-    //   z: 0,
-    //   duration: 0.3,
-    //   ease: 'Power.easeOut'
-    // })
-    // gsap.fromTo(beam.current.position,{
-    //   x: beam.current.position.x,
-    //   y: beam.current.position.y,
-    //   duration: 0.3,
-    //   ease: 'Power.easeOut'
-    // },{
-    //   x: 0,
-    //   y: 28.47,
-    //   duration: 0.3,
-    //   ease: 'Power.easeOut'
-    // })
-    // gsap.fromTo(beam.current.scale,{
-    //   x: beam.current.scale.x,
-    //   y: beam.current.scale.y,
-    //   duration: 0.3,
-    //   ease: 'Power.easeOut'
-    // },{
-    //   x: 0.43,
-    //   y: 0.62,
-    //   duration: 0.3
-    // })
 
   }
   

@@ -155,12 +155,12 @@ export function Mascot({material, sheet, reference}) {
     const y = (mouse.y * viewport.height) / 2;
     if (reference.current.position.z !== num){
       reference.current.rotation.z = y * 0.01;
-      reference.current.rotation.y = x * 0.01;
     }
     else{
       null
     }
-    // console.log(x,y)
+
+    console.log(reference.current.position.z)
     setVal(new THREE.Vector2(x,y))
     
     // ref.current.position.set(x, y, 0)
