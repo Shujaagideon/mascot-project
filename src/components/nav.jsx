@@ -9,7 +9,7 @@ const Nav = ()=>{
       <nav className='flex font-elza fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 md:px-8'>
         {location.pathname !== '/' ?
           <Link to='/'>
-            <h2 onClick={setClicked} className="uppercase">Project</h2>
+            <h2 className="uppercase">Project</h2>
           </Link>
         :
           <h2 onClick={setClicked} className="cursor-pointer uppercase">Project</h2>

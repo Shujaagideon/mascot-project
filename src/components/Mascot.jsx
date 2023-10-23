@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 /*
@@ -6,7 +7,7 @@ Command: npx gltfjsx@6.2.3 mascot.glb --transform
 */
 
 import { useGLTF } from '@react-three/drei';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {editable as e} from '@theatre/r3f';
 import * as THREE from 'three';
 import glossyTex from '../assets/glossy2.jpg';
@@ -138,16 +139,26 @@ export function Mascot({material, sheet, reference}) {
   const { nodes, materials } = useGLTF('/mascot-transformed.glb');
   const [changer, setChanger] = React.useState(0);
   const { viewport } = useThree()
+  const [val, setVal] = useState(new THREE.Vector2())
+  
+  useEffect(()=>{
+    document.addEventListener('mousemove', _=>{
+      console.log('moving')
+      // ref.current.rotation.x = ref.current.rotation.x + Math.PI/ val.x;
+      // ref.current.rotation.y = ref.current.rotation.y + Math.PI/ val.y;
+      ref.current.lookAt(new THREE.Vector3(val.x * 0.2, val.y * 0.2, -25))
+    })
+  },[val])
   
   useFrame(({clock, mouse})=>{
     uniforms.time.value = clock.getElapsedTime();
 
     const x = (mouse.x * viewport.width) / 2;
     const y = (mouse.y * viewport.height) / 2;
+    // console.log(x,y)
+    setVal(new THREE.Vector2(x,y))
     
     // ref.current.position.set(x, y, 0)
-    ref.current.rotation.x = ref.current.rotation.x;
-    ref.current.rotation.y = ref.current.rotation.y;
   })
     
 

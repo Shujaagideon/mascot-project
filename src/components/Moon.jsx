@@ -16,6 +16,8 @@ import * as THREE from 'three';
 export function Moon({name, pos, opacity, project, mascot}) {
   const { nodes, materials } = useGLTF('/moon-transformed.glb');
   const clone = materials['Mat.001'].clone();
+  clone.opacity = 0
+  clone.transparent = true
   const ref = React.useRef();
   const num = -15.946048795792349;
 
@@ -102,12 +104,7 @@ export function Moon({name, pos, opacity, project, mascot}) {
   const hello = ()=>{
     clone.color = new THREE.Color('#fff');
     if (mascot.current.position.z > num || mascot.current.position.z < num){
-      // mascot.current.rotation.z = 0;
-      // beam.current.rotation.z = 0;
-      // beam.current.position.x = 0
-      // beam.current.position.y = 28.47;
-      // beam.current.scale.x = 0.43;
-      // beam.current.scale.y = 0.62;
+      mascot.current.rotation.z = 0;
     }
     else{
       gsap.fromTo(mascot.current.rotation,{
@@ -119,8 +116,7 @@ export function Moon({name, pos, opacity, project, mascot}) {
         z: configs[pos].mascot,
         duration: 0.3,
         ease: 'Power.easeOut'
-      }
-      )
+      })
       gsap.fromTo(mascot.current.position,{
         x: mascot.current.position.x,
         y: mascot.current.position.y,
@@ -132,39 +128,7 @@ export function Moon({name, pos, opacity, project, mascot}) {
         y: configs[pos].mascotPos.y,
         duration: 0.3,
         ease: 'Power.easeOut'
-      }
-      )
-      // gsap.fromTo(beam.current.rotation,{
-      //   z: beam.current.rotation.z,
-      //   duration: 0.3,
-      //   ease: 'Power.easeOut'
-      // },
-      // {
-      //   z: configs[pos].beamRotation,
-      //   duration: 0.3,
-      //   ease: 'Power.easeOut'
-      // })
-      // gsap.fromTo(beam.current.position,{
-      //   x: beam.current.position.x,
-      //   y: beam.current.position.y,
-      //   duration: 0.3,
-      //   ease: 'Power.easeOut'
-      // },{
-      //   x: configs[pos].beamPos.x,
-      //   y: configs[pos].beamPos.y,
-      //   duration: 0.3,
-      //   ease: 'Power.easeOut'
-      // })
-      // gsap.fromTo(beam.current.scale,{
-      //   x: beam.current.scale.x,
-      //   y: beam.current.scale.y,
-      //   duration: 0.3,
-      //   ease: 'Power.easeOut'
-      // },{
-      //   x: configs[pos].scale.x,
-      //   y: configs[pos].scale.y,
-      //   duration: 0.3
-      // })
+      })
     }
     project.sheet("Scene").sequence.pause()
 
@@ -174,7 +138,10 @@ export function Moon({name, pos, opacity, project, mascot}) {
   React.useEffect(()=>{
     clone.transparent = true;
     clone.opacity = opacity;
-    clone.color = new THREE.Color('#888');
+    console.log(opacity)
+    if(opacity > 0.8){
+      clone.color = new THREE.Color('#888');
+    }
 
   },[opacity])
   return (
