@@ -135,26 +135,31 @@ export function Mascot({material, sheet, reference}) {
   const ref3 = React.useRef();
   const refBeam = React.useRef();
   const texture = useLoader(THREE.TextureLoader, tex);
-    texture.colorSpace = THREE.SRGBColorSpace;
+  texture.colorSpace = THREE.SRGBColorSpace;
   const { nodes, materials } = useGLTF('/mascot-transformed.glb');
   const [changer, setChanger] = React.useState(0);
   const { viewport } = useThree()
   const [val, setVal] = useState(new THREE.Vector2())
+
+  const num = -15.946048795792349;
   
   useEffect(()=>{
     document.addEventListener('mousemove', _=>{
-      console.log('moving')
-      // ref.current.rotation.x = ref.current.rotation.x + Math.PI/ val.x;
-      // ref.current.rotation.y = ref.current.rotation.y + Math.PI/ val.y;
-      ref.current.lookAt(new THREE.Vector3(val.x * 0.2, val.y * 0.2, -25))
     })
   },[val])
   
   useFrame(({clock, mouse})=>{
     uniforms.time.value = clock.getElapsedTime();
-
+    
     const x = (mouse.x * viewport.width) / 2;
     const y = (mouse.y * viewport.height) / 2;
+    if (reference.current.position.z !== num){
+      reference.current.rotation.z = y * 0.01;
+      reference.current.rotation.y = x * 0.01;
+    }
+    else{
+      null
+    }
     // console.log(x,y)
     setVal(new THREE.Vector2(x,y))
     
