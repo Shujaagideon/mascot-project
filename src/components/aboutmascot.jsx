@@ -50,7 +50,7 @@ const vertexShader = /*glsl*/`
         float dif2 = sin(pos.x * 4.0 + time) * 0.2;
         float dif3 = sin(pos.y * 0.8 + time) * 0.2;
 
-        pos.z = snoise(vec2(pos.x + time, pos.y - time)) * 0.08;
+        pos.z = snoise(vec2(pos.x + time, pos.y - time)) * 0.03;
         // pos.z = sin(pos.y * 1.2 + time * 0.2) * 0.3;
       }
       if (pos.x < -3.) {
@@ -102,8 +102,8 @@ const fragmentShader = /*glsl*/`
 
     void main() {
       vec4 color = texture2D(uTexture, vUv);
-      if(color.a < 0.9)discard;
-      if(color.b < 0.93){
+      if(color.a < 0.95)discard;
+      if(color.b < 0.87){
         color = vec4(mix(color1, color2, snoise(vec2(vUv.x * 6. + time, vUv.y * 6. - time))), 1.);
       }
       gl_FragColor = color;

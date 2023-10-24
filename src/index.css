@@ -40,7 +40,8 @@ body {
 }
 
 .image img {
-  max-width: 350px;
+  width: 650px;
+  max-width: 650px;
   height: 25rem;
   padding: 0 15px;
   object-fit: cover;
