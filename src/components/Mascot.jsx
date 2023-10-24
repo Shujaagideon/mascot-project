@@ -314,10 +314,10 @@ export function Mascot({material, sheet, reference}) {
 
   const num = -15.946048795792349;
   
-  useEffect(()=>{
-    document.addEventListener('mousemove', _=>{
-    })
-  },[val])
+  // useEffect(()=>{
+  //   document.addEventListener('mousemove', _=>{
+  //   })
+  // },[val])
   
   useFrame(({clock, mouse})=>{
     uniforms.time.value = clock.getElapsedTime();
@@ -325,17 +325,20 @@ export function Mascot({material, sheet, reference}) {
     const x = (mouse.x * viewport.width) / 2;
     const y = (mouse.y * viewport.height) / 2;
     if (reference.current.position.z !== num){
-      gsap.to(reference.current.rotation,{
-        z: y * 0.02,
+      gsap.fromTo(reference.current.rotation,{
+        z: reference.current.rotation.z,
         ease: 'Power.easeIn',
-        duration: 0.2
+        duration: 0.6
+      },{
+        z: y * 0.01,
+        ease: 'Power.easeIn',
+        duration: 0.6
       })
     }
     else{
       null
     }
 
-    console.log(reference.current.position.z)
     setVal(new THREE.Vector2(x,y))
     
     // ref.current.position.set(x, y, 0)

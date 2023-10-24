@@ -54,31 +54,31 @@ const ProductionText = ({sheet}) => {
     <e.group theatreKey='productionTextGroup' ref={ref}>
         <mesh position={[0, 20, -25]}>
             <planeGeometry args={[100,12]}/>
-            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
+            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false} depthTest={false}/>
         </mesh>
         <mesh position={[0, 10, -25]}>
             <planeGeometry args={[100,12]}/>
-            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
+            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false} depthTest={false}/>
         </mesh>
         <mesh position={[0, 0, -25]}>
             <planeGeometry args={[100,12]}/>
-            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
+            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false} depthTest={false}/>
         </mesh>
         <mesh position={[0, -10, -25]}>
             <planeGeometry args={[100,12]}/>
-            <meshBasicMaterial map={texture} transparent depthWrite={false}/>
+            <meshBasicMaterial map={texture} transparent depthWrite={false} depthTest={false}/>
         </mesh>
         <mesh position={[0, -20, -25]}>
             <planeGeometry args={[100,12]}/>
-            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false}/>
+            <meshBasicMaterial map={texture2.clone()} transparent depthWrite={false} depthTest={false}/>
         </mesh>
         <mesh position={[0, -30, -25]}>
             <planeGeometry args={[100,12]}/>
-            <meshBasicMaterial map={texture2} transparent depthWrite={false}/>
+            <meshBasicMaterial map={texture2} transparent depthWrite={false} depthTest={false}/>
         </mesh>
         <mesh position={[0, 0, -35]}>
             <planeGeometry args={[140,100]}/>
-            <meshBasicMaterial color='#2a2a2a' transparent depthWrite={false}/>
+            <meshBasicMaterial color='#2a2a2a' transparent depthWrite={false} depthTest={false}/>
         </mesh>
     </e.group>
   )

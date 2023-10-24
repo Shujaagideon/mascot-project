@@ -7,7 +7,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@re
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state11.json'
+import sceneState from '../assets/state12.json'
 import mobileState from '../assets/mobileState.json'
 
 import {
@@ -27,6 +27,7 @@ import { Banner } from "./scrollingProjects";
 import gsap from "gsap";
 import { useStore } from "../App";
 import Project from "./project";
+import { ModelX } from "./X";
 
 
 export default function R3fCanvas() {
@@ -222,7 +223,7 @@ function Scene({project, loadingManager}) {
       <ProductionText sheet={sheet}/>
       <Planets sheet={sheet} project={project} mascot={MascotRef}/>
       <People sheet={sheet} loadingManager={loadingManager}/>
-      
+      <ModelX/>
       {/* <Sparkles
             count={200}
             size={2}

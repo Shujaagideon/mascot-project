@@ -30,7 +30,7 @@ const RotatingText = ({sheet}) => {
     <>
         <e.mesh theatreKey='rotatingText' position={[0, 0, -40]}>
             <planeGeometry args={[60,180, 1, 1]}/>
-            <meshBasicMaterial ref={ref} map={texture} transparent depthWrite={false}/>
+            <meshBasicMaterial ref={ref} map={texture} transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
     </>
   )
