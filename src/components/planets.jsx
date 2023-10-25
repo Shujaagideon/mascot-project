@@ -41,13 +41,13 @@ const Planets = ({sheet, project, mascot}) => {
     React.useEffect(()=>{
         mascotMat.onValuesChange(val=>{
             setOpacity(val.opacity)
-            ref.current.opacity = val.opacity;
-            ref2.current.opacity = val.opacity;
+            // ref.current.opacity = val.opacity;
+            // ref2.current.opacity = val.opacity;
             // ref3.current.opacity = val.opacity;
             ref4.current.opacity = val.opacity;
 
-            geomRef.current.radius = val.radius
-            geomRef.current.needsupdate = true
+            // geomRef.current.radius = val.radius
+            // geomRef.current.needsupdate = true
             // console.log(geomRef.current.radius)
 
         })
@@ -55,16 +55,16 @@ const Planets = ({sheet, project, mascot}) => {
 
   return (
     <group>
-        <e.mesh theatreKey='planetsBg' position={[0, -20, -35]}>
+        {/* <e.mesh theatreKey='planetsBg' position={[0, -20, -35]}>
             <sphereGeometry args={[35,30, 30]}/>
             <meshStandardMaterial ref={ref} color='#0D0D0D' transparent depthWrite={false}/>
-        </e.mesh>
+        </e.mesh> */}
         
-        <e.spotLight theatreKey='planetsLight' position={[0, 0, -30]}/>
-        <e.mesh theatreKey='planetsBg2' position={[0, -25, -25]}>
+        {/* <e.spotLight theatreKey='planetsLight' position={[0, 0, -30]}/> */}
+        {/* <e.mesh theatreKey='planetsBg2' position={[0, -25, -25]}>
             <sphereGeometry ref={geomRef} args={[25,20, 30]}/>
             <meshStandardMaterial ref={ref2} color='#0b0b0b' transparent depthWrite={false} depthTest={false}/>
-        </e.mesh>
+        </e.mesh> */}
 
         <e.mesh theatreKey='cirlce' position={[0, -25, -25]}>
             <torusGeometry args={[3.786, 2.4552, 2, 30, 6.283185307179586]}/>

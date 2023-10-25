@@ -7,7 +7,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@re
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state12.json'
+import sceneState from '../assets/state13.json'
 import mobileState from '../assets/mobileState.json'
 
 import {
@@ -224,14 +224,14 @@ function Scene({project, loadingManager}) {
       <Planets sheet={sheet} project={project} mascot={MascotRef}/>
       <People sheet={sheet} loadingManager={loadingManager}/>
       <ModelX/>
-      {/* <Sparkles
+      <Sparkles
             count={200}
             size={2}
             speed={0.3}
             opacity={1}
             scale={15}
             color="#ffb5f3"
-          /> */}
+          />
     </>
   );
 }
