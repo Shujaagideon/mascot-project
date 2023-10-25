@@ -12,7 +12,7 @@ import {editable as e} from '@theatre/r3f';
 import * as THREE from 'three';
 import glossyTex from '../assets/glossy2.jpg';
 import tex from '../assets/beam.png';
-import brushTex from '../assets/drawing2.png';
+import brushTex from '../assets/strokes1.png';
 import sideDots from '../assets/tex2.png';
 import disp from '../assets/disp1.jpg';
 import metal from '../assets/metal.jpg';
