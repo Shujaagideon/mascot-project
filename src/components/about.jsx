@@ -21,9 +21,9 @@ const About = () => {
             }>
                 <Canvas gl={{ preserveDrawingBuffer: true }}>
                     <Scene tex={text}/>
-                    <EffectComposer>
+                    {/* <EffectComposer>
                         <Noise opacity={0.8}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
-                    </EffectComposer>
+                    </EffectComposer> */}
                 </Canvas>
             </React.Suspense>
         </div>

@@ -137,6 +137,7 @@ export default function R3fCanvas() {
 function Scene({project, loadingManager}) {
   const { gl } = useThree();
   const MascotRef = React.useRef();
+  const BeamRef = React.useRef();
   const matRef = React.useRef();
   
   const data = useScroll();
@@ -200,7 +201,7 @@ function Scene({project, loadingManager}) {
 
   return (
     <>
-      <Mascot reference={MascotRef} material={material} sheet={sheet}></Mascot>
+      <Mascot reference={MascotRef} beam={BeamRef} material={material} sheet={sheet}></Mascot>
       <e.ambientLight theatreKey="ambientLight" intensity={1.} />
       <e.directionalLight castShadow theatreKey='directionalLight' position={[-5, 5, -5]} intensity={20.5} />
       <e.mesh theatreKey='Background' position={[0, 0, -100]}>
@@ -211,7 +212,7 @@ function Scene({project, loadingManager}) {
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
-      <Planets sheet={sheet} project={project} mascot={MascotRef}/>
+      <Planets sheet={sheet} project={project} beam={BeamRef} mascot={MascotRef}/>
       <People sheet={sheet} loadingManager={loadingManager}/>
       <ModelX/>
       <Sparkles

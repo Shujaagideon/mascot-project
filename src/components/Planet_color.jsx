@@ -21,10 +21,10 @@ export function PlanetColor({opacity, mascot}) {
 
   const hello = ()=>{
     materials.Mat.color = new THREE.Color('#fff');
-    if (mascot.current.position.z !== num){
-      mascot.current.rotation.z = 0;
-    }
-    else{
+    // if (mascot.current.position.z !== num){
+    //   mascot.current.rotation.z = 0;
+    // }
+    // else{
       gsap.fromTo(mascot.current.rotation,{
         z: mascot.current.rotation.z,
         duration: 0.3,
@@ -36,20 +36,7 @@ export function PlanetColor({opacity, mascot}) {
         ease: 'Power.easeOut'
       }
       )
-      gsap.fromTo(mascot.current.position,{
-        x: mascot.current.position.x,
-        y: mascot.current.position.y,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      },
-      {
-        x: 0,
-        y: -4.82,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      }
-      )
-    }
+    // }
 
   }
   

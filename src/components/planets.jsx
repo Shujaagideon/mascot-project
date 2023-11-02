@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import { PlanetColor } from './Planet_color';
 import { Moon } from './Moon';
 
-const Planets = ({sheet, project, mascot}) => {
+const Planets = ({sheet, project, mascot, beam}) => {
     const ref = React.useRef();
     const ref2 = React.useRef();
     const ref3 = React.useRef();
@@ -70,11 +70,11 @@ const Planets = ({sheet, project, mascot}) => {
             <torusGeometry args={[3.786, 2.4552, 2, 30, 6.283185307179586]}/>
             <meshBasicMaterial color='#9988A8' ref={ref4} transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
-        <PlanetColor opacity={opacity} sheet={sheet} beam={refBeam} mascot={mascot}/>
-        <Moon sheet={sheet} pos={0} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon'/>
-        <Moon sheet={sheet} pos={1} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon1'/>
-        <Moon sheet={sheet} pos={2} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon2'/>
-        <Moon sheet={sheet} pos={3} beam={refBeam} mascot={mascot} project={project} opacity={opacity} name='moon3'/>
+        <PlanetColor opacity={opacity} sheet={sheet} beam={beam} mascot={mascot}/>
+        <Moon sheet={sheet} pos={0} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon'/>
+        <Moon sheet={sheet} pos={1} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon1'/>
+        <Moon sheet={sheet} pos={2} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon2'/>
+        <Moon sheet={sheet} pos={3} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon3'/>
     </group>
     
   )

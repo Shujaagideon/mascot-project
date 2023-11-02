@@ -13,13 +13,14 @@ import { useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
 import * as THREE from 'three';
 
-export function Moon({name, pos, opacity, project, mascot}) {
+export function Moon({name, pos, opacity, mascot, beam}) {
   const { nodes, materials } = useGLTF('/moon-transformed.glb');
   const clone = materials['Mat.001'].clone();
   clone.opacity = 0
   clone.transparent = true
   const ref = React.useRef();
   const num = -15.946048795792349;
+  let hovered = 0;
 
   // const sheet = project.sheet(name);
   const configs = [
@@ -42,7 +43,7 @@ export function Moon({name, pos, opacity, project, mascot}) {
     },
     {
       name: 'moon1',
-      mascot: 1.135,
+      mascot: 1.2,
       mascotPos: {
         x: 1.816,
         y: -7.526
@@ -76,7 +77,7 @@ export function Moon({name, pos, opacity, project, mascot}) {
     },
     {
       name: 'moon3',
-      mascot: -1.17,
+      mascot: -1.25,
       mascotPos: {
         x: -3.869,
         y: -5.42
@@ -96,49 +97,27 @@ export function Moon({name, pos, opacity, project, mascot}) {
 
   useFrame(()=>{
     ref.current.rotation.z += 0.008
+    if (beam.current.position.z === num && hovered){
+      mascot.current.rotation.z = configs[pos].mascot
+    }
+    else{
+      null
+    }
   })
   const hello2 = ()=>{
     clone.color = new THREE.Color('#888');
+    hovered = false;
   }
 
   const hello = ()=>{
     clone.color = new THREE.Color('#fff');
-    if (mascot.current.position.z !== num){
-      mascot.current.rotation.z = 0;
-    }
-    else{
-      gsap.fromTo(mascot.current.rotation,{
-        z: mascot.current.rotation.z,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      },
-      {
-        z: configs[pos].mascot,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      })
-      gsap.fromTo(mascot.current.position,{
-        x: mascot.current.position.x,
-        y: mascot.current.position.y,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      },
-      {
-        x: configs[pos].mascotPos.x,
-        y: configs[pos].mascotPos.y,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      })
-    }
-    project.sheet("Scene").sequence.pause()
-
-    // sheet.sequence.play()
+    hovered = true;
+    
   }
 
   React.useEffect(()=>{
     clone.transparent = true;
     clone.opacity = opacity;
-    console.log(opacity)
     if(opacity > 0.8){
       clone.color = new THREE.Color('#888');
     }

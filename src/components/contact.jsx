@@ -16,9 +16,9 @@ const Contact = () => {
         }>
             <Canvas gl={{ preserveDrawingBuffer: true }}>
                 <Scene tex={tex}/>
-                <EffectComposer>
+                {/* <EffectComposer>
                       <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
-                </EffectComposer>
+                </EffectComposer> */}
             </Canvas>
         </React.Suspense>
       </div>

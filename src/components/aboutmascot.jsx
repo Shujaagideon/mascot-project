@@ -57,7 +57,7 @@ const vertexShader = /*glsl*/`
       }
 
       vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
 `
 
@@ -102,9 +102,9 @@ const fragmentShader = /*glsl*/`
     void main() {
       vec4 color = texture2D(uTexture, vUv);
       if(color.a < 0.95)discard;
-      if(color.b < 0.87){
-        color = vec4(mix(color1, color2, snoise(vec2(vUv.x * 6. + time, vUv.y * 6. - time))), 1.);
-      }
+      // if(color.b < 0.87){
+      //   color = vec4(mix(color1, color2, snoise(vec2(vUv.x * 6. + time, vUv.y * 6. - time))), 1.);
+      // }
       gl_FragColor = color;
     }
 `

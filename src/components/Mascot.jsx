@@ -301,7 +301,7 @@ const shader = new THREE.ShaderMaterial({
   `,
 })
 
-export function Mascot({material, sheet, reference}) {
+export function Mascot({material, sheet, reference, beam}) {
   const ref = React.useRef();
   const ref3 = React.useRef();
   const refBeam = React.useRef();
@@ -324,7 +324,7 @@ export function Mascot({material, sheet, reference}) {
     
     const x = (mouse.x * viewport.width) / 2;
     const y = (mouse.y * viewport.height) / 2;
-    if (reference.current.position.z !== num){
+    if (beam.current.position.z !== num){
       gsap.fromTo(reference.current.rotation,{
         z: reference.current.rotation.z,
         ease: 'Power.easeIn',
@@ -419,14 +419,14 @@ export function Mascot({material, sheet, reference}) {
   
   return (
     <e.group theatreKey='mascotPeople'>
-      <e.group theatreKey='Mascot' dispose={null} ref={reference}>
+      <e.group theatreKey='Mascot' dispose={null} ref={beam}>
         <mesh geometry={nodes.Sphere_1.geometry} ref={ref} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
-        <group position={[0, -20, -35]}>
-            <e.mesh theatreKey='planetsBeam' ref={refBeam} scale={[0.43, 0.62, 0]} position={[0, 28.47, 10.21]}>
+        <e.group theatreKey='planetsBeamParent' position={[0, -20, -35]} ref={reference}>
+            <e.mesh theatreKey='planetsBeam' ref={refBeam} position={[0, 28.47, 10.21]}>
                 <planeGeometry args={[100,80]}/>
                 <meshBasicMaterial ref={ref3} map={texture} color="#aaa" side={THREE.DoubleSide} transparent depthWrite={false} depthTest={false}/>
             </e.mesh>
-        </group>
+        </e.group>
       </e.group>
     </e.group>
   )
