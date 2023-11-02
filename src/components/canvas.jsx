@@ -97,26 +97,11 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls eps={0.0001} pages={35} damping={0.08} maxSpeed={0.2}>
+          <ScrollControls eps={0.00001} pages={20} damping={1.2} maxSpeed={20.2}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
             <Scroll html>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>

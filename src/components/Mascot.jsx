@@ -424,7 +424,7 @@ export function Mascot({material, sheet, reference}) {
         <group position={[0, -20, -35]}>
             <e.mesh theatreKey='planetsBeam' ref={refBeam} scale={[0.43, 0.62, 0]} position={[0, 28.47, 10.21]}>
                 <planeGeometry args={[100,80]}/>
-                <meshBasicMaterial ref={ref3} map={texture} color="#fff" side={THREE.DoubleSide} transparent depthWrite={false} depthTest={false}/>
+                <meshBasicMaterial ref={ref3} map={texture} color="#aaa" side={THREE.DoubleSide} transparent depthWrite={false} depthTest={false}/>
             </e.mesh>
         </group>
       </e.group>
