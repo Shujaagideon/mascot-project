@@ -3,29 +3,17 @@
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from 'three';
 import bgImg from '../assets/Background.jpg'
-import text from '../assets/approach.webp';
 import { Sparkles } from "@react-three/drei";
-import React from "react";
 import Aboutmascot from "./aboutmascot";
-import { EffectComposer, Noise } from "@react-three/postprocessing";
-import { BlendFunction, } from "postprocessing";
 import ximage from '../assets/x.png';
+import heroimage from '../assets/approach.webp';
 
 const About = () => {
     
   return (
     <>
         <div className="absolute w-full h-full">
-            <React.Suspense fallback={
-                <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
-            }>
-                <Canvas gl={{ preserveDrawingBuffer: true }}>
-                    <Scene tex={text}/>
-                    {/* <EffectComposer>
-                        <Noise opacity={0.8}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
-                    </EffectComposer> */}
-                </Canvas>
-            </React.Suspense>
+            <img src={heroimage} className="h-4/5 w-4/5" alt="" />
         </div>
         <div className="h-screen fixed z-20 w-full p-2 md:p-5 lg:p-20 bg-transparent flex overflow-hidden">
             <img src={ximage} alt="" className="absolute top-0 right-[10%] h-[50%]" />
