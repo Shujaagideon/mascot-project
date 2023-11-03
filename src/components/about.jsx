@@ -3,17 +3,28 @@
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from 'three';
 import bgImg from '../assets/Background.jpg'
+import text from '../assets/approach.webp';
 import { Sparkles } from "@react-three/drei";
+import React from "react";
 import Aboutmascot from "./aboutmascot";
+import { EffectComposer, Noise } from "@react-three/postprocessing";
+import { BlendFunction, } from "postprocessing";
 import ximage from '../assets/x.png';
-import heroimage from '../assets/approach.webp';
+import bgImage from '../assets/approach.webp';
 
 const About = () => {
     
   return (
     <>
         <div className="absolute w-full h-full">
-            <img src={heroimage} className="h-4/5 w-4/5" alt="" />
+            <React.Suspense fallback={
+                <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
+            }>
+                <img src={bgImage} alt="" className="h-4/5 w-4/5 absolute z-10"/>
+                <Canvas gl={{ preserveDrawingBuffer: true }}>
+                    <Scene/>
+                </Canvas>
+            </React.Suspense>
         </div>
         <div className="h-screen fixed z-20 w-full p-2 md:p-5 lg:p-20 bg-transparent flex overflow-hidden">
             <img src={ximage} alt="" className="absolute top-0 right-[10%] h-[50%]" />
@@ -28,7 +39,7 @@ const About = () => {
                     groundbreaking and transformative technologies.
                 </p>
                 <p className="mb-4 text-center">
-                    Our expertise spans across TTL Campaigns (both Online & Oine),
+                    Our expertise spans across TTL Campaigns (both Online & Offine),
                     XR, MR, AR, VR, Interactive installations, Immersive launches &
                     Shows, along with temporary and permanent installations
                     adaptable to a multitude of industries.
@@ -47,7 +58,7 @@ const About = () => {
 export default About;
 
 
-export function Scene({tex}) {
+export function Scene() {
     // const { scene } = useThree();
   
     const texture = useLoader(THREE.TextureLoader, bgImg);
@@ -66,7 +77,6 @@ export function Scene({tex}) {
           <planeGeometry args={[78, 39]} />
           <meshBasicMaterial map={texture}/>
         </mesh>
-        <Aboutmascot tex={tex}/>
         <Sparkles
             count={200}
             size={2}
