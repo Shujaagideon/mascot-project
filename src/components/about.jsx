@@ -20,7 +20,7 @@ const About = () => {
             <React.Suspense fallback={
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
             }>
-                <img src={bgImage} alt="" className="h-full w-full absolute z-10"/>
+                <img src={bgImage} alt="" className="h-full w-full absolute z-10 object-cover"/>
                 <Canvas gl={{ preserveDrawingBuffer: true }}>
                     <Scene/>
                 </Canvas>
