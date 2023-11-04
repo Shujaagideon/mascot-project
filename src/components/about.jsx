@@ -16,11 +16,11 @@ const About = () => {
     
   return (
     <>
-        <div className="absolute w-full h-full">
+        <div className="absolute w-full h-full overflow-hidden">
             <React.Suspense fallback={
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
             }>
-                <img src={bgImage} alt="" className="h-full w-full absolute z-10 object-cover"/>
+                <img src={bgImage} alt="" className="h-[98%] w-[110%] object-left-bottom absolute z-10 object-cover"/>
                 <Canvas gl={{ preserveDrawingBuffer: true }}>
                     <Scene/>
                 </Canvas>
@@ -28,7 +28,7 @@ const About = () => {
         </div>
         <div className="h-screen fixed z-20 w-full p-2 md:p-5 lg:p-20 bg-transparent flex overflow-hidden">
             <img src={ximage} alt="" className="absolute top-0 right-[10%] h-[50%]" />
-            <div className="w-full overscroll-y-scroll md:w-4/5  xl:w-2/5 h-fit text-slate-100 backdrop-blur-md ml-auto mt-24 text-sm md:text-base md:mt-auto border border-slate-100 rounded-xl p-4 md:p-10">
+            <div className="w-full overscroll-y-scroll md:w-4/5  xl:w-[45%] h-fit text-slate-100 backdrop-blur-md ml-auto lg:mt-24 xl:mt-28 text-sm md:text-base md:mt-auto border border-slate-100 rounded-xl p-4 md:p-6">
                 <p className="mb-4 text-center">TACTECH New Media Solutions is a burgeoning assembly of
                     acclaimed artists, forward-thinking visionaries, inventive coders,
                     skillful animators, resourceful designers, and adept engineers.
