@@ -7,7 +7,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@re
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state14.json'
+import sceneState from '../assets/state.json'
 import mobileState from '../assets/mobileState.json'
 
 import {
@@ -97,11 +97,12 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls eps={0.00001} pages={20} damping={1.2} maxSpeed={20.2}>
+          <ScrollControls eps={0.0001} pages={10} damping={1.8} maxSpeed={40}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
             <Scroll html>
+                {/* <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
@@ -119,11 +120,10 @@ export default function R3fCanvas() {
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen"></div>
-                <div className="h-screen w-screen flex justify-center items-center">
+                <div className="h-screen w-screen"></div> */}
+                {/* <div className="h-screen w-screen flex justify-center items-center">
                   <Banner images={images} projectRef={projectRef} speed={60000} />
-                </div>
+                </div> */}
             </Scroll>
           </ScrollControls>
         </Canvas>
@@ -139,6 +139,7 @@ function Scene({project, loadingManager}) {
   const MascotRef = React.useRef();
   const BeamRef = React.useRef();
   const matRef = React.useRef();
+  const matRef2 = React.useRef();
   
   const data = useScroll();
 
@@ -159,12 +160,17 @@ function Scene({project, loadingManager}) {
       nudgeMultiplier: 0.1,
       range: [0, 1]
     }),
+    bgOpacity2: t.number(1, {
+      nudgeMultiplier: 0.01,
+      range: [0, 1]
+    }),
   },{reconfigure: true});
 
   React.useEffect(()=>{
     mascotMat.onValuesChange(val=>{
       material.opacity = val.opacity
       matRef.current.opacity = val.bgOpacity
+      matRef2.current.opacity = val.bgOpacity2
     })
   },[])
 
@@ -207,6 +213,10 @@ function Scene({project, loadingManager}) {
       <e.mesh theatreKey='Background' position={[0, 0, -100]}>
         <planeGeometry args={[78, 39]} />
         <meshStandardMaterial ref={matRef} map={texture} transparent/>
+      </e.mesh>
+      <e.mesh theatreKey='Background2' position={[0, 0, 0]}>
+        <planeGeometry args={[78, 39]} />
+        <meshStandardMaterial ref={matRef2} map={texture} transparent depthTest={false} depthWrite={false}/>
       </e.mesh>
       <IntroText sheet={sheet} loadingManager={loadingManager}/>
       <FallingTexts sheet={sheet}/>
