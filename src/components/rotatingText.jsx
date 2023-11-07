@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import {editable as e} from "@theatre/r3f";
 import { types as t } from "@theatre/core";
-import tex from '../assets/mediaDev.png';
+import tex from '../assets/mediaDev1.png';
 import * as THREE from 'three'
 import React from "react";
 
