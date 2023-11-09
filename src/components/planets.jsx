@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react'
 import tex from '../assets/beam.png';
+import tex3 from '../assets/beamBg.png';
 import tex2 from '../assets/circle.png';
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
@@ -15,6 +16,7 @@ const Planets = ({sheet, project, mascot, beam}) => {
     const ref2 = React.useRef();
     const ref3 = React.useRef();
     const ref4 = React.useRef();
+    const ref5 = React.useRef();
     const refBeam = React.useRef();
     const geomRef = React.useRef();
 
@@ -24,6 +26,9 @@ const Planets = ({sheet, project, mascot, beam}) => {
 
     const texture2 = useLoader(THREE.TextureLoader, tex2);
     texture2.colorSpace = THREE.SRGBColorSpace;
+
+    const texture3 = useLoader(THREE.TextureLoader, tex3);
+    texture3.colorSpace = THREE.SRGBColorSpace;
 
     
 
@@ -45,6 +50,7 @@ const Planets = ({sheet, project, mascot, beam}) => {
             // ref2.current.opacity = val.opacity;
             // ref3.current.opacity = val.opacity;
             ref4.current.opacity = val.opacity;
+            ref5.current.opacity = val.opacity;
 
             // geomRef.current.radius = val.radius
             // geomRef.current.needsupdate = true
@@ -69,6 +75,10 @@ const Planets = ({sheet, project, mascot, beam}) => {
         <e.mesh theatreKey='cirlce' position={[0, -25, -25]}>
             <torusGeometry args={[3.786, 2.4552, 2, 30, 6.283185307179586]}/>
             <meshBasicMaterial color='#9988A8' ref={ref4} transparent depthWrite={false} depthTest={false}/>
+        </e.mesh>
+        <e.mesh theatreKey='cirlceBg' position={[0, -25, -25]}>
+            <planeGeometry args={[1,1]}/>
+            <meshBasicMaterial color='#9988A8' map={texture3} ref={ref5} transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
         <PlanetColor opacity={opacity} sheet={sheet} beam={beam} mascot={mascot}/>
         <Moon sheet={sheet} pos={0} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon'/>

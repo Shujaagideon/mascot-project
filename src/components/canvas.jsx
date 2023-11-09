@@ -7,7 +7,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@re
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg'
 import * as THREE from 'three'
-import sceneState from '../assets/state.json'
+import sceneState from '../assets/state2.json'
 import mobileState from '../assets/mobileState.json'
 
 import {
@@ -97,7 +97,7 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls eps={0.0001} pages={10} damping={1.8} maxSpeed={40}>
+          <ScrollControls eps={0.000001} pages={10} damping={1.8} maxSpeed={40}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
@@ -132,7 +132,38 @@ export default function R3fCanvas() {
   );
 }
 
+const shader = new THREE.ShaderMaterial({
+  uniforms:{
+    opacity:{value: 1.},
+  },
+  transparent: true,
+  vertexShader: /* glsl */`
+    varying vec3 vNormal;
+    varying vec3 vLightPos;
+    varying vec3 vPosition;
+    varying vec2 vUv;
+  
+    void main() {
+      vUv = uv;
+      vNormal = normal;
+      vPosition = position;
+      vLightPos = (modelViewMatrix * vec4(vec3( -2., 3, -4), 1.0)).xyz;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: /*glsl */`
+    varying vec3 vNormal;
+    varying vec3 vLightPos;
+    uniform float opacity;
 
+    void main(){
+      float light = dot(vNormal, normalize(vLightPos)) * 0.5 + 0.5;
+      light = clamp(light, 0.5, 1.);
+
+      gl_FragColor = vec4(vec3(light) + vec3(.25), opacity);
+    }
+  `
+})
 
 function Scene({project, loadingManager}) {
   const { gl } = useThree();
@@ -148,9 +179,7 @@ function Scene({project, loadingManager}) {
   texture.colorSpace = THREE.SRGBColorSpace;
 
   const sheet = useCurrentSheet();
-  const material = new THREE.MeshStandardMaterial({
-    transparent:true,
-  })
+  const material = shader
   const mascotMat = sheet.object('MascotMat',{
     opacity: t.number(0, {
       nudgeMultiplier: 0.1,
@@ -168,7 +197,7 @@ function Scene({project, loadingManager}) {
 
   React.useEffect(()=>{
     mascotMat.onValuesChange(val=>{
-      material.opacity = val.opacity
+      material.uniforms.opacity.value = val.opacity
       matRef.current.opacity = val.bgOpacity
       matRef2.current.opacity = val.bgOpacity2
     })
