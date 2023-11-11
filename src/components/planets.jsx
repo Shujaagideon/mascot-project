@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react'
 import tex from '../assets/beam.png';
-import tex3 from '../assets/beamBg.png';
+import tex3 from '../assets/bgWorld.jpg';
 import tex2 from '../assets/circle.png';
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
@@ -28,7 +28,7 @@ const Planets = ({sheet, project, mascot, beam}) => {
     texture2.colorSpace = THREE.SRGBColorSpace;
 
     const texture3 = useLoader(THREE.TextureLoader, tex3);
-    texture3.colorSpace = THREE.SRGBColorSpace;
+    // texture3.colorSpace = THREE.SRGBColorSpace;
 
     
 
@@ -78,7 +78,7 @@ const Planets = ({sheet, project, mascot, beam}) => {
         </e.mesh>
         <e.mesh theatreKey='cirlceBg' position={[0, -25, -25]}>
             <planeGeometry args={[1,1]}/>
-            <meshBasicMaterial color='#9988A8' map={texture3} ref={ref5} transparent depthWrite={false} depthTest={false}/>
+            <meshBasicMaterial map={texture3} ref={ref5} transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
         <PlanetColor opacity={opacity} sheet={sheet} beam={beam} mascot={mascot}/>
         <Moon sheet={sheet} pos={0} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon'/>

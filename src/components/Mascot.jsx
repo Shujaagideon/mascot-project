@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import {editable as e} from '@theatre/r3f';
 import * as THREE from 'three';
 import glossyTex from '../assets/glossy2.jpg';
-import tex from '../assets/beam12.png';
+import tex from '../assets/beam1.webp';
 import brushTex from '../assets/drawing2.png';
 import sideDots from '../assets/tex2.png';
 import disp from '../assets/disp1.jpg';
@@ -424,7 +424,7 @@ export function Mascot({material, sheet, reference, beam}) {
         <e.group theatreKey='planetsBeamParent' position={[0, -20, -35]} ref={reference}>
             <e.mesh theatreKey='planetsBeam' ref={refBeam} position={[0, 28.47, 10.21]}>
                 <planeGeometry args={[100,80]}/>
-                <meshBasicMaterial ref={ref3} map={texture} color="#aaa" side={THREE.DoubleSide} transparent depthWrite={false} depthTest={false}/>
+                <meshBasicMaterial ref={ref3} map={texture} color="#999" side={THREE.DoubleSide} transparent depthWrite={false} depthTest={false}/>
             </e.mesh>
         </e.group>
       </e.group>
