@@ -97,7 +97,7 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls eps={0.000001} pages={10} damping={1.8} maxSpeed={40}>
+          <ScrollControls eps={0.00001} pages={14} damping={1.5} maxSpeed={30}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
