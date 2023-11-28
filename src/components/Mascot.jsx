@@ -325,15 +325,15 @@ export function Mascot({material, sheet, reference, beam}) {
     const x = (mouse.x * viewport.width) / 2;
     const y = (mouse.y * viewport.height) / 2;
     if (beam.current.position.z !== num){
-      gsap.fromTo(reference.current.rotation,{
-        z: reference.current.rotation.z,
-        ease: 'Power.easeIn',
-        duration: 0.6
-      },{
-        z: y * 0.01,
-        ease: 'Power.easeIn',
-        duration: 0.6
-      })
+      // gsap.fromTo(reference.current.rotation,{
+      //   z: reference.current.rotation.z,
+      //   ease: 'Power.easeIn',
+      //   duration: 0.6
+      // },{
+      //   z: y * 0.01,
+      //   ease: 'Power.easeIn',
+      //   duration: 0.6
+      // })
     }
     else{
       null
@@ -401,7 +401,7 @@ export function Mascot({material, sheet, reference, beam}) {
       uniforms.lightPos.value.y = val.lightPos.y;
       uniforms.lightPos.value.z = val.lightPos.z;
 
-      ref3.current.opacity = val.beamOpacity
+      // ref3.current.opacity = val.beamOpacity
       shader.needsUpdate = true
       setChanger(val.materialChanger);
       if(val.materialChanger <= 0){
@@ -421,12 +421,12 @@ export function Mascot({material, sheet, reference, beam}) {
     <e.group theatreKey='mascotPeople'>
       <e.group theatreKey='Mascot' dispose={null} ref={beam}>
         <mesh geometry={nodes.Sphere_1.geometry} ref={ref} position={[0, 2, 0]} rotation={[Math.PI / 2, 0, 0]}/>
-        <e.group theatreKey='planetsBeamParent' position={[0, -20, -35]} ref={reference}>
+        {/* <e.group theatreKey='planetsBeamParent' position={[0, -20, -35]} ref={reference}>
             <e.mesh theatreKey='planetsBeam' ref={refBeam} position={[0, 28.47, 10.21]}>
                 <planeGeometry args={[100,80]}/>
                 <meshBasicMaterial ref={ref3} map={texture} color="#999" side={THREE.DoubleSide} transparent depthWrite={false} depthTest={false}/>
             </e.mesh>
-        </e.group>
+        </e.group> */}
       </e.group>
     </e.group>
   )

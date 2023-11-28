@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 import React from 'react'
 import tex from '../assets/beam.png';
-import tex3 from '../assets/bgWorld.jpg';
+import tex3 from '../assets/planets1.png';
 import tex2 from '../assets/circle.png';
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
