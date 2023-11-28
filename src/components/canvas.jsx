@@ -2,13 +2,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
+
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { Circle, Loader, Scroll, ScrollControls, Sparkles, useScroll } from "@react-three/drei";
 import { getProject, val, types as t } from "@theatre/core";
-import bgImg from '../assets/Background.jpg'
-import * as THREE from 'three'
-import sceneState from '../assets/state4.json'
-import mobileState from '../assets/mobileState.json'
+import bgImg from '../assets/Background.jpg';
+import * as THREE from 'three';
+import sceneState from '../assets/state4.json';
+import mobileState from '../assets/mobileState.json';
 
 import {
   SheetProvider,
@@ -28,6 +29,7 @@ import gsap from "gsap";
 import { useStore } from "../App";
 import Project from "./project";
 import { ModelX } from "./X";
+import { useScrollHijack } from "./scrollHook";
 
 
 export default function R3fCanvas() {
@@ -97,7 +99,7 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls eps={0.0002} pages={12} damping={1.8} maxSpeed={50}>
+          <ScrollControls maxSpeed={50} damping={0.2} eps={0.00001} pages={15}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
@@ -171,8 +173,10 @@ function Scene({project, loadingManager}) {
   const BeamRef = React.useRef();
   const matRef = React.useRef();
   const matRef2 = React.useRef();
+  const percentages = [0, 17.895, 28.955, 37.204, 47.363, 58.531, 67.142, 72.421, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
+  useScrollHijack(data.el, percentages);
 
 
   const texture = useLoader(THREE.TextureLoader, bgImg);
@@ -196,6 +200,9 @@ function Scene({project, loadingManager}) {
   },{reconfigure: true});
 
   React.useEffect(()=>{
+    data.el.onscroll = () => {
+      // console.log(data.el.scrollTop)
+    }
     mascotMat.onValuesChange(val=>{
       material.uniforms.opacity.value = val.opacity
       matRef.current.opacity = val.bgOpacity
