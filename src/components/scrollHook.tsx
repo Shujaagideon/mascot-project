@@ -47,8 +47,16 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
 
     gsap.to(scrollElement,{
       scrollTop: scrollTo,
-      duration: 6,
-      ease: 'sine.inOut',
+      duration: currentIndex === 0 ? 7:
+                currentIndex === 1 ? 7:
+                currentIndex === 2 ? 6:
+                currentIndex === 3 ? 6:
+                currentIndex === 4 ? 12:
+                currentIndex === 5 ? 7:
+                currentIndex === 6 ? 7:
+                currentIndex === 7 ? 12:
+                4,
+      ease: 'power1.inOut',
       onComplete: ()=>{
         isScrolling = false;
       }

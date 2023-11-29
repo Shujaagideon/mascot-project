@@ -173,7 +173,7 @@ function Scene({project, loadingManager}) {
   const BeamRef = React.useRef();
   const matRef = React.useRef();
   const matRef2 = React.useRef();
-  const percentages = [0, 17.895, 28.955, 37.204, 47.363, 58.531, 67.142, 72.421, 100]; // Adjust these values based on your percentages
+  const percentages = [0, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
   useScrollHijack(data.el, percentages);
