@@ -54,7 +54,7 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
                 currentIndex === 4 ? 12:
                 currentIndex === 5 ? 7:
                 currentIndex === 6 ? 7:
-                currentIndex === 7 ? 12:
+                currentIndex === 7 ? 10:
                 4,
       ease: 'power1.inOut',
       onComplete: ()=>{
