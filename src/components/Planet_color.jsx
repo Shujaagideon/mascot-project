@@ -11,31 +11,36 @@ import { editable as e } from "@theatre/r3f";
 import * as THREE from 'three';
 import gsap from 'gsap';
 
-export function PlanetColor({opacity, mascot}) {
+export function PlanetColor({opacity, mascot, hovered}) {
   const { nodes, materials } = useGLTF('/planet_color-transformed.glb');
-  const num = -15.946048795792349;
 
   const hello2 = ()=>{
-    materials.Mat.color = new THREE.Color('#888');
+    hovered.forEach(element => {
+      element.color = new THREE.Color('#888')
+    });
+    // materials.Mat.color = new THREE.Color('#888');
   }
 
   const hello = ()=>{
+    hovered.forEach(element => {
+      element.color = new THREE.Color('#fff')
+    });
     materials.Mat.color = new THREE.Color('#fff');
     // if (mascot.current.position.z !== num){
     //   mascot.current.rotation.z = 0;
     // }
     // else{
-      gsap.fromTo(mascot.current.rotation,{
-        z: mascot.current.rotation.z,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      },
-      {
-        z: 0,
-        duration: 0.3,
-        ease: 'Power.easeOut'
-      }
-      )
+      // gsap.fromTo(mascot.current.rotation,{
+      //   z: mascot.current.rotation.z,
+      //   duration: 0.3,
+      //   ease: 'Power.easeOut'
+      // },
+      // {
+      //   z: 0,
+      //   duration: 0.3,
+      //   ease: 'Power.easeOut'
+      // }
+      // )
     // }
 
   }
@@ -43,7 +48,7 @@ export function PlanetColor({opacity, mascot}) {
   React.useEffect(()=>{
       materials.Mat.transparent = true;
       materials.Mat.opacity = opacity;
-      materials.Mat.color = new THREE.Color('#888');
+      materials.Mat.color = new THREE.Color('#fff');
   },[opacity])
   return (
     <e.group theatreKey='planet_color' dispose={null} onPointerLeave={()=>hello2()} onPointerEnter={()=>hello()} onClick={()=>hello()}>

@@ -39,11 +39,11 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
       }
     }
 
-    console.log(currentIndex);
+    // console.log(currentIndex);
 
     const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
     const scrollTo = percentages[currentIndex] * scrollHeight / 100;
-    console.log(scrollTo)
+    // console.log(scrollTo)
 
     gsap.to(scrollElement,{
       scrollTop: scrollTo,

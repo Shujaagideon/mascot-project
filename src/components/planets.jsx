@@ -21,6 +21,7 @@ const Planets = ({sheet, project, mascot, beam}) => {
     const geomRef = React.useRef();
 
     const [opacity, setOpacity] = React.useState(0);
+    const hovered = [];
     const texture = useLoader(THREE.TextureLoader, tex);
     texture.colorSpace = THREE.SRGBColorSpace;
 
@@ -80,11 +81,11 @@ const Planets = ({sheet, project, mascot, beam}) => {
             <planeGeometry args={[1,1]}/>
             <meshBasicMaterial map={texture3} ref={ref5} transparent depthWrite={false} depthTest={false}/>
         </e.mesh>
-        <PlanetColor opacity={opacity} sheet={sheet} beam={beam} mascot={mascot}/>
-        <Moon sheet={sheet} pos={0} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon'/>
-        <Moon sheet={sheet} pos={1} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon1'/>
-        <Moon sheet={sheet} pos={2} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon2'/>
-        <Moon sheet={sheet} pos={3} beam={beam} mascot={mascot} project={project} opacity={opacity} name='moon3'/>
+        <Moon sheet={sheet} pos={0} beam={beam} mascot={mascot} project={project} hovered={hovered} opacity={opacity} name='moon'/>
+        <Moon sheet={sheet} pos={1} beam={beam} mascot={mascot} project={project} hovered={hovered} opacity={opacity} name='moon1'/>
+        <Moon sheet={sheet} pos={2} beam={beam} mascot={mascot} project={project} hovered={hovered} opacity={opacity} name='moon2'/>
+        <Moon sheet={sheet} pos={3} beam={beam} mascot={mascot} project={project} hovered={hovered} opacity={opacity} name='moon3'/>
+        <PlanetColor opacity={opacity} sheet={sheet} beam={beam} mascot={mascot} hovered={hovered}/>
     </group>
     
   )

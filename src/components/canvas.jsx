@@ -201,7 +201,7 @@ function Scene({project, loadingManager}) {
 
   React.useEffect(()=>{
     data.el.onscroll = () => {
-      console.log(data.el.scrollTop)
+      // console.log(data.el.scrollTop)
     }
     mascotMat.onValuesChange(val=>{
       material.uniforms.opacity.value = val.opacity
