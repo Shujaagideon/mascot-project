@@ -99,7 +99,7 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls maxSpeed={50} damping={0.2} eps={0.00001} pages={15}>
+          <ScrollControls maxSpeed={50} damping={2} eps={0.001} pages={20}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
@@ -173,7 +173,7 @@ function Scene({project, loadingManager}) {
   const BeamRef = React.useRef();
   const matRef = React.useRef();
   const matRef2 = React.useRef();
-  const percentages = [0, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
+  const percentages = [0, 6.360, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
   useScrollHijack(data.el, percentages);
@@ -201,7 +201,7 @@ function Scene({project, loadingManager}) {
 
   React.useEffect(()=>{
     data.el.onscroll = () => {
-      // console.log(data.el.scrollTop)
+      console.log(data.el.scrollTop)
     }
     mascotMat.onValuesChange(val=>{
       material.uniforms.opacity.value = val.opacity
