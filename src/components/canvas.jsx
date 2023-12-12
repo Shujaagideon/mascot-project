@@ -99,7 +99,7 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls maxSpeed={50} damping={2} eps={0.001} pages={20}>
+          <ScrollControls maxSpeed={50} damping={2} eps={0.002} pages={20}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
@@ -200,9 +200,9 @@ function Scene({project, loadingManager}) {
   },{reconfigure: true});
 
   React.useEffect(()=>{
-    data.el.onscroll = () => {
-      // console.log(data.el.scrollTop)
-    }
+    // data.el.onscroll = () => {
+    //   // console.log(data.el.scrollTop)
+    // }
     mascotMat.onValuesChange(val=>{
       material.uniforms.opacity.value = val.opacity
       matRef.current.opacity = val.bgOpacity

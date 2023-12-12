@@ -34,7 +34,7 @@ const FallingTexts = ({sheet}) => {
   return (
     <e.mesh theatreKey='fallingText' position={[0, 0, -35]}>
         <planeGeometry args={[100,100]}/>
-        <meshBasicMaterial ref={ref} map={texture} transparent depthWrite={false}/>
+        <meshBasicMaterial ref={ref} map={texture} transparent depthWrite={false} depthTest={false}/>
     </e.mesh>
   )
 }

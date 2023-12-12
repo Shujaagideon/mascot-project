@@ -56,7 +56,7 @@ const IntroText = ({sheet, loadingManager}) => {
       <e.mesh theatreKey='text2' position={[0,0, -21]}>
           <planeGeometry args={[75, 45]}/>
           <Suspense fallback={null}>
-            <meshBasicMaterial ref={ref} depthTest={false} transparent map={textures[0]} toneMapped={false} />
+            <meshBasicMaterial ref={ref} depthWrite={false} depthTest={false} transparent map={textures[0]} toneMapped={false} />
           </Suspense>
       </e.mesh>
     </group>

@@ -57,7 +57,7 @@ const People = ({sheet, loadingManager}) => {
       <e.mesh theatreKey='peopleMascot' position={[0,0, -21]}>
           <planeGeometry args={[75, 45]}/>
           <Suspense fallback={null}>
-            <meshStandardMaterial ref={ref} transparent map={textures[0]} toneMapped={false} />
+            <meshStandardMaterial ref={ref} depthWrite={false} depthTest={false} transparent map={textures[0]} toneMapped={false} />
           </Suspense>
       </e.mesh>
     </group>

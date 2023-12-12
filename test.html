@@ -3,68 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.9.0/dist/gsap.min.js"></script>
   <style>
-    body {
-      height: 200vh; /* Make the body taller to enable scrolling */
-    }
+    body { margin: 0; }
   </style>
-  <title>Scroll Hijack</title>
 </head>
 <body>
 
 <script>
-  // Array of points
-  const points = [
-    0,   // Adjust these values based on your points
-    500,
-    1000,
-    // Add more points as needed
-  ];
+  // Set up Three.js scene
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
 
-  let currentIndex = 0;
-  let isScrolling = false;
+  // Create a cube with MeshBasicMaterial
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshBasicMaterial({ color: 0x808080 }); // Grey color
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
 
-  // Function to scroll to the specified point
-  function scrollToIndex(index) {
-    isScrolling = true;
+  // Set up camera position
+  camera.position.z = 5;
 
-    window.scrollTo({
-      top: points[index],
-      behavior: 'smooth'
-    });
+  // GSAP animation to change color from grey to white
+  gsap.to(material.color, {
+    r: 1, // Set red component to 1 (white)
+    g: 1, // Set green component to 1 (white)
+    b: 1, // Set blue component to 1 (white)
+    duration: 2, // Animation duration in seconds
+    onUpdate: () => {
+      // Render the scene on each update
+      renderer.render(scene, camera);
+    },
+  });
 
-    // Add an event listener to reset the scrolling flag when the scrolling is complete
-    window.addEventListener('scroll', () => {
-      isScrolling = false;
-    }, { once: true });
+  // Additional rotation animation
+  gsap.to(cube.rotation, {
+    y: Math.PI * 2, // Rotate around Y axis
+    duration: 2,
+    repeat: -1, // Repeat indefinitely
+    ease: 'power1.inOut', // Easing function
+  });
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
   }
 
-  // Event listener for wheel scrolling
-  function handleWheel(event) {
-    // Check if the user is scrolling down or up
-    const delta = Math.sign(event.deltaY);
-
-    // If the page is currently scrolling, prevent further scrolling
-    if (isScrolling) {
-      event.preventDefault();
-      return;
-    }
-
-    // Update the current index based on the scroll direction
-    currentIndex += delta;
-
-    // Ensure the index stays within the bounds of the array
-    currentIndex = Math.max(0, Math.min(currentIndex, points.length - 1));
-
-    // Scroll to the new index
-    scrollToIndex(currentIndex);
-
-    // Prevent the default scroll behavior
-    event.preventDefault();
-  }
-
-  // Add the wheel event listener to the document
-  document.addEventListener('wheel', handleWheel);
+  animate();
 </script>
 
 </body>

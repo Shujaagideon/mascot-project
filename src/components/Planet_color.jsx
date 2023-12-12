@@ -16,14 +16,26 @@ export function PlanetColor({opacity, mascot, hovered}) {
 
   const hello2 = ()=>{
     hovered.forEach(element => {
-      element.color = new THREE.Color('#888')
+      gsap.to(element.color, {
+        r: 0.3, // Set red component to 1 (white)
+        g: 0.3, // Set green component to 1 (white)
+        b: 0.4, // Set blue component to 1 (white)
+        duration: 2, // Animation duration in seconds
+      });
+      // element.color = new THREE.Color('#888')
     });
     // materials.Mat.color = new THREE.Color('#888');
   }
 
   const hello = ()=>{
     hovered.forEach(element => {
-      element.color = new THREE.Color('#fff')
+      // element.color = new THREE.Color('#fff')
+      gsap.to(element.color, {
+        r: 0.8, // Set red component to 1 (white)
+        g: 0.8, // Set green component to 1 (white)
+        b: 0.8, // Set blue component to 1 (white)
+        duration: 2, // Animation duration in seconds
+      });
     });
     materials.Mat.color = new THREE.Color('#fff');
     // if (mascot.current.position.z !== num){
