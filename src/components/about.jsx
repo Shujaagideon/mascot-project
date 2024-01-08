@@ -17,12 +17,23 @@ const About = () => {
   return (
     <>
         <div className="absolute w-full h-full overflow-hidden">
-            <React.Suspense fallback={
+            {/* <React.Suspense fallback={
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
             }>
                 <img src={bgImage} alt="" className="h-[98%] w-[110%] object-left-bottom absolute z-10 object-cover"/>
                 <Canvas gl={{ preserveDrawingBuffer: true }}>
                     <Scene/>
+                </Canvas>
+            </React.Suspense> */}
+
+            <React.Suspense fallback={
+                <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
+            }>
+                <Canvas gl={{ preserveDrawingBuffer: true }}>
+                    <Scene tex={text}/>
+                    <EffectComposer>
+                        <Noise opacity={0.8}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
+                    </EffectComposer>
                 </Canvas>
             </React.Suspense>
         </div>
@@ -58,7 +69,7 @@ const About = () => {
 export default About;
 
 
-export function Scene() {
+export function Scene({tex}) {
     // const { scene } = useThree();
   
     const texture = useLoader(THREE.TextureLoader, bgImg);
@@ -77,6 +88,7 @@ export function Scene() {
           <planeGeometry args={[78, 39]} />
           <meshBasicMaterial map={texture}/>
         </mesh>
+        <Aboutmascot tex={tex}/>
         <Sparkles
             count={200}
             size={2}

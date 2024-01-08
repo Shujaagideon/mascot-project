@@ -11,14 +11,24 @@ const Contact = () => {
   return (
     <>
       <div className="absolute w-full h-full">
-      <React.Suspense fallback={
+      {/* <React.Suspense fallback={
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
             }>
                 <img src={tex} alt="" className="h-[90%] w-[90%] absolute z-10"/>
                 <Canvas gl={{ preserveDrawingBuffer: true }}>
                     <Scene/>
                 </Canvas>
-            </React.Suspense>
+            </React.Suspense> */}
+        <React.Suspense fallback={
+                <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
+        }>
+            <Canvas gl={{ preserveDrawingBuffer: true }}>
+                <Scene tex={tex}/>
+                <EffectComposer>
+                      <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
+                </EffectComposer>
+            </Canvas>
+        </React.Suspense>
       </div>
       <div className='h-screen overscroll-y-auto fixed flex justify-center items-center w-full px-5 lg:px-20 z-30 bg-transparent'>
           <div className="w-full my-auto">
