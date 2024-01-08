@@ -7,7 +7,7 @@ Command: npx gltfjsx@6.2.3 x.glb --transform
 // import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import React from 'react'
-import tex from '../assets/x.png';
+import tex from '../assets/x1.png';
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
 import { useLoader } from '@react-three/fiber';

@@ -20,11 +20,11 @@ export function PlanetColor({opacity, mascot, hovered}) {
         r: 0.3, // Set red component to 1 (white)
         g: 0.3, // Set green component to 1 (white)
         b: 0.4, // Set blue component to 1 (white)
-        duration: 2, // Animation duration in seconds
+        duration: 1, // Animation duration in seconds
       });
       // element.color = new THREE.Color('#888')
     });
-    // materials.Mat.color = new THREE.Color('#888');
+    materials.Mat.color = new THREE.Color('#aaa');
   }
 
   const hello = ()=>{
@@ -34,7 +34,7 @@ export function PlanetColor({opacity, mascot, hovered}) {
         r: 0.8, // Set red component to 1 (white)
         g: 0.8, // Set green component to 1 (white)
         b: 0.8, // Set blue component to 1 (white)
-        duration: 2, // Animation duration in seconds
+        duration: 1, // Animation duration in seconds
       });
     });
     materials.Mat.color = new THREE.Color('#fff');

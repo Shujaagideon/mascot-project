@@ -49,13 +49,13 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
       scrollTop: scrollTo,
       duration: currentIndex === 0 ? 2.5:
                 currentIndex === 1 ? 2:
-                currentIndex === 2 ? 6:
-                currentIndex === 3 ? 6:
-                currentIndex === 4 ? 6:
-                currentIndex === 5 ? 12:
-                currentIndex === 6 ? 5:
-                currentIndex === 7 ? 5:
-                currentIndex === 8 ? 8:
+                currentIndex === 2 ? 5:
+                currentIndex === 3 ? 5:
+                currentIndex === 4 ? 5:
+                currentIndex === 5 ? 10:
+                currentIndex === 6 ? 4:
+                currentIndex === 7 ? 4:
+                currentIndex === 8 ? 7:
                 4,
       ease: 'sine.inOut',
       onComplete: ()=>{
