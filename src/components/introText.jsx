@@ -1,17 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
-import { useThree } from "@react-three/fiber";
 import * as THREE from 'three';
 import {editable as e} from "@theatre/r3f";
 import { types as t } from "@theatre/core";
-import React, { useMemo } from "react";
-import { Suspense } from "react";
+import React from "react";
 import gsap from "gsap";
 import { useProgress } from "@react-three/drei";
 
 const myImgs = [];
 for(let i=1; i< 511; i++){
-  if (i === 39 || i === 40 || i === 41 || i === 42 ||i === 43 ||i === 44 || i === 45 || i === 46){}else{
+  if (i === 39 || i === 40 || i === 41 || i === 42 ||i === 43 ||i === 44 || i === 45 || i === 46){ /* empty */ }else{
     myImgs.push(`/mascotIntro/out_${i}.jpg`)
   }
 }
@@ -29,8 +27,6 @@ const IntroText = ({sheet}) => {
   const ref = React.useRef(null);
   // let factor = {value:0};
   const { progress:loaded } = useProgress()
-
-  console.log(textures)
 
   const mascotMat = sheet.object('circlesMat',{
     opacity: t.number(1, {
@@ -75,7 +71,7 @@ const IntroText = ({sheet}) => {
         }
       })
     }
-  },[loaded, mascotMat, textures])
+  },[loaded, mascotMat])
 
   return (
     <group>

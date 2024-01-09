@@ -10,7 +10,7 @@ import Aboutmascot from "./aboutmascot";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
 import { BlendFunction, } from "postprocessing";
 import ximage from '../assets/x.png';
-import bgImage from '../assets/approach.webp';
+// import bgImage from '../assets/approach.webp';
 
 const About = () => {
     
