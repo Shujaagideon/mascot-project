@@ -97,28 +97,14 @@ export default function R3fCanvas() {
     image
   }));
 
-  console.log('----- Rendered ------')
-
-  const hasLoadedBefore = useRef(true)
-  useEffect(()=> {
-    if(hasLoadedBefore.current){
-      //your initializing code runs only once
-      console.log("Effect ran")
-      hasLoadedBefore.current = false;
-    } else{
-      //subsequent renders
-    }
-  }, [])
 
 
   return (
     <>
-      {/* <div id="welcomeParent" loading className="fixed z-40 top-0 bg-[#171717] left-0 h-screen w-screen">
-        <div className="relative w-full h-full flex justify-center items-center">
-          <span id="welcome" className="text-neutral-600 opacity-0 text-lg font-semibold rounded-full w-40 h-40 flex justify-center items-center">Welcome</span>
-        </div>
-      </div> */}
       <Suspense fallback={<Loader/>}>
+        <div className="fixed z-40 top-0 bg-[#171717] left-0 h-screen w-screen">
+          <img src="" alt="" />
+        </div>
         {/* <div ref={projectRef} className="fixed z-40 top-0 bg-black left-0 h-screen w-screen">
           <div className="relative w-full h-full">
             <Project projectRef={projectRef}/>
@@ -128,7 +114,7 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls maxSpeed={20} damping={2} eps={0.001} pages={20}>
+          <ScrollControls maxSpeed={40} damping={2} eps={0.0008} pages={16}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>

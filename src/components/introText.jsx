@@ -9,9 +9,10 @@ import { useProgress } from "@react-three/drei";
 
 const myImgs = [];
 for(let i=1; i< 511; i++){
-  if (i === 39 || i === 40 || i === 41 || i === 42 ||i === 43 ||i === 44 || i === 45 || i === 46){ /* empty */ }else{
-    myImgs.push(`/mascotIntro/out_${i}.jpg`)
-  }
+  console.log(i)
+  myImgs.push(`/mascotIntro/outer_${i}.jpg`)
+  // if (i === 39 || i === 40 || i === 41 || i === 42 ||i === 43 ||i === 44 || i === 45 || i === 46){ /* empty */ }else{
+  // }
 }
 
 const textures = [];
@@ -63,7 +64,7 @@ const IntroText = ({sheet}) => {
           mascotMat.onValuesChange(val=>{
               ref.current.opacity = val.opacity;
         
-              const index = Math.floor(val.factor * (textures.length - 1));
+              const index = Math.floor(val.factor/10 * (textures.length - 1));
         
               ref.current.map = textures[index];
               ref.current.needsUpdate = true;
