@@ -117,22 +117,22 @@ export default function R3fCanvas() {
             </SheetProvider>
             <Scroll html>
               <div className="h-screen mouse-anim w-screen flex justify-center items-end">
-                <p className=" duration-75 absolute bottom-10 mouse-animation text-slate-100">
+                <p className=" duration-75 absolute bottom-10 animate-mouse-anim text-slate-100">
                   <img src={mouse} className="h-20 w-20" alt="scroll" />
                 </p>
-                <p className=" duration-100 absolute bottom-10 mouse-animation1 text-slate-100">
+                <p className=" duration-100 absolute bottom-10 animate-mouse-anim1 mouse-animation1 text-slate-100">
                   <img src={mouse} className="h-20 w-20" alt="scroll" />
                 </p>
-                <p className=" duration-150 absolute bottom-10 mouse-animation2 text-slate-100">
+                <p className=" duration-150 absolute bottom-10 animate-mouse-anim2 mouse-animation2 text-slate-100">
                   <img src={mouse} className="h-20 w-20" alt="scroll" />
                 </p>
-                <p className=" duration-200 absolute bottom-10 mouse-animation3 text-slate-100">
+                <p className=" duration-200 absolute bottom-10 animate-mouse-anim3 mouse-animation3 text-slate-100">
                   <img src={mouse} className="h-20 w-20" alt="scroll" />
                 </p>
-                <p className=" duration-300 absolute bottom-10 mouse-animation4 text-slate-100">
+                <p className=" duration-300 absolute bottom-10 animate-mouse-anim4 mouse-animation4 text-slate-100">
                   <img src={mouse} className="h-20 w-20" alt="scroll" />
                 </p>
-                <p className=" duration-400 absolute bottom-10 mouse-animation5 text-slate-100">
+                <p className=" duration-400 absolute bottom-10 animate-mouse-anim5 mouse-animation5 text-slate-100">
                   <img src={mouse} className="h-20 w-20" alt="scroll" />
                 </p>
               </div>

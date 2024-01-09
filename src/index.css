@@ -84,34 +84,34 @@ section {
 }
 
 .mouse-animation{
-  animation: scroll 2500ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards;
+  /* animation: scroll 2500ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards; */
 }
 .mouse-animation1{
   filter: blur(2px) brightness(80%);
-  animation: scroll 2501ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards;
+  /* animation: scroll 2502ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards; */
 }
 .mouse-animation2{
   filter: blur(2px) brightness(70%);
-  animation: scroll 2502ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards;
+  /* animation: scroll 2504ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards; */
 }
 .mouse-animation3{
   filter: blur(3px) brightness(60%);
-  animation: scroll 2503ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards;
+  /* animation: scroll 2506ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards; */
 }
 .mouse-animation4{
   filter: blur(4px) brightness(50%);
-  animation: scroll 2504ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards;
+  /* animation: scroll 2508ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards; */
 }
 .mouse-animation5{
   filter: blur(5px) brightness(50%);
-  animation: scroll 2505ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards;
+  /* animation: scroll 2512ms cubic-bezier(0.075, 0.82, 0.165, 1) infinite alternate backwards; */
 }
 
-@keyframes scroll {
+/* @keyframes scroll {
   0%{
     bottom: 60px;
   }
   100%{
     bottom: 100px;
   }
-}
+} */
