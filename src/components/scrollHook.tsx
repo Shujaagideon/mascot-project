@@ -12,6 +12,23 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
   let rounded = 0;
   let isScrolling= false;
 
+  useEffect(()=>{
+    console.log(scrollElement.scrollTop)
+    // if(scrollElement.scrollTop < 100){
+    //   console.log('smaller', scrollElement.scrollTop)
+    //   gsap.to('.mouse-anim',{
+    //     opacity: 1,
+    //     duration: 1,
+    //   })
+    // }else{
+    //   console.log('greater', scrollElement.scrollTop)
+    //   gsap.to('.mouse-anim',{
+    //     opacity: 0,
+    //     duration: 1,
+    //   })
+    // }
+  },[scrollElement.scrollTop])
+
 
   // Event listener for wheel scrolling
   const handleWheel = (event) => {
@@ -58,35 +75,32 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
                 currentIndex === 8 ? 6:
                 3,
       ease: 'sine.inOut',
+      onUpdate:()=>{
+        if(scrollElement.scrollTop < 10){
+          console.log('smaller', scrollElement.scrollTop)
+          gsap.to('.mouse-anim',{
+            opacity: 1,
+            duration: 2,
+            delay: dir > 0 ? 0 : 4,
+          })
+        }else{
+          console.log('greater', scrollElement.scrollTop)
+          gsap.to('.mouse-anim',{
+            opacity: 0,
+            duration: 1,
+          })
+        }
+      },
       onComplete: ()=>{
         isScrolling = false;
       }
     })
 
-    // speed += event.deltaY*0.03;
   };
 
   // Attach the wheel event listener on mount
   useEffect(() => {
     if (scrollElement) {
-        // const raf = ()=>{
-        //     position +=speed;
-        //     speed*=0.9;
-    
-        //     rounded = Math.round(position);
-    
-        //     let diff = (rounded - position);
-    
-        //     position += Math.sign(diff) * Math.pow(Math.abs(diff), 0.7) * 0.15;
-            
-        //     // position = clamp(position, 0, 100);
-        //     console.log(position)
-        //     // scrollElement.scrollTop = position;
-    
-        //     requestAnimationFrame(raf)
-        // }
-    
-        // raf();
       window.addEventListener('wheel', handleWheel, {passive:false});
 
       return () => {

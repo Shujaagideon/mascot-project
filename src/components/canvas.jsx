@@ -10,7 +10,7 @@ import bgImg from '../assets/Background.jpg';
 import * as THREE from 'three';
 import sceneState from '../assets/state6.json';
 import mobileState from '../assets/mobileState.json';
-
+import mouse from '../assets/mouse.webp'
 import {
   SheetProvider,
   useCurrentSheet,
@@ -102,9 +102,6 @@ export default function R3fCanvas() {
   return (
     <>
       <Suspense fallback={<Loader/>}>
-        <div className="fixed z-40 top-0 bg-[#171717] left-0 h-screen w-screen">
-          <img src="" alt="" />
-        </div>
         {/* <div ref={projectRef} className="fixed z-40 top-0 bg-black left-0 h-screen w-screen">
           <div className="relative w-full h-full">
             <Project projectRef={projectRef}/>
@@ -119,6 +116,26 @@ export default function R3fCanvas() {
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
             <Scroll html>
+              <div className="h-screen mouse-anim w-screen flex justify-center items-end">
+                <p className=" duration-75 absolute bottom-10 mouse-animation text-slate-100">
+                  <img src={mouse} className="h-20 w-20" alt="scroll" />
+                </p>
+                <p className=" duration-100 absolute bottom-10 mouse-animation1 text-slate-100">
+                  <img src={mouse} className="h-20 w-20" alt="scroll" />
+                </p>
+                <p className=" duration-150 absolute bottom-10 mouse-animation2 text-slate-100">
+                  <img src={mouse} className="h-20 w-20" alt="scroll" />
+                </p>
+                <p className=" duration-200 absolute bottom-10 mouse-animation3 text-slate-100">
+                  <img src={mouse} className="h-20 w-20" alt="scroll" />
+                </p>
+                <p className=" duration-300 absolute bottom-10 mouse-animation4 text-slate-100">
+                  <img src={mouse} className="h-20 w-20" alt="scroll" />
+                </p>
+                <p className=" duration-400 absolute bottom-10 mouse-animation5 text-slate-100">
+                  <img src={mouse} className="h-20 w-20" alt="scroll" />
+                </p>
+              </div>
                 {/* <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>
