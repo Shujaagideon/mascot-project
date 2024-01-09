@@ -4,8 +4,10 @@ import { useThree } from "@react-three/fiber";
 import * as THREE from 'three';
 import {editable as e} from "@theatre/r3f";
 import { types as t } from "@theatre/core";
-import React from "react";
+import React, { useMemo } from "react";
 import { Suspense } from "react";
+import gsap from "gsap";
+import { useProgress } from "@react-three/drei";
 
 const myImgs = [];
 for(let i=1; i< 511; i++){
@@ -14,19 +16,21 @@ for(let i=1; i< 511; i++){
   }
 }
 
-const IntroText = ({sheet, loadingManager}) => {
-  const { gl } = useThree();
+const textures = [];
+const textureLoader = new THREE.TextureLoader();
+myImgs.forEach((url) => {
+  const texture = textureLoader.load(url);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  textures.push(texture);
+});
+
+const IntroText = ({sheet}) => {
+  // const { gl } = useThree();
   const ref = React.useRef(null);
-  let factor = {value:0};
+  // let factor = {value:0};
+  const { progress:loaded } = useProgress()
 
-  const textures = [];
-  const textureLoader = new THREE.TextureLoader(loadingManager);
-
-  myImgs.forEach((url) => {
-    const texture = textureLoader.load(url);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    textures.push(texture);
-  });
+  console.log(textures)
 
   const mascotMat = sheet.object('circlesMat',{
     opacity: t.number(1, {
@@ -41,23 +45,45 @@ const IntroText = ({sheet, loadingManager}) => {
 
   React.useEffect(()=>{
     // console.log(images)
-    mascotMat.onValuesChange(val=>{
-      ref.current.opacity = val.opacity;
+    // mascotMat.onValuesChange(val=>{
+    //   ref.current.opacity = val.opacity;
 
-      const index = Math.floor(val.factor * (textures.length - 1));
+    //   const index = Math.floor(val.factor * (textures.length - 1));
 
-      ref.current.map = textures[index];
-      ref.current.needsUpdate = true;
-    });
-  },[factor, mascotMat])
+    //   ref.current.map = textures[index];
+    //   ref.current.needsUpdate = true;
+    // });
+  },[mascotMat]);
+
+
+  React.useEffect(()=>{
+    // console.log(images)
+    if(loaded == 100){
+      gsap.to(ref.current,{
+        opacity: 1,
+        duration: 1,
+        ease: 'sine.inOut',
+        onComplete:()=>{
+          mascotMat.onValuesChange(val=>{
+              ref.current.opacity = val.opacity;
+        
+              const index = Math.floor(val.factor * (textures.length - 1));
+        
+              ref.current.map = textures[index];
+              ref.current.needsUpdate = true;
+            });
+        }
+      })
+    }
+  },[loaded, mascotMat, textures])
 
   return (
     <group>
       <e.mesh theatreKey='text2' position={[0,0, -21]}>
           <planeGeometry args={[75, 45]}/>
-          <Suspense fallback={null}>
-            <meshBasicMaterial ref={ref} depthWrite={false} depthTest={false} transparent map={textures[0]} toneMapped={false} />
-          </Suspense>
+          {/* <Suspense fallback={null}> */}
+            <meshBasicMaterial ref={ref} depthWrite={false} depthTest={false} opacity={0} transparent map={textures[0]} toneMapped={false} />
+          {/* </Suspense> */}
       </e.mesh>
     </group>
   )

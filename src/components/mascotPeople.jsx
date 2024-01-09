@@ -9,26 +9,23 @@ import React from "react";
 import gsap from "gsap";
 import { Suspense } from "react";
 
-const People = ({sheet, loadingManager}) => {
-  const { gl } = useThree();
+const myImgs = [];
+
+for(let i=30; i< 371; i++){
+  myImgs.push(`/mascotPeople/out_${i}.jpg`)
+}
+
+const textures = [];
+const textureLoader = new THREE.TextureLoader();
+
+myImgs.forEach((url) => {
+  const texture = textureLoader.load(url);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  textures.push(texture);
+});
+
+const People = ({sheet}) => {
   const ref = React.useRef(null);
-  let factor = {value:0};
-
-  const myImgs = [];
-
-  for(let i=30; i< 371; i++){
-    myImgs.push(`/mascotPeople/out_${i}.jpg`)
-  }
-  
-
-  const textures = [];
-  const textureLoader = new THREE.TextureLoader(loadingManager);
-
-  myImgs.forEach((url) => {
-    const texture = textureLoader.load(url);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    textures.push(texture);
-  });
 
   const mascotMat = sheet.object('peopleMascotMaterial',{
     opacity: t.number(1, {
@@ -50,7 +47,7 @@ const People = ({sheet, loadingManager}) => {
       ref.current.map = textures[index];
       ref.current.needsUpdate = true;
     });
-  },[factor, mascotMat])
+  },[mascotMat])
 
   return (
     <group>

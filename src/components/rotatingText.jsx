@@ -21,9 +21,9 @@ const RotatingText = ({sheet}) => {
     },{reconfigure: true});
     
     React.useEffect(()=>{
-    mascotMat.onValuesChange(val=>{
-        ref.current.opacity = val.opacity;
-    })
+        mascotMat.onValuesChange(val=>{
+            ref.current.opacity = val.opacity;
+        })
     },[mascotMat])
 
   return (

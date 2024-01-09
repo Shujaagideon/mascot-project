@@ -34,11 +34,11 @@ import { useScrollHijack } from "./scrollHook";
 
 export default function R3fCanvas() {
   const loadingManager = new THREE.LoadingManager();
-  const [progress, setProgress] = useState(0);
+  // const [progress, setProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const widthRef = useRef();
-  const ref = useRef();
-  const projectRef = useRef();
+  // const widthRef = useRef();
+  // const ref = useRef();
+  // const projectRef = useRef();
   // const { progress:loaded } = useProgress()
 
 
@@ -96,6 +96,19 @@ export default function R3fCanvas() {
     id: crypto.randomUUID(),
     image
   }));
+
+  console.log('----- Rendered ------')
+
+  const hasLoadedBefore = useRef(true)
+  useEffect(()=> {
+    if(hasLoadedBefore.current){
+      //your initializing code runs only once
+      console.log("Effect ran")
+      hasLoadedBefore.current = false;
+    } else{
+      //subsequent renders
+    }
+  }, [])
 
 
   return (
@@ -270,7 +283,7 @@ function Scene({project, loadingManager}) {
         <planeGeometry args={[78, 39]} />
         <meshStandardMaterial ref={matRef2} map={texture} transparent depthTest={false} depthWrite={false}/>
       </e.mesh>
-      <IntroText sheet={sheet} loadingManager={loadingManager}/>
+      <IntroText sheet={sheet}/>
       <FallingTexts sheet={sheet}/>
       <RotatingText sheet={sheet}/>
       <ProductionText sheet={sheet}/>
