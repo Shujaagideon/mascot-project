@@ -84,29 +84,13 @@ export default function R3fCanvas() {
   })
   const sheet = isMobile ? project1.sheet("Scene") : project2.sheet("Scene") 
 
-  const images = [
-    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-    "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
-    "https://media.istockphoto.com/photos/the-main-attraction-of-paris-and-all-of-europe-is-the-eiffel-tower-in-picture-id1185953092?k=6&m=1185953092&s=612x612&w=0&h=SNiShskOfwQ7Sys5TX0eb5eBxHobktWUfZGrox5LMyk=",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-    "https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-  ].map((image) => ({
-    id: crypto.randomUUID(),
-    image
-  }));
+  
 
 
 
   return (
     <>
       <Suspense fallback={<Loader/>}>
-        {/* <div ref={projectRef} className="fixed z-40 top-0 bg-black left-0 h-screen w-screen">
-          <div className="relative w-full h-full">
-            <Project projectRef={projectRef}/>
-          </div>
-        </div> */}
         <Canvas
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
@@ -117,24 +101,15 @@ export default function R3fCanvas() {
             </SheetProvider>
             <Scroll html>
               <div className="h-screen mouse-anim w-screen flex justify-center items-end">
-                <p className=" duration-75 absolute bottom-10 animate-mouse-anim text-slate-100">
-                  <img src={mouse} className="h-20 w-20" alt="scroll" />
-                </p>
-                <p className=" duration-100 absolute bottom-10 animate-mouse-anim1 mouse-animation1 text-slate-100">
-                  <img src={mouse} className="h-20 w-20" alt="scroll" />
-                </p>
-                <p className=" duration-150 absolute bottom-10 animate-mouse-anim2 mouse-animation2 text-slate-100">
-                  <img src={mouse} className="h-20 w-20" alt="scroll" />
-                </p>
-                <p className=" duration-200 absolute bottom-10 animate-mouse-anim3 mouse-animation3 text-slate-100">
-                  <img src={mouse} className="h-20 w-20" alt="scroll" />
-                </p>
-                <p className=" duration-300 absolute bottom-10 animate-mouse-anim4 mouse-animation4 text-slate-100">
-                  <img src={mouse} className="h-20 w-20" alt="scroll" />
-                </p>
-                <p className=" duration-400 absolute bottom-10 animate-mouse-anim5 mouse-animation5 text-slate-100">
-                  <img src={mouse} className="h-20 w-20" alt="scroll" />
-                </p>
+                <div className="flex justify-center items-center relative pb-11">
+                  <img src={mouse} className="h-24 w-24 rotate-180" alt="scroll" />
+                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation animate-mouse-anim text-slate-100"></span>
+                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation1 animate-mouse-anim1 text-slate-100"></span>
+                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation2 animate-mouse-anim2 text-slate-100"></span>
+                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation3 animate-mouse-anim3 text-slate-100"></span>
+                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation4 animate-mouse-anim4 text-slate-100"></span>
+                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation5 animate-mouse-anim5 text-slate-100"></span>
+                </div>
               </div>
                 {/* <div className="h-screen w-screen"></div>
                 <div className="h-screen w-screen"></div>

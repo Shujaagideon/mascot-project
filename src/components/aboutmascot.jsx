@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import { useFrame, useLoader } from '@react-three/fiber';
+import gsap from 'gsap';
 import * as THREE from 'three';
 // import tex from '../assets/approach.webp';
 
@@ -66,6 +67,7 @@ const fragmentShader = /*glsl*/`
     uniform vec3 color1;
     uniform vec3 color2;
     uniform float time;
+    uniform float opacity;
     varying vec2 vUv;
 
     // Simplex 2D noise
@@ -105,7 +107,7 @@ const fragmentShader = /*glsl*/`
       // if(color.b < 0.87){
       //   color = vec4(mix(color1, color2, snoise(vec2(vUv.x * 6. + time, vUv.y * 6. - time))), 1.);
       // }
-      gl_FragColor = color;
+      gl_FragColor = vec4(color.xyz, color.w * opacity);
     }
 `
 
@@ -115,10 +117,17 @@ const Aboutmascot = ({tex}) => {
     const uniforms = {
         uTexture: {value: texture},
         time:{value: 0},
+        opacity:{value: 0},
         color1:{value: new THREE.Color('#9965F6')},
         color2:{value: new THREE.Color('#DA74FA')},
         
     };
+
+    gsap.to(uniforms.opacity,{
+      value: 1,
+      duration: 0.4,
+      ease: 'Power.InOut'
+    })
 
     useFrame(({clock})=>{
         uniforms.time.value = clock.getElapsedTime()
@@ -127,7 +136,7 @@ const Aboutmascot = ({tex}) => {
   return (
     <mesh position={[-1,0,-1]}>
         <planeGeometry args={[20, 10, 200, 200]}/>
-        <shaderMaterial uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader}/>
+        <shaderMaterial uniforms={uniforms} transparent vertexShader={vertexShader} fragmentShader={fragmentShader}/>
     </mesh>
   )
 }

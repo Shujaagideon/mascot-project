@@ -22,11 +22,11 @@ const Contact = () => {
         <React.Suspense fallback={
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
         }>
-            <Canvas gl={{ preserveDrawingBuffer: true }}>
+            <Canvas gl={{  }}>
                 <Scene tex={tex}/>
-                <EffectComposer>
+                {/* <EffectComposer>
                       <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
-                </EffectComposer>
+                </EffectComposer> */}
             </Canvas>
         </React.Suspense>
       </div>

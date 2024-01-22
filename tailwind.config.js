@@ -21,7 +21,7 @@ export default {
       },
       keyframes: {
         scroll: {
-          '0%': { bottom: '60px' },
+          '0%': { bottom: '80px' },
           '100%': { bottom: '100px' },
         }
       }

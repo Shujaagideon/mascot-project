@@ -9,7 +9,7 @@ import React from "react";
 import Aboutmascot from "./aboutmascot";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
 import { BlendFunction, } from "postprocessing";
-import ximage from '../assets/x.png';
+import ximage from '../assets/x1.png';
 // import bgImage from '../assets/approach.webp';
 
 const About = () => {
@@ -29,16 +29,16 @@ const About = () => {
             <React.Suspense fallback={
                 <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
             }>
-                <Canvas gl={{ preserveDrawingBuffer: true }}>
+                <Canvas gl={{  }}>
                     <Scene tex={text}/>
-                    <EffectComposer>
+                    {/* <EffectComposer>
                         <Noise opacity={0.8}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
-                    </EffectComposer>
+                    </EffectComposer> */}
                 </Canvas>
             </React.Suspense>
         </div>
         <div className="h-screen fixed z-20 w-full p-2 md:p-5 lg:p-20 bg-transparent flex overflow-hidden ">
-            <img src={ximage} alt="" className="absolute top-0 right-[10%] h-[50%]" />
+            <img src={ximage} alt="" className="absolute top-0 right-[10%] h-[50%] scale-50" />
             <div className="w-full mt-20 overscroll-y-scroll md:w-4/5  xl:w-[45%] 2xl:min-h-[50%] 2xl:mt-64 h-fit text-slate-100 backdrop-blur-md ml-auto lg:mt-24 xl:mt-28 text-sm md:text-base md:mt-auto border border-slate-100 rounded-xl p-4 md:p-6">
                 <p className="mb-4 text-center lg:text-left">TACTECH New Media Solutions is a burgeoning assembly of
                     acclaimed artists, forward-thinking visionaries, inventive coders,
