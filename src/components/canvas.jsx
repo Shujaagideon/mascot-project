@@ -8,7 +8,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useProgress, useScrol
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg';
 import * as THREE from 'three';
-import sceneState from '../assets/state6.json';
+import sceneState from '../assets/state7.json';
 import mobileState from '../assets/mobileState.json';
 import mouse from '../assets/mouse.webp'
 import {
@@ -180,7 +180,7 @@ function Scene({project, loadingManager}) {
   const BeamRef = React.useRef();
   const matRef = React.useRef();
   const matRef2 = React.useRef();
-  const percentages = [0, 6.360, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
+  const percentages = [0, 9.75, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
   useScrollHijack(data.el, percentages);
