@@ -63,7 +63,7 @@ const IntroText = ({sheet}) => {
           mascotMat.onValuesChange(val=>{
               ref.current.opacity = val.opacity;
         
-              const index = Math.floor(val.factor * (textures.length - 1));
+              const index = Math.trunc(val.factor * (textures.length - 1));
         
               ref.current.map = textures[index];
               ref.current.needsUpdate = true;

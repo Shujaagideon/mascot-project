@@ -12,22 +12,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
   let rounded = 0;
   let isScrolling= false;
 
-  useEffect(()=>{
-    console.log(scrollElement.scrollTop)
-    // if(scrollElement.scrollTop < 100){
-    //   console.log('smaller', scrollElement.scrollTop)
-    //   gsap.to('.mouse-anim',{
-    //     opacity: 1,
-    //     duration: 1,
-    //   })
-    // }else{
-    //   console.log('greater', scrollElement.scrollTop)
-    //   gsap.to('.mouse-anim',{
-    //     opacity: 0,
-    //     duration: 1,
-    //   })
-    // }
-  },[scrollElement.scrollTop])
 
 
   // Event listener for wheel scrolling
@@ -56,11 +40,9 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
       }
     }
 
-    // console.log(currentIndex);
 
     const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
     const scrollTo = percentages[currentIndex] * scrollHeight / 100;
-    // console.log(scrollTo)
 
     gsap.to(scrollElement,{
       scrollTop: scrollTo,
@@ -74,17 +56,15 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
                 currentIndex === 7 ? 3:
                 currentIndex === 8 ? 6:
                 3,
-      ease: 'sine.inOut',
+      ease: 'circ.in',
       onUpdate:()=>{
         if(scrollElement.scrollTop < 10){
-          console.log('smaller', scrollElement.scrollTop)
           gsap.to('.mouse-anim',{
             opacity: 1,
             duration: 2,
             delay: dir > 0 ? 0 : 4,
           })
         }else{
-          console.log('greater', scrollElement.scrollTop)
           gsap.to('.mouse-anim',{
             opacity: 0,
             duration: 1,

@@ -8,7 +8,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useProgress, useScrol
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg';
 import * as THREE from 'three';
-import sceneState from '../assets/state7.json';
+import sceneState from '../assets/state8.json';
 import mobileState from '../assets/mobileState.json';
 import mouse from '../assets/mouse.webp'
 import {
@@ -24,10 +24,10 @@ import ProductionText from "./productionText";
 import Planets from "./planets";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import People from "./mascotPeople";
-import { Banner } from "./scrollingProjects";
-import gsap from "gsap";
+// import { Banner } from "./scrollingProjects";
+// import gsap from "gsap";
 import { useStore } from "../App";
-import Project from "./project";
+// import Project from "./project";
 import { ModelX } from "./X";
 import { useScrollHijack } from "./scrollHook";
 
@@ -169,7 +169,7 @@ const shader = new THREE.ShaderMaterial({
       float light = dot(vNormal, normalize(vLightPos)) * 0.5 + 0.5;
       light = clamp(light, 0.5, 1.);
 
-      gl_FragColor = vec4(vec3(light) + vec3(.25), opacity);
+      gl_FragColor = vec4(vec3(light)*1.2 + vec3(.25), opacity);
     }
   `
 })
