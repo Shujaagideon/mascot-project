@@ -95,7 +95,7 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls maxSpeed={40} damping={0.4} eps={0.0008} pages={16}>
+          <ScrollControls maxSpeed={40} damping={0} eps={0.0008} pages={16}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
@@ -181,7 +181,7 @@ function Scene({project, loadingManager}) {
   const matRef = React.useRef();
   const matRef2 = React.useRef();
   // const percentages = [0, 9.75, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
-  const percentages = [0, 6.75, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
+  const percentages = [0, 6.35, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
   useScrollHijack(data.el, percentages);
