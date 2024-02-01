@@ -273,7 +273,7 @@ function Scene({project, loadingManager}) {
             count={200}
             size={2}
             speed={0.3}
-            opacity={0.2}
+            opacity={0.1}
             scale={15}
             color="#ffb5f3"
           />
