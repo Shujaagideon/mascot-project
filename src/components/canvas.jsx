@@ -8,7 +8,7 @@ import { Circle, Loader, Scroll, ScrollControls, Sparkles, useProgress, useScrol
 import { getProject, val, types as t } from "@theatre/core";
 import bgImg from '../assets/Background.jpg';
 import * as THREE from 'three';
-import sceneState from '../assets/state8.json';
+import sceneState from '../assets/state9.json';
 import mobileState from '../assets/mobileState.json';
 import mouse from '../assets/mouse.webp'
 import {
@@ -169,7 +169,7 @@ const shader = new THREE.ShaderMaterial({
       float light = dot(vNormal, normalize(vLightPos)) * 0.5 + 0.5;
       light = clamp(light, 0.5, 1.);
 
-      gl_FragColor = vec4(vec3(light)*1.2 + vec3(.25), opacity);
+      gl_FragColor = vec4(vec3(light)*1.5 + vec3(.25), opacity);
     }
   `
 })
@@ -181,7 +181,7 @@ function Scene({project, loadingManager}) {
   const matRef = React.useRef();
   const matRef2 = React.useRef();
   // const percentages = [0, 9.75, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
-  const percentages = [0, 6.8, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
+  const percentages = [0, 7, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
   useScrollHijack(data.el, percentages);
