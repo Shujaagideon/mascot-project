@@ -169,7 +169,7 @@ const shader = new THREE.ShaderMaterial({
       float light = dot(vNormal, normalize(vLightPos)) * 0.5 + 0.5;
       light = clamp(light, 0.5, 1.);
 
-      gl_FragColor = vec4(vec3(light)*1.5 + vec3(.25), opacity);
+      gl_FragColor = vec4(vec3(light) + vec3(.25), opacity);
     }
   `
 })
@@ -181,7 +181,7 @@ function Scene({project, loadingManager}) {
   const matRef = React.useRef();
   const matRef2 = React.useRef();
   // const percentages = [0, 9.75, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
-  const percentages = [0, 7, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
+  const percentages = [0, 6.85, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
   useScrollHijack(data.el, percentages);
@@ -273,7 +273,7 @@ function Scene({project, loadingManager}) {
             count={200}
             size={2}
             speed={0.3}
-            opacity={1}
+            opacity={0.2}
             scale={15}
             color="#ffb5f3"
           />
