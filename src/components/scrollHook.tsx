@@ -59,7 +59,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
       ease: 'Power.in',
       onUpdate:()=>{
         const mo = document.querySelector('.mo');
-        console.log(mo?.scrollTop)
         scrollElement.scrollTop < 4 ? gsap.set('.mouse-anim',{opacity: 1}) : gsap.set('.mouse-anim',{opacity: 0});
         // console.log(scrollElement.scrollTop)
         // if(scrollElement.scrollTop < 10){
