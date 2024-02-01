@@ -56,7 +56,7 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
                 currentIndex === 7 ? 3:
                 currentIndex === 8 ? 6:
                 3,
-      ease: 'circ.in',
+      ease: 'none',
       onUpdate:()=>{
         if(scrollElement.scrollTop < 10){
           gsap.to('.mouse-anim',{
