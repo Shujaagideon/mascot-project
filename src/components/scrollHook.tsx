@@ -58,18 +58,22 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
                 3,
       ease: 'Power.in',
       onUpdate:()=>{
-        if(scrollElement.scrollTop < 10){
-          gsap.to('.mouse-anim',{
-            opacity: 1,
-            duration: 2,
-            delay: dir > 0 ? 0 : 4,
-          })
-        }else{
-          gsap.to('.mouse-anim',{
-            opacity: 0,
-            duration: 1,
-          })
-        }
+        const mo = document.querySelector('.mo');
+        console.log(mo?.scrollTop)
+        scrollElement.scrollTop < 4 ? gsap.set('.mouse-anim',{opacity: 1}) : gsap.set('.mouse-anim',{opacity: 0});
+        // console.log(scrollElement.scrollTop)
+        // if(scrollElement.scrollTop < 10){
+        //   gsap.to('.mouse-anim',{
+        //     opacity: 1,
+        //     duration: 0.2,
+        //     // delay: dir > 0 ? 0 : 4,
+        //   })
+        // }else{
+        //   gsap.to('.mouse-anim',{
+        //     opacity: 0,
+        //     duration: 1,
+        //   })
+        // }
       },
       onComplete: ()=>{
         isScrolling = false;

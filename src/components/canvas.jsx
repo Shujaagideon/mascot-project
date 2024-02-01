@@ -95,13 +95,13 @@ export default function R3fCanvas() {
           gl={{outputColorSpace: THREE.SRGBColorSpace}}
           camera={{position:[0, 0, 8], fov: 65, near: 0.1, far: 500}}
         >
-          <ScrollControls maxSpeed={40} damping={2} eps={0.0008} pages={16}>
+          <ScrollControls maxSpeed={40} damping={0.4} eps={0.0008} pages={16}>
             <SheetProvider sheet={sheet}>
               <Scene project={isMobile ? project1 : project2} loadingManager={loadingManager}/>
             </SheetProvider>
             <Scroll html>
               <div className="h-screen mouse-anim w-screen flex justify-center items-end">
-                <div className="flex justify-center items-center relative pb-11">
+                <div className="flex mo justify-center items-center relative pb-11">
                   <img src={mouse} className="h-24 w-24 rotate-180" alt="scroll" />
                   <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation animate-mouse-anim text-slate-100"></span>
                   <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation1 animate-mouse-anim1 text-slate-100"></span>
@@ -181,7 +181,7 @@ function Scene({project, loadingManager}) {
   const matRef = React.useRef();
   const matRef2 = React.useRef();
   // const percentages = [0, 9.75, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
-  const percentages = [0, 6.85, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
+  const percentages = [0, 6.75, 17.895, 28.955, 41.204, 47.363, 58.531, 66.142, 100]; // Adjust these values based on your percentages
   
   const data = useScroll();
   useScrollHijack(data.el, percentages);
