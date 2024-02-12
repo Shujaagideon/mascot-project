@@ -8,9 +8,14 @@ const Nav = ()=>{
     return(
       <nav className='flex pointer-events-none font-elza fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 md:px-8'>
         {location.pathname !== '/' ?
+        <div className="flex justify-between">
           <Link to='/'>
-            <h2 className="uppercase pointer-events-auto">Project</h2>
+            <h2 className="uppercase mr-6 pointer-events-auto">Project</h2>
           </Link>
+          <Link to='/'>
+            <h2 className="uppercase pointer-events-auto">Home</h2>
+          </Link>
+        </div>
         :
           <h2 onClick={setClicked} className="cursor-pointer pointer-events-auto uppercase">Project</h2>
         }
