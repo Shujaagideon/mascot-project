@@ -10,21 +10,21 @@ const Nav = ()=>{
         {location.pathname !== '/' ?
         <div className="flex justify-between">
           <Link to='/'>
-            <h2 className="uppercase mr-6 pointer-events-auto">Project</h2>
+            <h2 className="uppercase text-xs md:text-base mr-6 pointer-events-auto">Project</h2>
           </Link>
           <Link to='/'>
-            <h2 className="uppercase pointer-events-auto">Home</h2>
+            <h2 className="uppercase text-xs md:text-base pointer-events-auto">Home</h2>
           </Link>
         </div>
         :
-          <h2 onClick={setClicked} className="cursor-pointer pointer-events-auto uppercase">Project</h2>
+          <h2 onClick={setClicked} className="cursor-pointer text-xs md:text-base pointer-events-auto uppercase">Project</h2>
         }
           <div className="flex justify-between w-3/5 md:w-2/5 lg:w-1/5">
             <Link to='/about'>
-              <h2 className={`uppercase pointer-events-auto ${location.pathname === '/about' && 'text-xl font-elza_medium'}`}>About us</h2>
+              <h2 className={`uppercase text-xs md:text-base pointer-events-auto ${location.pathname === '/about' && 'text-xl font-elza_medium'}`}>About us</h2>
             </Link>
             <Link to='/contact'>
-              <h2 className={`uppercase pointer-events-auto ${location.pathname === '/contact' && 'text-xl font-elza_medium'}`}>Contact us</h2>
+              <h2 className={`uppercase text-xs md:text-base pointer-events-auto ${location.pathname === '/contact' && 'text-xl font-elza_medium'}`}>Contact us</h2>
             </Link>
           </div>
         </nav>
