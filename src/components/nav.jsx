@@ -11,9 +11,9 @@ const Nav = ()=>{
           <Link to='/project'>
             <h2 className="uppercase text-xs md:text-base mr-6 pointer-events-auto">Project</h2>
           </Link>
-          <Link to='/'>
+          <a href='/'>
             <h2 className="uppercase text-xs md:text-base pointer-events-auto">Home</h2>
-          </Link>
+          </a>
         </div>
         {/* {location.pathname !== '/' ?
         :
