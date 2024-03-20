@@ -11,9 +11,9 @@ const Nav = ()=>{
           <Link to='/project'>
             <h2 className="uppercase text-xs md:text-base mr-6 pointer-events-auto">Project</h2>
           </Link>
-          {/* <Link to='/dashboard'>
-            <h2 className="uppercase text-xs md:text-base mr-6 pointer-events-auto">dashboard</h2>
-          </Link> */}
+          <Link to='/dashboard'>
+            <h2 className="uppercase text-xs md:text-base mr-6 pointer-events-auto hidden">dashboard</h2>
+          </Link>
           <a href='/'>
             <h2 className="uppercase text-xs md:text-base pointer-events-auto">Home</h2>
           </a>
