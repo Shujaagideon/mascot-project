@@ -37,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route  path="/project" element={<Project />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
-            <Route path="/dashboard" element={<UploadDashboard />} />
+            <Route path="dashboard" element={<UploadDashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>
