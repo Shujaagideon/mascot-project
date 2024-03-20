@@ -12,6 +12,7 @@ import Contact from './components/contact.jsx';
 import About from './components/about.jsx';
 import Nav from './components/nav.jsx';
 import Project from './components/project.jsx';
+import UploadDashboard from './dashboard.jsx';
 
 // if (import.meta.env.DEV) {
 //   studio.initialize()
@@ -29,15 +30,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       null
       }>
       <BrowserRouter>
+        <Nav/>
         <Routes>
           <Route>
             <Route  path="/" element={<App />} />
             <Route  path="/project" element={<Project />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/dashboard" element={<UploadDashboard />} />
           </Route>
         </Routes>
-        <Nav/>
       </BrowserRouter>
     </React.Suspense>
   </React.StrictMode>,

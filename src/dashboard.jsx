@@ -1,123 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload Files</title>
-  <style>
-    body {
-      background-color: #e3f2fd;
-      font-family: Arial, sans-serif;
-    }
-
-    .upload-container {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      max-width: 400px;
-      margin: 50px auto;
-    }
-
-    .upload-header {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .upload-area {
-      border: 2px dashed #b0c4de;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      color: #6b90c0;
-      font-size: 14px;
-    }
-
-    .upload-icon {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    .upload-list {
-      list-style-type: none;
-      padding: 0;
-      margin-top: 20px;
-    }
-
-    .upload-list li {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-radius: 4px;
-      background-color: #f5f5f5;
-      margin-bottom: 10px;
-    }
-
-    .upload-list li img {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-      object-fit: cover;
-      margin-right: 10px;
-    }
-
-    .upload-list li .file-info {
-      flex-grow: 1;
-    }
-
-    .upload-list li .file-info span {
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <div class="upload-container">
-    <div class="upload-header">Upload your files in JPG, PNG, GIF</div>
-    <div class="upload-area">
-      <span class="upload-icon">&#128247;</span>
-      <div>Drag and drop or Browse</div>
-    </div>
-    <ul class="upload-list">
-      <li>
-        <img src="profile.png" alt="Profile Photo">
-        <div class="file-info">
-          <div>Profile photo.png</div>
-          <span>2.1 MB</span>
-        </div>
-      </li>
-      <li>
-        <img src="wallpaper.png" alt="Wallpaper Image">
-        <div class="file-info">
-          <div>Wallpaper image.png</div>
-          <span>2.4 MB</span>
-        </div>
-      </li>
-      <li>
-        <img src="untitled.png" alt="Untitled Image">
-        <div class="file-info">
-          <div>Untitled.png</div>
-          <span>1.8 MB</span>
-        </div>
-      </li>
-    </ul>
-  </div>
-</body>
-</html>
-
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 // import UploadComponent from './UploadComponent';
 
 
-const toBase64 = file => new Promise((resolve, reject) => {
+function convertImageToBase64(file, callback, callback2) {
     if(file){
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
+    
+        reader.onload = () => {
+          callback(reader.result);
+        };
+        reader.onloadend= ()=>{
+            callback2();
+        }
     }
-});
+}
 
 const UploadComponent = ({multiple, onUpload}) => {
   const [files, setFiles] = useState([]);
@@ -129,35 +27,46 @@ const UploadComponent = ({multiple, onUpload}) => {
   const handleDrop = (e) => {
     e.preventDefault();
     const droppedFiles = Array.from(e.dataTransfer.files);
+    if(multiple){
+        const data = []
+        droppedFiles.forEach(file=>{
+            convertImageToBase64(file,(base64)=>{
+                data.push(base64)
+            },()=>{
+                if(data.length === droppedFiles.length){
+                    onUpload(data)
+                }
+            })
+        })
+    }else{
+        convertImageToBase64(droppedFiles[0],(base64)=>{
+            onUpload(base64)
+        },()=>{})
+    }
     setFiles(multiple ? [...files, ...droppedFiles] : [...droppedFiles]);
     
   };
 
   const handleFileUpload = (e) => {
     const uploadedFiles = Array.from(e.target.files);
-    // console.log(uploadedFiles[0])
+    if(multiple){
+        const data = []
+        uploadedFiles.forEach(file=>{
+            convertImageToBase64(file,(base64)=>{
+                data.push(base64)
+            },()=>{
+                if(data.length === uploadedFiles.length){
+                    onUpload(data)
+                }
+            })
+        })
+    }else{
+        convertImageToBase64(uploadedFiles[0],(base64)=>{
+            onUpload(base64)
+        },()=>{})
+    }
     setFiles(multiple ? [...files, ...uploadedFiles] : [...uploadedFiles]);
   };
-
-  useEffect(()=>{
-    // console.log(files)
-    if(multiple){
-        (async()=>{
-            const data = await files.map(async file=>{
-                const base64 = await toBase64(file)
-                return base64
-            })
-            console.log(data)
-            // onUpload(data)
-        })()
-    }else{
-        (async ()=>{
-            const base64 = await toBase64(files[0]);
-            console.log(base64)
-            // onUpload(base64)
-        })()
-    }
-  }, [files, multiple, onUpload])
 
   return (
     <div className="bg-gray-50 p-6 rounded-lg shadow-lg mx-auto mt-10 w-full">
@@ -173,7 +82,7 @@ const UploadComponent = ({multiple, onUpload}) => {
         <input
           type="file"
           multiple={multiple}
-          accept="image/jpeg, image/png, image/gif"
+          accept="image/jpeg, image/png, image/gif, image/webp"
           onChange={handleFileUpload}
           className="mt-2"
         />
@@ -238,12 +147,13 @@ const UploadDashboard = () => {
   };
 
   const handleProjectImageUpload = (files) => {
+    console.log(files)
     setProjectImages(files);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
+    let data = {
       hero: {
         image: heroImage,
         heading1: heroHeading1,
@@ -258,22 +168,16 @@ const UploadDashboard = () => {
       },
     };
 
-    fetch('http://localhost:3001/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+    // data = JSON.stringify(data)
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/dashboard', data);
+      console.log('Success:', response.data);
+    } catch (error) {
+      console.error('Error:', error)
+    }
     // Save data as JSON or send it to the server
-    // console.log(JSON.stringify(data));
+    console.log(data);
   };
 
   return (
