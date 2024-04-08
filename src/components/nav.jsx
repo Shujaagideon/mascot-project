@@ -1,9 +1,7 @@
 import { Link, useLocation } from "react-router-dom"
-import { useStore } from "../App";
 
 const Nav = ()=>{
     let location = useLocation();
-    const setClicked = useStore((state) => state.setClicked);
 
     return(
       <nav className='flex pointer-events-none font-elza fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 md:px-8'>

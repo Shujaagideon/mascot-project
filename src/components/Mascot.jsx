@@ -7,18 +7,16 @@ Command: npx gltfjsx@6.2.3 mascot.glb --transform
 */
 
 import { useGLTF } from '@react-three/drei';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {editable as e} from '@theatre/r3f';
 import * as THREE from 'three';
 import glossyTex from '../assets/glossy2.jpg';
-import tex from '../assets/beam1.webp';
 import brushTex from '../assets/drawing2.png';
 import sideDots from '../assets/tex2.png';
 import disp from '../assets/disp1.jpg';
 import metal from '../assets/metal.jpg';
 import { types as t } from "@theatre/core";
 import { useFrame, useLoader, useThree } from '@react-three/fiber';
-import gsap from 'gsap';
 
 const loader = new THREE.TextureLoader()
 
@@ -305,8 +303,6 @@ export function Mascot({material, sheet, reference, beam}) {
   const ref = React.useRef();
   const ref3 = React.useRef();
   const refBeam = React.useRef();
-  const texture = useLoader(THREE.TextureLoader, tex);
-  texture.colorSpace = THREE.SRGBColorSpace;
   const { nodes, materials } = useGLTF('/mascot-transformed.glb');
   const [changer, setChanger] = React.useState(0);
   const { viewport } = useThree()

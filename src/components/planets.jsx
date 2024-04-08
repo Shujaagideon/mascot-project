@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 import React from 'react'
-import tex from '../assets/beam.png';
 import tex3 from '../assets/planets1.png';
-import tex2 from '../assets/circle.png';
 import { editable as e } from "@theatre/r3f";
 import { types as t } from "@theatre/core";
 import { useLoader } from '@react-three/fiber';
@@ -22,11 +20,6 @@ const Planets = ({sheet, project, mascot, beam}) => {
 
     const [opacity, setOpacity] = React.useState(0);
     const hovered = [];
-    const texture = useLoader(THREE.TextureLoader, tex);
-    texture.colorSpace = THREE.SRGBColorSpace;
-
-    const texture2 = useLoader(THREE.TextureLoader, tex2);
-    texture2.colorSpace = THREE.SRGBColorSpace;
 
     const texture3 = useLoader(THREE.TextureLoader, tex3);
     // texture3.colorSpace = THREE.SRGBColorSpace;
