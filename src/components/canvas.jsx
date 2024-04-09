@@ -71,14 +71,16 @@ export default function R3fCanvas() {
             </SheetProvider>
             <Scroll html>
               <div className="h-screen mouse-anim w-screen flex justify-center items-end">
-                <div className="flex justify-center items-center relative pb-32 md:pb-11">
-                  <img src={mouse} className="h-24 w-24 rotate-180" alt="scroll" />
-                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation animate-mouse-anim text-slate-100"></span>
-                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation1 animate-mouse-anim1 text-slate-100"></span>
-                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation2 animate-mouse-anim2 text-slate-100"></span>
-                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation3 animate-mouse-anim3 text-slate-100"></span>
-                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation4 animate-mouse-anim4 text-slate-100"></span>
-                  <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation5 animate-mouse-anim5 text-slate-100"></span>
+                <div className="mb-24 md:mb-0">
+                  <div className="flex justify-center items-center relative pb-11">
+                    <img src={mouse} className="h-24 w-24 rotate-180" alt="scroll" />
+                    <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation animate-mouse-anim text-slate-100"></span>
+                    <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation1 animate-mouse-anim1 text-slate-100"></span>
+                    <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation2 animate-mouse-anim2 text-slate-100"></span>
+                    <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation3 animate-mouse-anim3 text-slate-100"></span>
+                    <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation4 animate-mouse-anim4 text-slate-100"></span>
+                    <span className="h-1 w-1 rounded-full bg-slate-50 duration-75 absolute mouse-animation5 animate-mouse-anim5 text-slate-100"></span>
+                  </div>
                 </div>
               </div>
                 {/* <div className="h-screen w-screen"></div>
