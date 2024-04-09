@@ -9,7 +9,7 @@ import { Suspense } from "react";
 
 const myImgs = [];
 
-for(let i=1; i< 93; i++){
+for(let i=1; i< 53; i++){
   myImgs.push(`/mascotPeople/out_${i}.jpg`)
 }
 
