@@ -4,7 +4,7 @@ const Nav = ()=>{
     let location = useLocation();
 
     return(
-      <nav className='flex pointer-events-none font-elza fixed z-30 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 md:px-8'>
+      <nav className='flex pointer-events-none font-elza fixed z-50 font-bold text-slate-200 justify-between items-center h-20 w-screen p-2 md:px-8'>
         <div className="flex justify-between">
           <Link to='/project'>
             <h2 className="uppercase text-xs md:text-base mr-6 pointer-events-auto">Project</h2>
