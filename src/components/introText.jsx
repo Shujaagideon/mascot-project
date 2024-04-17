@@ -10,8 +10,6 @@ import { useProgress } from "@react-three/drei";
 const myImgs = [];
 for(let i=1; i< 51; i++){
   myImgs.push(`/mascotIntro/outer_${i}.jpg`)
-  // if (i === 39 || i === 40 || i === 41 || i === 42 ||i === 43 ||i === 44 || i === 45 || i === 46){ /* empty */ }else{
-  // }
 }
 
 const textures = [];
@@ -25,6 +23,7 @@ myImgs.forEach((url) => {
 const IntroText = ({sheet}) => {
   // const { gl } = useThree();
   const ref = React.useRef(null);
+  const ref2 = React.useRef(null);
   // let factor = {value:0};
   const { progress:loaded } = useProgress()
 
@@ -39,18 +38,6 @@ const IntroText = ({sheet}) => {
     }),
   },{reconfigure: true});
 
-  React.useEffect(()=>{
-    // console.log(images)
-    // mascotMat.onValuesChange(val=>{
-    //   ref.current.opacity = val.opacity;
-
-    //   const index = Math.floor(val.factor * (textures.length - 1));
-
-    //   ref.current.map = textures[index];
-    //   ref.current.needsUpdate = true;
-    // });
-  },[mascotMat]);
-
 
   React.useEffect(()=>{
     // console.log(images)
@@ -62,10 +49,12 @@ const IntroText = ({sheet}) => {
         onComplete:()=>{
           mascotMat.onValuesChange(val=>{
               ref.current.opacity = val.opacity;
+              ref2.current.opacity = val.opacity;
         
               const index = Math.trunc(val.factor * (textures.length - 1));
         
               ref.current.map = textures[index];
+              // ref2.current.map = textures[index];
               // ref.current.needsUpdate = true;
             });
         }
@@ -80,6 +69,10 @@ const IntroText = ({sheet}) => {
           {/* <Suspense fallback={null}> */}
             <meshStandardMaterial ref={ref} depthWrite={false} depthTest={false} opacity={0} transparent map={textures[0]} toneMapped={false} />
           {/* </Suspense> */}
+      </e.mesh>
+      <e.mesh theatreKey='text3' position={[0,0, -21]}>
+          <planeGeometry args={[75, 45]}/>
+          <meshStandardMaterial ref={ref2} depthWrite={false} depthTest={false} opacity={0} transparent map={textures[0]} toneMapped={false} />
       </e.mesh>
     </group>
   )
