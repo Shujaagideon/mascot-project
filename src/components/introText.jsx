@@ -53,8 +53,8 @@ const IntroText = ({sheet}) => {
         
               const index = Math.trunc(val.factor * (textures.length - 1));
         
-              ref.current.map = textures[index];
-              ref2.current.map = textures[index];
+              ref.current.map = ref2.current.map = textures[index];
+              // ref2.current.map = textures[index];
               // ref.current.needsUpdate = true;
             });
         }

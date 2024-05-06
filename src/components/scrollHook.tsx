@@ -12,6 +12,38 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
   let rounded = 0;
   let isScrolling= false;
 
+  const handleScroll = () => {
+    const scrollTop = scrollElement.scrollTop;
+    const mouseAnim = document.querySelector('.mouse-anim');
+  
+    if (mouseAnim) {
+      gsap.set(mouseAnim, { opacity: scrollTop < 4 ? 1 : 0 });
+    }
+  };
+  
+  let lastKnownScrollPosition = scrollElement.scrollTop;
+  let ticking = false;
+  
+  const requestAnimationFrame = window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    function(callback) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+  
+  const updateScroll = () => {
+    lastKnownScrollPosition = scrollElement.scrollTop;
+    handleScroll();
+    ticking = false;
+  };
+  
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(updateScroll);
+      ticking = true;
+    }
+  };
+
 
 
   // Event listener for wheel scrolling
@@ -59,7 +91,11 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
       ease: 'Power.in',
       onUpdate:()=>{
         const mo = document.querySelector('.mo');
-        scrollElement.scrollTop < 4 ? gsap.set('.mouse-anim',{opacity: 1}) : gsap.set('.mouse-anim',{opacity: 0});
+        // const scrollElement = window.pageYOffset !== undefined ? window : document.documentElement || document.body.parentNode || document.body;
+
+        scrollElement.addEventListener('scroll', onScroll, { passive: true });
+        handleScroll();
+        // scrollElement.scrollTop < 4 ? gsap.set('.mouse-anim',{opacity: 1}) : gsap.set('.mouse-anim',{opacity: 0});
         // console.log(scrollElement.scrollTop)
         // if(scrollElement.scrollTop < 10){
         //   gsap.to('.mouse-anim',{
