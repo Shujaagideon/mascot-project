@@ -85,12 +85,10 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
     if (scrollElement) {
       window.addEventListener('wheel', handleWheel, {passive:false});
       window.addEventListener('scroll', handleWheel, {passive:false});
-      window.addEventListener('touchmove', handleWheel, {passive:false});
 
       return () => {
         window.removeEventListener('wheel', handleWheel);
         window.removeEventListener('scroll', handleWheel);
-        window.removeEventListener('touchmove', handleWheel);
       };
     }
     
