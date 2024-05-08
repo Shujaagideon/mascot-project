@@ -50,29 +50,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
   const handleWheel = (event) => {
     
     event.preventDefault();
-    if(isScrolling){
-      return;
-    };
-    let dir = Math.sign(event.deltaY);
-    isScrolling = true;
-
-    if(dir > 0){
-      if(currentIndex >= 0 && currentIndex < percentages.length-1){
-        currentIndex +=1;
-      }
-      else {
-        currentIndex = currentIndex;
-      }
-    }else if(dir < 0){
-      if(currentIndex > 0 ){
-        currentIndex -=1;
-      }
-      else {
-        currentIndex = 0;
-      }
-    }
-
-
     const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
     const scrollTo = percentages[currentIndex] * scrollHeight / 100;
 
@@ -93,22 +70,8 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
         const mo = document.querySelector('.mo');
         // const scrollElement = window.pageYOffset !== undefined ? window : document.documentElement || document.body.parentNode || document.body;
 
-        scrollElement.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('scroll', onScroll, { passive: true });
         handleScroll();
-        // scrollElement.scrollTop < 4 ? gsap.set('.mouse-anim',{opacity: 1}) : gsap.set('.mouse-anim',{opacity: 0});
-        // console.log(scrollElement.scrollTop)
-        // if(scrollElement.scrollTop < 10){
-        //   gsap.to('.mouse-anim',{
-        //     opacity: 1,
-        //     duration: 0.2,
-        //     // delay: dir > 0 ? 0 : 4,
-        //   })
-        // }else{
-        //   gsap.to('.mouse-anim',{
-        //     opacity: 0,
-        //     duration: 1,
-        //   })
-        // }
       },
       onComplete: ()=>{
         isScrolling = false;
@@ -122,10 +85,12 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
     if (scrollElement) {
       window.addEventListener('wheel', handleWheel, {passive:false});
       window.addEventListener('scroll', handleWheel, {passive:false});
+      window.addEventListener('touchmove', handleWheel, {passive:false});
 
       return () => {
         window.removeEventListener('wheel', handleWheel);
         window.removeEventListener('scroll', handleWheel);
+        window.removeEventListener('touchmove', handleWheel);
       };
     }
     
