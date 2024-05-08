@@ -17,7 +17,7 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
     const mouseAnim = document.querySelector('.mouse-anim');
   
     if (mouseAnim) {
-      gsap.set(mouseAnim, { opacity: scrollTop < 4 ? 1 : 0 });
+      gsap.to(mouseAnim, { opacity: scrollTop < 4 ? 1 : 0 });
     }
   };
   
@@ -121,9 +121,11 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
   useEffect(() => {
     if (scrollElement) {
       window.addEventListener('wheel', handleWheel, {passive:false});
+      window.addEventListener('scroll', handleWheel, {passive:false});
 
       return () => {
         window.removeEventListener('wheel', handleWheel);
+        window.removeEventListener('scroll', handleWheel);
       };
     }
     
