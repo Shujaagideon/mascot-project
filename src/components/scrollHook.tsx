@@ -70,7 +70,7 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
         const mo = document.querySelector('.mo');
         // const scrollElement = window.pageYOffset !== undefined ? window : document.documentElement || document.body.parentNode || document.body;
 
-        window.addEventListener('scroll', onScroll, { passive: true });
+        scrollElement.addEventListener('scroll', onScroll, { passive: true });
         handleScroll();
       },
       onComplete: ()=>{
@@ -85,10 +85,14 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
     if (scrollElement) {
       window.addEventListener('wheel', handleWheel, {passive:false});
       window.addEventListener('scroll', handleWheel, {passive:false});
+      scrollElement.addEventListener('touchstart', handleWheel, { passive: true });
+      scrollElement.addEventListener('touchmove', handleWheel, { passive: false });
 
       return () => {
         window.removeEventListener('wheel', handleWheel);
         window.removeEventListener('scroll', handleWheel);
+        scrollElement.removeEventListener('touchstart', handleWheel);
+        scrollElement.removeEventListener('touchmove', handleWheel);
       };
     }
     
