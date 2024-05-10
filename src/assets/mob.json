@@ -1101,7 +1101,7 @@
                       0
                     ],
                     "type": "bezier",
-                    "value": -16.465
+                    "value": -10.804999999999966
                   },
                   {
                     "id": "-vOWODoRRq",
@@ -1315,7 +1315,7 @@
                       0
                     ],
                     "type": "bezier",
-                    "value": 8.86
+                    "value": 10.589999999999968
                   },
                   {
                     "id": "u_LIif3Sr8",
@@ -1568,7 +1568,7 @@
                       0
                     ],
                     "type": "bezier",
-                    "value": -15.966
+                    "value": -41.616000000000106
                   },
                   {
                     "id": "aeAdA6bHov",
@@ -1808,7 +1808,7 @@
                       0
                     ],
                     "type": "bezier",
-                    "value": 0.756
+                    "value": 0.8960000000000004
                   },
                   {
                     "id": "Y-rRCy7uY5",
@@ -2048,7 +2048,7 @@
                       0
                     ],
                     "type": "bezier",
-                    "value": 10.601
+                    "value": 7.191000000000004
                   },
                   {
                     "id": "AYUJGIk2hE",
@@ -2314,7 +2314,7 @@
                       0
                     ],
                     "type": "bezier",
-                    "value": 0.29
+                    "value": -0.49000000000000016
                   },
                   {
                     "id": "1j5RuieoCX",
@@ -7181,6 +7181,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "5O3zndzFmx3wrq4o",
     "QL5BUKKwAq6mQkVn",
     "uhnf3mCM4c0BKg7g",
     "Kk-4b69GMpwF1LLq",

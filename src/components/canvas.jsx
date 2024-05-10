@@ -51,12 +51,8 @@ export default function R3fCanvas() {
   const project2 = getProject("Revised_laptop", {
     state: sceneState
   })
-  const sheet = isMobile ? project1.sheet("Scene") : project2.sheet("Scene") 
-  // const sheet = project1.sheet("Scene");
-
-  
-
-
+  // const sheet = isMobile ? project1.sheet("Scene") : project2.sheet("Scene") 
+  const sheet = project1.sheet("Scene");
 
   return (
     <>
