@@ -37,7 +37,7 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
     }
   };
 
-  let prevScrollY = scrollElement.scrollTop;
+  // let prevScrollY = scrollElement.scrollTop;
 
   // Event listener for wheel scrolling
   const handleWheel = (event) => {
@@ -47,57 +47,57 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
     isScrolling = true;
 
     let dir;
-    const currentScrollY = scrollElement.scrollTop;
+    // const currentScrollY = scrollElement.scrollTop;
     
 
     // Check for wheel event
     if (event.deltaY) {
       dir = Math.sign(event.deltaY);
       event.preventDefault();
+
+      if (dir > 0) {
+        // Scrolling down or wheel scroll down
+        if (currentIndex >= 0 && currentIndex < percentages.length - 1) {
+          currentIndex += 1;
+        } else {
+          currentIndex = currentIndex;
+        }
+      } else if (dir <= 0) {
+        // Scrolling up or wheel scroll up
+        if (currentIndex > 0) {
+          currentIndex -= 1;
+        } else {
+          currentIndex = 0; // Reset currentIndex to 0 when scrolling up from the first section
+        }
+      }
+      
+      const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
+      const scrollTo = (percentages[currentIndex] * scrollHeight) / 100;
+  
+      gsap.to(scrollElement, {
+        scrollTop: scrollTo,
+        duration: currentIndex === 0 ? 6 : currentIndex === 1 ? 6 : currentIndex === 2 ? 8 : currentIndex === 3 ? 6 : currentIndex === 4 ? 6 : currentIndex === 5 ? 9 : currentIndex === 6 ? 6 : currentIndex === 7 ? 6 : currentIndex === 8 ? 8 : 3,
+        ease: 'Power.in',
+        onUpdate: () => {
+          scrollElement.addEventListener('scroll', onScroll, { passive: true });
+          handleScroll();
+        },
+        onComplete: () => {
+            setTimeout(()=>{
+              isScrolling = false;
+            }, 100)
+          }
+        });
     } else {
       // event.preventDefault();
       // For scroll event, calculate the direction based on scroll position difference
-      dir = Math.sign(currentScrollY - prevScrollY);
-      console.log(currentScrollY, prevScrollY)
-      console.log(dir)
+      // dir = Math.sign(currentScrollY - prevScrollY);
+      scrollElement.addEventListener('scroll', onScroll, { passive: true });
       
-      prevScrollY = currentScrollY; // Update the previous scroll position
+      // prevScrollY = currentScrollY; // Update the previous scroll position
     }
 
-    if (dir > 0) {
-      // Scrolling down or wheel scroll down
-      if (currentIndex >= 0 && currentIndex < percentages.length - 1) {
-        currentIndex += 1;
-      } else {
-        currentIndex = currentIndex;
-      }
-    } else if (dir <= 0) {
-      // Scrolling up or wheel scroll up
-      if (currentIndex > 0) {
-        currentIndex -= 1;
-      } else {
-        currentIndex = 0; // Reset currentIndex to 0 when scrolling up from the first section
-      }
-    }
     
-    const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
-    const scrollTo = (percentages[currentIndex] * scrollHeight) / 100;
-    prevScrollY = scrollTo;
-
-    gsap.to(scrollElement, {
-      scrollTop: scrollTo,
-      duration: currentIndex === 0 ? 6 : currentIndex === 1 ? 6 : currentIndex === 2 ? 8 : currentIndex === 3 ? 6 : currentIndex === 4 ? 6 : currentIndex === 5 ? 9 : currentIndex === 6 ? 6 : currentIndex === 7 ? 6 : currentIndex === 8 ? 8 : 3,
-      ease: 'Power.in',
-      onUpdate: () => {
-        scrollElement.addEventListener('scroll', onScroll, { passive: true });
-        handleScroll();
-      },
-      onComplete: () => {
-          setTimeout(()=>{
-            isScrolling = false;
-          }, 100)
-        }
-      });
     
   };
 
