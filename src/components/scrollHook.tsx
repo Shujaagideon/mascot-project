@@ -15,7 +15,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
     }
   };
 
-  let lastKnownScrollPosition = scrollElement.scrollTop;
   let ticking = false;
 
   const requestAnimationFrame =
@@ -27,7 +26,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
     };
 
   const updateScroll = () => {
-    lastKnownScrollPosition = scrollElement.scrollTop;
     handleScroll();
     ticking = false;
   };
@@ -43,20 +41,26 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
 
   // Event listener for wheel scrolling
   const handleWheel = (event) => {
-    event.preventDefault();
     if (isScrolling) {
       return;
     }
     isScrolling = true;
+
     let dir;
+    const currentScrollY = scrollElement.scrollTop;
+    
 
     // Check for wheel event
     if (event.deltaY) {
       dir = Math.sign(event.deltaY);
+      event.preventDefault();
     } else {
+      // event.preventDefault();
       // For scroll event, calculate the direction based on scroll position difference
-      const currentScrollY = scrollElement.scrollTop;
       dir = Math.sign(currentScrollY - prevScrollY);
+      console.log(currentScrollY, prevScrollY)
+      console.log(dir)
+      
       prevScrollY = currentScrollY; // Update the previous scroll position
     }
 
@@ -67,7 +71,7 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
       } else {
         currentIndex = currentIndex;
       }
-    } else if (dir < 0) {
+    } else if (dir <= 0) {
       // Scrolling up or wheel scroll up
       if (currentIndex > 0) {
         currentIndex -= 1;
@@ -75,9 +79,10 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
         currentIndex = 0; // Reset currentIndex to 0 when scrolling up from the first section
       }
     }
-
+    
     const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
     const scrollTo = (percentages[currentIndex] * scrollHeight) / 100;
+    prevScrollY = scrollTo;
 
     gsap.to(scrollElement, {
       scrollTop: scrollTo,
@@ -88,9 +93,12 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10, 
         handleScroll();
       },
       onComplete: () => {
-        isScrolling = false;
-      }
-    });
+          setTimeout(()=>{
+            isScrolling = false;
+          }, 100)
+        }
+      });
+    
   };
 
   // Attach the wheel event listener on mount
