@@ -55,8 +55,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages = [10
     // Check for wheel event
     if (event.deltaY) {
       dir = Math.sign(event.deltaY);
-    } else if (event.type === 'touchstart') {
-      touchStartY = event.touches[0].clientY;
     } else if (event.type === 'touchmove') {
       touchEndY = event.touches[0].clientY;
       dir = Math.sign(touchStartY - touchEndY);
@@ -124,12 +122,10 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages = [10
     if (scrollElement) {
       window.addEventListener('wheel', handleScrollEvent, { passive: false });
       scrollElement.addEventListener('scroll', handleScrollEvent, { passive: false });
-      scrollElement.addEventListener('touchstart', handleScrollEvent, { passive: false });
       scrollElement.addEventListener('touchmove', handleScrollEvent, { passive: false });
       return () => {
         window.removeEventListener('wheel', handleScrollEvent);
         scrollElement.removeEventListener('scroll', handleScrollEvent);
-        scrollElement.removeEventListener('touchstart', handleScrollEvent);
         scrollElement.removeEventListener('touchmove', handleScrollEvent);
       };
     }
