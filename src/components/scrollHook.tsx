@@ -7,9 +7,6 @@ const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
 
 export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,20]) => {
   let currentIndex = 0;
-  let speed = 0;
-  let position = 0;
-  let rounded = 0;
   let isScrolling= false;
 
   const handleScroll = () => {
@@ -17,7 +14,7 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
     const mouseAnim = document.querySelector('.mouse-anim');
   
     if (mouseAnim) {
-      gsap.to(mouseAnim, { opacity: scrollTop < 4 ? 1 : 0 });
+      gsap.set(mouseAnim, { opacity: scrollTop < 4 ? 1 : 0 });
     }
   };
   
@@ -50,6 +47,33 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
   const handleWheel = (event) => {
     
     event.preventDefault();
+    console.log(event)
+    
+    if(isScrolling){
+      return;
+    };
+
+    isScrolling = true;
+    
+    let dir = Math.sign(event.deltaY);
+
+    if(dir > 0){
+      if(currentIndex >= 0 && currentIndex < percentages.length-1){
+        currentIndex +=1;
+      }
+      else {
+        currentIndex = currentIndex;
+      }
+    }else if(dir < 0){
+      if(currentIndex > 0 ){
+        currentIndex -=1;
+      }
+      else {
+        currentIndex = 0;
+      }
+    }
+
+
     const scrollHeight = scrollElement.scrollHeight - scrollElement.clientHeight;
     const scrollTo = percentages[currentIndex] * scrollHeight / 100;
 
@@ -67,9 +91,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
                 3,
       ease: 'Power.in',
       onUpdate:()=>{
-        const mo = document.querySelector('.mo');
-        // const scrollElement = window.pageYOffset !== undefined ? window : document.documentElement || document.body.parentNode || document.body;
-
         scrollElement.addEventListener('scroll', onScroll, { passive: true });
         handleScroll();
       },
@@ -85,14 +106,10 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages=[10,2
     if (scrollElement) {
       window.addEventListener('wheel', handleWheel, {passive:false});
       window.addEventListener('scroll', handleWheel, {passive:false});
-      scrollElement.addEventListener('touchstart', handleWheel, { passive: true });
-      scrollElement.addEventListener('touchmove', handleWheel, { passive: false });
 
       return () => {
         window.removeEventListener('wheel', handleWheel);
         window.removeEventListener('scroll', handleWheel);
-        scrollElement.removeEventListener('touchstart', handleWheel);
-        scrollElement.removeEventListener('touchmove', handleWheel);
       };
     }
     
