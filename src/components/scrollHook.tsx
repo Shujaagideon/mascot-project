@@ -55,14 +55,6 @@ export const useScrollHijack = (scrollElement: HTMLDivElement, percentages = [10
     // Check for wheel event
     if (event.deltaY) {
       dir = Math.sign(event.deltaY);
-    } else if (event.type === 'touchmove') {
-      touchEndY = event.touches[0].clientY;
-      dir = Math.sign(touchStartY - touchEndY);
-    } else {
-      // For scroll event, calculate the direction based on scroll position difference
-      const currentScrollY = scrollElement.scrollTop;
-      dir = Math.sign(currentScrollY - prevScrollY);
-      prevScrollY = currentScrollY; // Update the previous scroll position
     }
 
     if (dir > 0) {
