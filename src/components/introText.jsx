@@ -74,8 +74,8 @@ const IntroText = ({sheet}) => {
 
   return (
     <group>
-      <e.mesh theatreKey='text2' position={[0,0, -21]}>
-          <planeGeometry args={[75, 45]}/>
+      <e.mesh theatreKey='text2' position={[0, 0, -21]}>
+          <planeGeometry args={[80, 45]}/>
             <meshStandardMaterial ref={ref} depthWrite={false} depthTest={false} opacity={0} transparent map={textures[0]} toneMapped={false} />
       </e.mesh>
     </group>
