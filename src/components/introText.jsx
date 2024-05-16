@@ -33,22 +33,11 @@ const IntroText = ({sheet}) => {
   const [isMobile, setIsMobile] = useState(false);
   const meshRef = useRef()
   const { width, height } = useThree((state) => state.viewport)
-  // console.log(size)
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-      const aspectRatio = width / height
-      const scaleX = aspectRatio > 1 ? 1 : aspectRatio
-      const scaleY = aspectRatio > 1 ? 1 / aspectRatio : 1
-      // meshRef.current.scale.set(scaleX, scaleY, 1)
-      // console.log(scaleX, scaleY, 1)
-  //   }
-
-  //   handleResize()
-  //   window.addEventListener('resize', handleResize)
-  //   return () => window.removeEventListener('resize', handleResize)
-  // }, [width, height])
-  // const { gl } = useThree();
+  
+  const aspectRatio = width / height
+  const [scaleX, setScaleX] = useState(aspectRatio > 1 ? 1 : aspectRatio-0.24);
+  
+  const scaleY = aspectRatio > 1 ? 1 / aspectRatio : 1
 
   const ref = React.useRef(null);
   useEffect(()=>{
@@ -85,8 +74,8 @@ const IntroText = ({sheet}) => {
               const index = Math.trunc(val.factor * (textures.length - 1));
         
               ref.current.map = textures[index];
-              // ref2.current.map = textures[index];
-              // ref.current.needsUpdate = true;
+
+              index > 9 && isMobile ? setScaleX(aspectRatio) : setScaleX(aspectRatio - 0.24)
             });
         }
       })
