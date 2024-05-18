@@ -24,9 +24,6 @@ import ProductionText from "./productionText";
 import Planets from "./planets";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import People from "./mascotPeople";
-// import { Banner } from "./scrollingProjects";
-// import gsap from "gsap";
-// import Project from "./project";
 import { ModelX } from "./X";
 import { useScrollHijack } from "./scrollHook";
 
@@ -34,8 +31,6 @@ import { useScrollHijack } from "./scrollHook";
 export default function R3fCanvas() {
   const loadingManager = new THREE.LoadingManager();
   const [isMobile, setIsMobile] = useState(false);
-
-
   
   useEffect(()=>{
     // projectRef.current.style.visibility = 'hidden';
@@ -51,8 +46,8 @@ export default function R3fCanvas() {
   const project2 = getProject("Revised_laptop", {
     state: sceneState
   })
-  const sheet = isMobile ? project1.sheet("Scene") : project2.sheet("Scene") 
-  // const sheet = project1.sheet("Scene");
+  // const sheet = isMobile ? project1.sheet("Scene") : project2.sheet("Scene") 
+  const sheet = project1.sheet("Scene");
 
   return (
     <>

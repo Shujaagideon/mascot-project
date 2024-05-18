@@ -32,12 +32,30 @@ myImgs.forEach((url) => {
 const IntroText = ({sheet}) => {
   const [isMobile, setIsMobile] = useState(false);
   const meshRef = useRef()
-  const { width, height } = useThree((state) => state.viewport)
+  const { width, height } = useThree((state) => state.viewport);
+  const { camera } = useThree((state) => state);
+  // const aspectRatio = width / height;
+  const imageAspectRatio = 1080 / 1520 // Width / Height
+  const windowAspectRatio = width / height
+
+  let scaleX, scaleY
+
+  if (windowAspectRatio > imageAspectRatio) {
+    // Window is wider than the image
+    scaleX = 1
+    scaleY = windowAspectRatio / imageAspectRatio
+  } else {
+    // Window is taller than the image
+    scaleX = imageAspectRatio / windowAspectRatio
+    scaleY = 1
+  }
+
+  const distance = camera.position.z // Assuming the camera is positioned on the Z-axis
+  const scaleFactor = 2 * Math.tan((camera.fov * Math.PI) / 360) * distance
   
-  const aspectRatio = width / height
-  const [scaleX, setScaleX] = useState(aspectRatio > 1 ? 1 : aspectRatio-0.24);
+  // const [scaleX, setScaleX] = useState(aspectRatio > 1 ? 1 : aspectRatio-0.25);
   
-  const scaleY = aspectRatio > 1 ? 1 / aspectRatio : 1
+  // const scaleY = aspectRatio > 1 ? 1 / aspectRatio : 1
 
   const ref = React.useRef(null);
   useEffect(()=>{
@@ -75,7 +93,7 @@ const IntroText = ({sheet}) => {
         
               ref.current.map = textures[index];
 
-              index > 9 && isMobile ? setScaleX(aspectRatio) : setScaleX(aspectRatio - 0.24)
+              // index > 9 && isMobile ? setScaleX(aspectRatio) : setScaleX(aspectRatio - 0.25)
             });
         }
       })
@@ -84,8 +102,12 @@ const IntroText = ({sheet}) => {
 
   return (
     <group>
-      <e.mesh theatreKey='text2' position={[0, 0, -21]} scale={[scaleX, scaleY, 1]}>
-        <planeGeometry args={isMobile ? [75, 45] : [1, 1]}/>
+      <e.mesh theatreKey='text2' position={[0, 0, -21]}>
+        <planeGeometry args={
+          // isMobile ? 
+          [(1/windowAspectRatio)*scaleFactor, (1.7 / windowAspectRatio)*scaleFactor] 
+          // : [75, 45]
+          }/>
         <meshStandardMaterial ref={ref} depthWrite={false} depthTest={false} opacity={0} transparent map={textures[0]} toneMapped={false} />
       </e.mesh>
     </group>
