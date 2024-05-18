@@ -105,7 +105,7 @@ const IntroText = ({sheet}) => {
       <e.mesh theatreKey='text2' position={[0, 0, -21]}>
         <planeGeometry args={
           isMobile ? 
-          [(1/windowAspectRatio)*scaleFactor, (1.7 / windowAspectRatio)*scaleFactor] 
+          [(1/imageAspectRatio)*scaleFactor/windowAspectRatio, (1.7 / imageAspectRatio)*scaleFactor/windowAspectRatio] 
           : [75, 45]
           }/>
         <meshStandardMaterial ref={ref} depthWrite={false} depthTest={false} opacity={0} transparent map={textures[0]} toneMapped={false} />
