@@ -87,8 +87,8 @@ const IntroText = ({sheet}) => {
         ease: 'sine.inOut',
         onComplete:()=>{
             
-          let tempX = meshRef.current.scale.x + 9,
-          tempY = meshRef.current.scale.y + 9,
+          let tempX = meshRef.current.scale.x + 10,
+          tempY = meshRef.current.scale.y + 10,
           tempZ = meshRef.current.scale.z;
 
           let tempX2 = meshRef.current.scale.x,
