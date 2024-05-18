@@ -105,7 +105,7 @@ const IntroText = ({sheet}) => {
 
               // index > 9 && isMobile ? setScaleX(1) : setScaleX(1)
 
-              if(index > 10){
+              if(index > 10 && isMobile){
                 meshRef.current.scale.set(
                   tempX,
                   tempY,
@@ -115,7 +115,7 @@ const IntroText = ({sheet}) => {
                 console.log(meshRef.current.scale.y, meshRef.current.scale.y)
               }
 
-              else if (index <= 10){
+              else if (index <= 10 && isMobile){
                 meshRef.current.scale.set(
                   tempX2,
                   tempY2,
@@ -132,7 +132,7 @@ const IntroText = ({sheet}) => {
 
   return (
     <group>
-      <e.mesh theatreKey='text2' ref={meshRef} position={[0, 0, -21]} scale={[planeWidthAtZ, planeHeightAtZ]}>
+      <e.mesh theatreKey='text2' ref={meshRef} position={[0, 0, -21]} scale={isMobile ? [planeWidthAtZ, planeHeightAtZ]: [1,1,1]}>
         <planeGeometry args={
           isMobile ? 
           [1,1] 
