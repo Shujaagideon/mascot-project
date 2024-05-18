@@ -32,30 +32,31 @@ myImgs.forEach((url) => {
 const IntroText = ({sheet}) => {
   const [isMobile, setIsMobile] = useState(false);
   const meshRef = useRef()
-  const { width, height } = useThree((state) => state.viewport);
-  const { camera } = useThree((state) => state);
-  // const aspectRatio = width / height;
-  const imageAspectRatio = 1080 / 1520 // Width / Height
-  const windowAspectRatio = width / height
+  // const { width, height } = useThree((state) => state.viewport);
+  const [scaleY, setScaleY] = useState();
+  const [scaleX, setScaleX] = useState();
+  const { viewport, camera } = useThree();
 
-  let scaleX, scaleY
 
-  if (windowAspectRatio > imageAspectRatio) {
-    // Window is wider than the image
-    scaleX = 1
-    scaleY = windowAspectRatio / imageAspectRatio
-  } else {
-    // Window is taller than the image
-    scaleX = imageAspectRatio / windowAspectRatio
-    scaleY = 1
-  }
+  // Ensure camera.aspect is up-to-date
+  camera.updateProjectionMatrix();
 
-  const distance = camera.position.z // Assuming the camera is positioned on the Z-axis
-  const scaleFactor = 2 * Math.tan((camera.fov * Math.PI) / 360) * distance
+  // Get aspect ratio of the window
+  const aspectRatio = viewport.aspect;
+
+  // Assuming FOV is in degrees, convert it to radians
+  const vFOV = (camera.fov * Math.PI) / 180;
+  const planeZ = -20.9; // Z position of the plane
+  const cameraZ = 8; // Camera's Z position
+
+  // Calculate the distance between the camera and the plane
+  const zDistance = Math.abs(cameraZ - planeZ);
+
+  // Calculate the plane height to cover the screen at this distance
+  const planeHeightAtZ = 2 * Math.tan(vFOV / 2) * zDistance;
+  const planeWidthAtZ = planeHeightAtZ * aspectRatio;
   
-  // const [scaleX, setScaleX] = useState(aspectRatio > 1 ? 1 : aspectRatio-0.25);
   
-  // const scaleY = aspectRatio > 1 ? 1 / aspectRatio : 1
 
   const ref = React.useRef(null);
   useEffect(()=>{
@@ -85,6 +86,15 @@ const IntroText = ({sheet}) => {
         duration: 1,
         ease: 'sine.inOut',
         onComplete:()=>{
+            
+          let tempX = meshRef.current.scale.x + 5,
+          tempY = meshRef.current.scale.y + 7,
+          tempZ = meshRef.current.scale.z;
+
+          let tempX2 = meshRef.current.scale.x,
+          tempY2 = meshRef.current.scale.y,
+          tempZ2 = meshRef.current.scale.z;
+
           mascotMat.onValuesChange(val=>{
               ref.current.opacity = val.opacity;
               // ref2.current.opacity = val.opacity;
@@ -93,7 +103,27 @@ const IntroText = ({sheet}) => {
         
               ref.current.map = textures[index];
 
-              // index > 9 && isMobile ? setScaleX(aspectRatio) : setScaleX(aspectRatio - 0.25)
+              // index > 9 && isMobile ? setScaleX(1) : setScaleX(1)
+
+              if(index > 10){
+                meshRef.current.scale.set(
+                  tempX,
+                  tempY,
+                  tempZ
+                );
+
+                console.log(meshRef.current.scale.y, meshRef.current.scale.y)
+              }
+
+              else if (index <= 10){
+                meshRef.current.scale.set(
+                  tempX2,
+                  tempY2,
+                  tempZ2
+                );
+
+                console.log(meshRef.current.scale.y, meshRef.current.scale.y)
+              }
             });
         }
       })
@@ -102,10 +132,10 @@ const IntroText = ({sheet}) => {
 
   return (
     <group>
-      <e.mesh theatreKey='text2' position={[0, 0, -21]}>
+      <e.mesh theatreKey='text2' ref={meshRef} position={[0, 0, -21]} scale={[planeWidthAtZ, planeHeightAtZ]}>
         <planeGeometry args={
           isMobile ? 
-          [(1/imageAspectRatio)*scaleFactor/windowAspectRatio, (1.7 / imageAspectRatio)*scaleFactor/windowAspectRatio] 
+          [1,1] 
           : [75, 45]
           }/>
         <meshStandardMaterial ref={ref} depthWrite={false} depthTest={false} opacity={0} transparent map={textures[0]} toneMapped={false} />
