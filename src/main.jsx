@@ -59,7 +59,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               </Route>
               <Route path='/login' element={<Login />} />
             </Routes>
-            <Nav />
+            {/* <Nav /> */}
           </BrowserRouter>
         </React.Suspense>
       </ColorModeProvider>
