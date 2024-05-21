@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
+import { useThree } from "@react-three/fiber";
 import * as THREE from 'three';
 import {editable as e} from "@theatre/r3f";
 import { types as t } from "@theatre/core";
 import React from "react";
+import gsap from "gsap";
 import { Suspense } from "react";
 
 const myImgs = [];
 
-for(let i=1; i< 93; i++){
+for(let i=10; i< 371; i++){
   myImgs.push(`/mascotPeople/out_${i}.jpg`)
 }
 
@@ -40,10 +42,10 @@ const People = ({sheet}) => {
     mascotMat.onValuesChange(val=>{
       ref.current.opacity = val.opacity;
 
-      const index = Math.trunc(val.factor * (textures.length - 1));
+      const index = Math.floor(val.factor * (textures.length - 1));
 
       ref.current.map = textures[index];
-      // ref.current.needsUpdate = true;
+      ref.current.needsUpdate = true;
     });
   },[mascotMat])
 

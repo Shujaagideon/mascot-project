@@ -3,341 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload Files</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r110/three.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.9.0/dist/gsap.min.js"></script>
   <style>
-    body {
-      background-color: #e3f2fd;
-      font-family: Arial, sans-serif;
-    }
-
-    .upload-container {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      max-width: 400px;
-      margin: 50px auto;
-    }
-
-    .upload-header {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .upload-area {
-      border: 2px dashed #b0c4de;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      color: #6b90c0;
-      font-size: 14px;
-    }
-
-    .upload-icon {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    .upload-list {
-      list-style-type: none;
-      padding: 0;
-      margin-top: 20px;
-    }
-
-    .upload-list li {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-radius: 4px;
-      background-color: #f5f5f5;
-      margin-bottom: 10px;
-    }
-
-    .upload-list li img {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-      object-fit: cover;
-      margin-right: 10px;
-    }
-
-    .upload-list li .file-info {
-      flex-grow: 1;
-    }
-
-    .upload-list li .file-info span {
-      font-size: 14px;
-      color: #666;
-    }
+    body { margin: 0; }
   </style>
 </head>
 <body>
-  <div class="upload-container">
-    <div class="upload-header">Upload your files in JPG, PNG, GIF</div>
-    <div class="upload-area">
-      <span class="upload-icon">&#128247;</span>
-      <div>Drag and drop or Browse</div>
-    </div>
-    <ul class="upload-list">
-      <li>
-        <img src="profile.png" alt="Profile Photo">
-        <div class="file-info">
-          <div>Profile photo.png</div>
-          <span>2.1 MB</span>
-        </div>
-      </li>
-      <li>
-        <img src="wallpaper.png" alt="Wallpaper Image">
-        <div class="file-info">
-          <div>Wallpaper image.png</div>
-          <span>2.4 MB</span>
-        </div>
-      </li>
-      <li>
-        <img src="untitled.png" alt="Untitled Image">
-        <div class="file-info">
-          <div>Untitled.png</div>
-          <span>1.8 MB</span>
-        </div>
-      </li>
-    </ul>
-  </div>
+
+<script>
+  // Set up Three.js scene
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // Create a cube with MeshBasicMaterial
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshBasicMaterial({ color: 0x808080 }); // Grey color
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  // Set up camera position
+  camera.position.z = 5;
+
+  // GSAP animation to change color from grey to white
+  gsap.to(material.color, {
+    r: 1, // Set red component to 1 (white)
+    g: 1, // Set green component to 1 (white)
+    b: 1, // Set blue component to 1 (white)
+    duration: 2, // Animation duration in seconds
+    onUpdate: () => {
+      // Render the scene on each update
+      renderer.render(scene, camera);
+    },
+  });
+
+  // Additional rotation animation
+  gsap.to(cube.rotation, {
+    y: Math.PI * 2, // Rotate around Y axis
+    duration: 2,
+    repeat: -1, // Repeat indefinitely
+    ease: 'power1.inOut', // Easing function
+  });
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  }
+
+  animate();
+</script>
+
 </body>
 </html>
-
-import { useEffect, useState } from 'react';
-// import UploadComponent from './UploadComponent';
-
-
-const toBase64 = file => new Promise((resolve, reject) => {
-    if(file){
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-    }
-});
-
-const UploadComponent = ({multiple, onUpload}) => {
-  const [files, setFiles] = useState([]);
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    setFiles(multiple ? [...files, ...droppedFiles] : [...droppedFiles]);
-    
-  };
-
-  const handleFileUpload = (e) => {
-    const uploadedFiles = Array.from(e.target.files);
-    // console.log(uploadedFiles[0])
-    setFiles(multiple ? [...files, ...uploadedFiles] : [...uploadedFiles]);
-  };
-
-  useEffect(()=>{
-    // console.log(files)
-    if(multiple){
-        (async()=>{
-            const data = await files.map(async file=>{
-                const base64 = await toBase64(file)
-                return base64
-            })
-            console.log(data)
-            // onUpload(data)
-        })()
-    }else{
-        (async ()=>{
-            const base64 = await toBase64(files[0]);
-            console.log(base64)
-            // onUpload(base64)
-        })()
-    }
-  }, [files, multiple, onUpload])
-
-  return (
-    <div className="bg-gray-50 p-6 rounded-lg shadow-lg mx-auto mt-10 w-full">
-      <h2 className="text-lg font-semibold mb-4">Upload your files</h2>
-      <p className="text-gray-600 mb-4">in JPG, PNG, GIF</p>
-      <div
-        className="border-2 border-dashed border-blue-300 rounded-md p-4 text-center mb-4"
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
-        <span className="text-blue-500 text-3xl mb-2">&#128247;</span>
-        <p className="text-blue-500">Drag and drop or Browse</p>
-        <input
-          type="file"
-          multiple={multiple}
-          accept="image/jpeg, image/png, image/gif"
-          onChange={handleFileUpload}
-          className="mt-2"
-        />
-      </div>
-      <ul className="space-y-2">
-        {files.map((file, index) => (
-          <li
-            key={index}
-            className="flex items-center bg-white rounded-md p-2 shadow"
-          >
-            <img
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              className="h-12 w-12 object-cover rounded-md mr-2"
-            />
-            <div className="flex-grow">
-              <p className="text-sm truncate">{file.name}</p>
-              <p className="text-xs text-gray-500">
-                {(file.size / 1024 / 1024).toFixed(1)} MB
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-
-const UploadDashboard = () => {
-  const [heroImage, setHeroImage] = useState(null);
-  const [heroHeading1, setHeroHeading1] = useState('');
-  const [heroHeading2, setHeroHeading2] = useState('');
-
-  const [paragraphText, setParagraphText] = useState('');
-  const [shortTexts, setShortTexts] = useState(['', '', '', '', '']);
-
-  const [projectImages, setProjectImages] = useState([]);
-
-  const handleHeroImageUpload = (file) => {
-    console.log(file)
-    setHeroImage(file);
-  };
-
-
-  const handleHeroHeading1Change = (e) => {
-    setHeroHeading1(e.target.value);
-  };
-
-  const handleHeroHeading2Change = (e) => {
-    setHeroHeading2(e.target.value);
-  };
-
-  const handleParagraphTextChange = (e) => {
-    setParagraphText(e.target.value);
-  };
-
-  const handleShortTextChange = (e, index) => {
-    const newShortTexts = [...shortTexts];
-    newShortTexts[index] = e.target.value;
-    setShortTexts(newShortTexts);
-  };
-
-  const handleProjectImageUpload = (files) => {
-    setProjectImages(files);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = {
-      hero: {
-        image: heroImage,
-        heading1: heroHeading1,
-        heading2: heroHeading2,
-      },
-      paragraph: {
-        text: paragraphText,
-        shortTexts,
-      },
-      projects: {
-        images: projectImages,
-      },
-    };
-
-    fetch('http://localhost:3001/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    // Save data as JSON or send it to the server
-    // console.log(JSON.stringify(data));
-  };
-
-  return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-md p-8 max-w-2xl w-full">
-        <h2 className="text-2xl font-bold mb-4 text-center">Upload Dashboard</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Hero Section</h3>
-            <div className="flex flex-col items-center space-x-4 w-full">
-              <UploadComponent onUpload={handleHeroImageUpload} />
-              <div className="flex flex-col space-y-2 w-full my-4">
-                <input
-                  type="text"
-                  value={heroHeading1}
-                  onChange={handleHeroHeading1Change}
-                  className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Hero Heading 1"
-                />
-                <input
-                  type="text"
-                  value={heroHeading2}
-                  onChange={handleHeroHeading2Change}
-                  className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Hero Heading 2"
-                />
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Paragraph Section</h3>
-            <textarea
-              value={paragraphText}
-              onChange={handleParagraphTextChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-              placeholder="Paragraph text..."
-            />
-            <div className=" w-full">
-              {shortTexts.map((text, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  value={text}
-                  onChange={(e) => handleShortTextChange(e, index)}
-                  className="px-4 py-2 border border-gray-300 w-3/4 my-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder={`Short text ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Project Images</h3>
-            <UploadComponent onUpload={handleProjectImageUpload} multiple />
-          </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Save
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-export default UploadDashboard;
