@@ -184,19 +184,6 @@ function Scene({project, loadingManager}) {
 
   const scroll = useScroll();
   let time = {value: 0};
-
-  // if(clicked){
-  //   gsap.to(scroll.el,{
-  //     scrollTop: scroll.el.scrollHeight,
-  //     duration: 0.3,
-  //     onComplete:()=>{
-  //       setClicked();
-  //     }
-  //   })
-  // }
-
-  const scrollDown = ()=>{
-  }
   
   // our callback will run on every animation frame
   useFrame((state) => {

@@ -5,8 +5,7 @@ import gsap from 'gsap';
 import * as THREE from 'three';
 // import tex from '../assets/approach.webp';
 
-
-const vertexShader = /*glsl*/`
+const vertexShader = /*glsl*/ `
     uniform float time;
     varying vec2 vUv;
     uniform sampler2D uTexture;
@@ -60,9 +59,9 @@ const vertexShader = /*glsl*/`
       vUv = uv;
       gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
     }
-`
+`;
 
-const fragmentShader = /*glsl*/`
+const fragmentShader = /*glsl*/ `
     uniform sampler2D uTexture;
     uniform vec3 color1;
     uniform vec3 color2;
@@ -109,36 +108,40 @@ const fragmentShader = /*glsl*/`
       // }
       gl_FragColor = vec4(color.xyz, color.w * opacity);
     }
-`
+`;
 
-const Aboutmascot = ({tex}) => {
-    const texture = useLoader(THREE.TextureLoader, tex);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    const uniforms = {
-        uTexture: {value: texture},
-        time:{value: 0},
-        opacity:{value: 0},
-        color1:{value: new THREE.Color('#9965F6')},
-        color2:{value: new THREE.Color('#DA74FA')},
-        
-    };
+const Aboutmascot = ({ tex }) => {
+  const texture = useLoader(THREE.TextureLoader, tex);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const uniforms = {
+    uTexture: { value: texture },
+    time: { value: 0 },
+    opacity: { value: 0 },
+    color1: { value: new THREE.Color('#9965F6') },
+    color2: { value: new THREE.Color('#DA74FA') },
+  };
 
-    gsap.to(uniforms.opacity,{
-      value: 1,
-      duration: 0.4,
-      ease: 'Power.InOut'
-    })
+  gsap.to(uniforms.opacity, {
+    value: 1,
+    duration: 0.4,
+    ease: 'Power.InOut',
+  });
 
-    useFrame(({clock})=>{
-        uniforms.time.value = clock.getElapsedTime()
-    })
+  useFrame(({ clock }) => {
+    uniforms.time.value = clock.getElapsedTime();
+  });
 
   return (
-    <mesh position={[-1,0,-1]}>
-        <planeGeometry args={[20, 10, 200, 200]}/>
-        <shaderMaterial uniforms={uniforms} transparent vertexShader={vertexShader} fragmentShader={fragmentShader}/>
+    <mesh position={[-1, 0, -1]}>
+      <planeGeometry args={[20, 10, 200, 200]} />
+      <shaderMaterial
+        uniforms={uniforms}
+        transparent
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+      />
     </mesh>
-  )
-}
+  );
+};
 
-export default Aboutmascot
+export default Aboutmascot;
