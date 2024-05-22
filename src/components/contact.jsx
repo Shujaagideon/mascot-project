@@ -1,24 +1,20 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unknown-property */
 // import React from 'react'
 
-import { Canvas } from '@react-three/fiber';
-import { Scene } from './about';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+// import { Scene } from './about';
 import React from 'react';
-import { EffectComposer, Noise } from '@react-three/postprocessing';
-import { BlendFunction } from 'postprocessing';
 import tex from '../assets/wave1.png';
+import Aboutmascot from './aboutmascot';
+import { Sparkles } from '@react-three/drei';
+import * as THREE from 'three';
+import bgImg from '../assets/Background.jpg';
 
 const Contact = () => {
   return (
     <>
       <div className='absolute w-full h-full'>
-        {/* <React.Suspense fallback={
-                <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
-            }>
-                <img src={tex} alt="" className="h-[90%] w-[90%] absolute z-10"/>
-                <Canvas gl={{ preserveDrawingBuffer: true }}>
-                    <Scene/>
-                </Canvas>
-            </React.Suspense> */}
         <React.Suspense
           fallback={
             <div className="bg-[url('./assets/Background.jpg')] h-screen w-full"></div>
@@ -26,9 +22,6 @@ const Contact = () => {
         >
           <Canvas gl={{}}>
             <Scene tex={tex} />
-            {/* <EffectComposer>
-                      <Noise opacity={1}  premultiply blendFunction={BlendFunction.COLOR_BURN}/>
-                </EffectComposer> */}
           </Canvas>
         </React.Suspense>
       </div>
@@ -71,3 +64,34 @@ const Contact = () => {
 };
 
 export default Contact;
+
+function Scene({ tex }) {
+  // const { scene } = useThree();
+
+  const texture = useLoader(THREE.TextureLoader, bgImg);
+  texture.colorSpace = THREE.SRGBColorSpace;
+
+  // our callback will run on every animation frame
+  // eslint-disable-next-line no-unused-vars
+  useFrame(_state => {});
+
+  // const bgColor = "#84a4f4";
+
+  return (
+    <>
+      <mesh position={[0, 0, -20]}>
+        <planeGeometry args={[78, 39]} />
+        <meshBasicMaterial map={texture} />
+      </mesh>
+      <Aboutmascot tex={tex}/>
+      <Sparkles
+        count={200}
+        size={2}
+        speed={0.3}
+        opacity={1}
+        scale={15}
+        color='#ffb0f3'
+      />
+    </>
+  );
+}

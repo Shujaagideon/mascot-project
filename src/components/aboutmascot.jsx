@@ -3,7 +3,6 @@
 import { useFrame, useLoader } from '@react-three/fiber';
 import gsap from 'gsap';
 import * as THREE from 'three';
-// import tex from '../assets/approach.webp';
 
 const vertexShader = /*glsl*/ `
     uniform float time;
@@ -110,7 +109,8 @@ const fragmentShader = /*glsl*/ `
     }
 `;
 
-const Aboutmascot = ({ tex }) => {
+const Aboutmascot = ({ tex, pos }) => {
+
   const texture = useLoader(THREE.TextureLoader, tex);
   texture.colorSpace = THREE.SRGBColorSpace;
   const uniforms = {
@@ -132,7 +132,7 @@ const Aboutmascot = ({ tex }) => {
   });
 
   return (
-    <mesh position={[1, -4, -10]}>
+    <mesh position={pos ? pos : [-1, 0, -1]}>
       <planeGeometry args={[20, 10, 200, 200]} />
       <shaderMaterial
         uniforms={uniforms}
