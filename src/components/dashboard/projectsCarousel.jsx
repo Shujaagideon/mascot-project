@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Flip from 'gsap/dist/Flip';
+import { Canvas } from '@react-three/fiber';
+import { Scene } from '../about';
+import tex from '../../assets/wave1.png';
 
 const ProjectsCarousel = () => {
   const [projects, setProjects] = useState([]);
@@ -74,35 +77,42 @@ const ProjectsCarousel = () => {
   if (!projects.length) return <></>;
 
   return (
-    <>
-      <div className=' bg-[url(./assets/wave.png)] h-screen w-full bg-cover uppercase flex justify-center items-center'>
-        <h2 className=' text-center uppercase text-4xl md:text-6xl font-bold text-slate-100'>
-          Prevous Projects
-        </h2>
-      </div>
-      <div className='h-screen w-full md:w-[150%]  text-slate-100 flex justify-center'>
-        <div
-          className='h-screen w-full flex justify-center items-center overflow-hidden'
-          ref={containerRef}
+    <div className='bg-black bg-[url(../../assets/wave.png)] bg-cover min-h-screen relative'>
+      <div className='h-screen w-full absolute md-top-0 top-[-38%]'>
+        <React.Suspense
+          fallback={<div className="bg-[url('./assets/Background.jpg')]"></div>}
         >
-          {projects.map((project, i) => (
-            <img
-              loading='lazy'
-              src={project.cover}
-              alt={project.data.heading1}
-              className={`h-2/4 aspect-square md:aspect-video object-cover cursor-pointer z-0`}
-              ref={el => (imagesRef.current[i] = el)}
-              onClick={() => {
-                navigate(`/projects/${parseUrl(project.data.heading1)}`);
-              }}
-              onMouseEnter={() => handleMouseEnter({ ...project, i })}
-              onMouseLeave={handleMouseLeave}
-              key={project.id}
-            />
-          ))}
-        </div>
+          <Canvas>
+            <Scene tex={tex} />
+          </Canvas>
+        </React.Suspense>
       </div>
-    </>
+
+      <h2 className='absolute text-center uppercase text-4xl md:text-6xl font-bold text-slate-100 top-[50vh] left-[50vw] translate-x-[-50%] translate-y-[-50%]'>
+        Prevous Projects
+      </h2>
+      <div className='h-screen w-full flex justify-center items-center overflow-hidden'></div>
+      <div
+        className='h-screen w-full flex justify-center items-center overflow-hidden'
+        ref={containerRef}
+      >
+        {projects.map((project, i) => (
+          <img
+            loading='lazy'
+            src={project.cover}
+            alt={project.data.heading1}
+            className={`h-2/4 aspect-square md:aspect-video object-cover cursor-pointer z-0`}
+            ref={el => (imagesRef.current[i] = el)}
+            onClick={() =>
+              navigate(`/projects/${parseUrl(project.data.heading1)}`)
+            }
+            onMouseEnter={() => handleMouseEnter({ ...project, i })}
+            onMouseLeave={handleMouseLeave}
+            key={project.id}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
