@@ -30,7 +30,7 @@ const About = () => {
           alt=''
           className='absolute top-0 right-[10%] h-[50%] scale-50'
         />
-        <div className='w-full mt-32 overscroll-y-scroll md:w-4/5  xl:w-[45%] 2xl:min-h-[50%] 2xl:mt-64 h-fit text-slate-100 backdrop-blur-md ml-auto lg:mt-24 xl:mt-28 text-sm md:text-base md:mt-auto border border-slate-100 rounded-xl p-4 md:p-6'>
+        <div className='w-full mt-24 overscroll-y-scroll md:w-4/5  xl:w-[45%] 2xl:min-h-[50%] 2xl:mt-64 h-fit text-slate-100 backdrop-blur-md ml-auto lg:mt-24 xl:mt-28 text-sm md:text-base md:mt-auto border border-slate-100 rounded-xl p-4 md:p-6'>
           <div className='mb-4 text-center lg:text-left'>
             TACTECH New Media Solutions is a burgeoning assembly of acclaimed
             artists, forward-thinking visionaries, inventive coders, skillful
