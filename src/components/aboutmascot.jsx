@@ -132,7 +132,7 @@ const Aboutmascot = ({ tex }) => {
   });
 
   return (
-    <mesh position={[-1, 0, -1]}>
+    <mesh position={[1, -4, -10]}>
       <planeGeometry args={[20, 10, 200, 200]} />
       <shaderMaterial
         uniforms={uniforms}
